@@ -29,6 +29,10 @@ through a functional-to-scalar projection (`project_l2()`, `project_ito()`,
 remotes::install_github("karbar359/fdachange")
 ```
 
+While the repository is private, set `GITHUB_PAT` to a token with repo
+scope first (e.g. `Sys.setenv(GITHUB_PAT = gitcreds::gitcreds_get()$password)`
+or a fine-grained PAT); once public, the plain call works.
+
 The core tests run on base R alone. The basis-expansion projections
 (`c_max_var`, `wiener`, `pc1`, `pc_d`) and the least-squares/penalised
 reconstructions additionally need `fda` and `fda.usc`:
