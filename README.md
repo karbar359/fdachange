@@ -53,9 +53,10 @@ epidemic_test(x, method = "wilcoxon", gamma = 0.25)
 #>  critical value (alpha = 0.05): ...
 #>  detected window: observations ...
 
-## functional data: project, then test
+## functional data: project, then test (the ecdf-based Lp path is
+## calibration-safe for any projected marginal)
 X <- generate_f1(100, a = 3)          # curves with heavy-tailed change window
-epidemic_test(project_l2(X), method = "rkhs", gamma = 0.25)
+epidemic_test(project_l2(X), method = "lp", gamma = 0.25)
 
 ## functional data without projection (Birbilas's statistic)
 Xf <- generate_f4(100, a = 2)         # FAR(1) functional time series
@@ -83,6 +84,13 @@ resolves it automatically, in this order:
 Critical values are type-7 empirical quantiles of these draws
 (`critical_value()`), with an exact adjustment for split-sample
 aggregation (`scan_over_splits()`, `splits =` argument).
+
+One calibration caveat: the Wilcoxon scan and the ecdf-path Lp scan are
+rank-based, so their cached nulls apply to any continuous data. The RKHS
+caches are tied to the H0 sampling distribution named by their `baseline`
+tag; when your (projected) data has a different null marginal, simulate
+the null under your H0 (`simulate_rkhs_null(rdist = ...)`) instead of
+relying on a mismatched cache.
 
 ## Provenance and verification
 

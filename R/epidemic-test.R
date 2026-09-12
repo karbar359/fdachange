@@ -13,6 +13,13 @@
 #' `kernel` is a custom function, or for RKHS baselines that are not
 #' cached).
 #'
+#' Calibration caveat: the Wilcoxon scan and the ecdf-path Lp scan
+#' (`cdf = NULL`) are rank-based, so their nulls apply to any continuous
+#' data. The RKHS caches are tied to the H0 distribution named by
+#' `baseline`; for data with a different null marginal, simulate the null
+#' under your H0 ([simulate_rkhs_null()] with `rdist=`) and pass it via
+#' `null=` or [save_null_draws()].
+#'
 #' With `splits = m > 1` the sample is cut into `m` equal consecutive
 #' chunks, the statistic is the maximum over chunks (see
 #' [scan_over_splits()]), and the p-value / critical value are adjusted
