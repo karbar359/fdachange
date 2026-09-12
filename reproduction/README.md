@@ -65,4 +65,17 @@ Rscript applications/litgrid/reproduce_tables.R   # printed-table assertion
 ```
 
 Seeds, RNG streams and the core-count-independence proof: `SEEDS.md`.
-Package environment: `renv.lock` (restore with `renv::restore()`).
+
+## Environment
+
+Package versions are recorded in `renv.lock` (R 4.3.3). The scripts run
+against your regular library; to recreate the recorded environment,
+install the packages from the lockfile, e.g.
+
+```r
+renv::restore(lockfile = "reproduction/renv.lock")
+```
+
+The lockfile is a record, not an activated renv project: there is
+deliberately no `.Rprofile` here, so the scripts keep seeing the library
+that has `fdachange` installed.
