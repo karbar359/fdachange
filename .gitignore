@@ -6,3 +6,5 @@
 fdachange_*.tar.gz
 reproduction/output/
 reproduction/results/
+data-raw/litgrid-raw/
+data-raw/litgrid-raw-v1.tar.gz

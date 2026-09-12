@@ -1,0 +1,607 @@
+label,iso_week,role,kind,series,K,grid,idx,t,value
+201827,2018-W27,detected segment start,week,raw,NA,input,1,0,0
+201827,2018-W27,detected segment start,week,raw,NA,input,2,0.00598802395209581,0
+201827,2018-W27,detected segment start,week,raw,NA,input,3,0.0119760479041916,2.52
+201827,2018-W27,detected segment start,week,raw,NA,input,4,0.0179640718562874,0
+201827,2018-W27,detected segment start,week,raw,NA,input,5,0.0239520958083832,0
+201827,2018-W27,detected segment start,week,raw,NA,input,6,0.029940119760479,32.32
+201827,2018-W27,detected segment start,week,raw,NA,input,7,0.0359281437125749,30.6
+201827,2018-W27,detected segment start,week,raw,NA,input,8,0.0419161676646707,10.51
+201827,2018-W27,detected segment start,week,raw,NA,input,9,0.0479041916167665,25.64
+201827,2018-W27,detected segment start,week,raw,NA,input,10,0.0538922155688623,22.58
+201827,2018-W27,detected segment start,week,raw,NA,input,11,0.0598802395209581,24.46
+201827,2018-W27,detected segment start,week,raw,NA,input,12,0.0658682634730539,25.78
+201827,2018-W27,detected segment start,week,raw,NA,input,13,0.0718562874251497,34.21
+201827,2018-W27,detected segment start,week,raw,NA,input,14,0.0778443113772455,33.65
+201827,2018-W27,detected segment start,week,raw,NA,input,15,0.0838323353293413,33.65
+201827,2018-W27,detected segment start,week,raw,NA,input,16,0.0898203592814371,34.06
+201827,2018-W27,detected segment start,week,raw,NA,input,17,0.0958083832335329,14.19
+201827,2018-W27,detected segment start,week,raw,NA,input,18,0.101796407185629,0
+201827,2018-W27,detected segment start,week,raw,NA,input,19,0.107784431137725,0
+201827,2018-W27,detected segment start,week,raw,NA,input,20,0.11377245508982,29.76
+201827,2018-W27,detected segment start,week,raw,NA,input,21,0.119760479041916,26.27
+201827,2018-W27,detected segment start,week,raw,NA,input,22,0.125748502994012,27.4
+201827,2018-W27,detected segment start,week,raw,NA,input,23,0.131736526946108,2.27999999999999
+201827,2018-W27,detected segment start,week,raw,NA,input,24,0.137724550898204,0
+201827,2018-W27,detected segment start,week,raw,NA,input,25,0.143712574850299,0
+201827,2018-W27,detected segment start,week,raw,NA,input,26,0.149700598802395,0
+201827,2018-W27,detected segment start,week,raw,NA,input,27,0.155688622754491,0
+201827,2018-W27,detected segment start,week,raw,NA,input,28,0.161676646706587,0
+201827,2018-W27,detected segment start,week,raw,NA,input,29,0.167664670658683,0
+201827,2018-W27,detected segment start,week,raw,NA,input,30,0.173652694610778,0
+201827,2018-W27,detected segment start,week,raw,NA,input,31,0.179640718562874,12.75
+201827,2018-W27,detected segment start,week,raw,NA,input,32,0.18562874251497,34.79
+201827,2018-W27,detected segment start,week,raw,NA,input,33,0.191616766467066,28.07
+201827,2018-W27,detected segment start,week,raw,NA,input,34,0.197604790419162,24.6
+201827,2018-W27,detected segment start,week,raw,NA,input,35,0.203592814371258,25.02
+201827,2018-W27,detected segment start,week,raw,NA,input,36,0.209580838323353,25.03
+201827,2018-W27,detected segment start,week,raw,NA,input,37,0.215568862275449,23.98
+201827,2018-W27,detected segment start,week,raw,NA,input,38,0.221556886227545,23.99
+201827,2018-W27,detected segment start,week,raw,NA,input,39,0.227544910179641,25.09
+201827,2018-W27,detected segment start,week,raw,NA,input,40,0.233532934131737,25.1
+201827,2018-W27,detected segment start,week,raw,NA,input,41,0.239520958083832,25.91
+201827,2018-W27,detected segment start,week,raw,NA,input,42,0.245508982035928,43.22
+201827,2018-W27,detected segment start,week,raw,NA,input,43,0.251497005988024,32.01
+201827,2018-W27,detected segment start,week,raw,NA,input,44,0.25748502994012,30.06
+201827,2018-W27,detected segment start,week,raw,NA,input,45,0.263473053892216,24.81
+201827,2018-W27,detected segment start,week,raw,NA,input,46,0.269461077844311,23.48
+201827,2018-W27,detected segment start,week,raw,NA,input,47,0.275449101796407,0
+201827,2018-W27,detected segment start,week,raw,NA,input,48,0.281437125748503,6.84999999999999
+201827,2018-W27,detected segment start,week,raw,NA,input,49,0.287425149700599,0
+201827,2018-W27,detected segment start,week,raw,NA,input,50,0.293413173652695,0
+201827,2018-W27,detected segment start,week,raw,NA,input,51,0.29940119760479,0
+201827,2018-W27,detected segment start,week,raw,NA,input,52,0.305389221556886,12.7
+201827,2018-W27,detected segment start,week,raw,NA,input,53,0.311377245508982,12.48
+201827,2018-W27,detected segment start,week,raw,NA,input,54,0.317365269461078,13.06
+201827,2018-W27,detected segment start,week,raw,NA,input,55,0.323353293413174,12.21
+201827,2018-W27,detected segment start,week,raw,NA,input,56,0.32934131736527,0
+201827,2018-W27,detected segment start,week,raw,NA,input,57,0.335329341317365,27.56
+201827,2018-W27,detected segment start,week,raw,NA,input,58,0.341317365269461,23.86
+201827,2018-W27,detected segment start,week,raw,NA,input,59,0.347305389221557,19.48
+201827,2018-W27,detected segment start,week,raw,NA,input,60,0.353293413173653,19.17
+201827,2018-W27,detected segment start,week,raw,NA,input,61,0.359281437125749,0
+201827,2018-W27,detected segment start,week,raw,NA,input,62,0.365269461077844,-10.44
+201827,2018-W27,detected segment start,week,raw,NA,input,63,0.37125748502994,20.43
+201827,2018-W27,detected segment start,week,raw,NA,input,64,0.377245508982036,19.3
+201827,2018-W27,detected segment start,week,raw,NA,input,65,0.383233532934132,-7.83
+201827,2018-W27,detected segment start,week,raw,NA,input,66,0.389221556886228,0
+201827,2018-W27,detected segment start,week,raw,NA,input,67,0.395209580838323,0
+201827,2018-W27,detected segment start,week,raw,NA,input,68,0.401197604790419,0
+201827,2018-W27,detected segment start,week,raw,NA,input,69,0.407185628742515,0
+201827,2018-W27,detected segment start,week,raw,NA,input,70,0.413173652694611,26.51
+201827,2018-W27,detected segment start,week,raw,NA,input,71,0.419161676646707,9.98
+201827,2018-W27,detected segment start,week,raw,NA,input,72,0.425149700598802,30.84
+201827,2018-W27,detected segment start,week,raw,NA,input,73,0.431137724550898,12.89
+201827,2018-W27,detected segment start,week,raw,NA,input,74,0.437125748502994,9.95999999999999
+201827,2018-W27,detected segment start,week,raw,NA,input,75,0.44311377245509,10.05
+201827,2018-W27,detected segment start,week,raw,NA,input,76,0.449101796407186,9.96
+201827,2018-W27,detected segment start,week,raw,NA,input,77,0.455089820359281,9.96
+201827,2018-W27,detected segment start,week,raw,NA,input,78,0.461077844311377,9.95999999999999
+201827,2018-W27,detected segment start,week,raw,NA,input,79,0.467065868263473,10.05
+201827,2018-W27,detected segment start,week,raw,NA,input,80,0.473053892215569,31.83
+201827,2018-W27,detected segment start,week,raw,NA,input,81,0.479041916167665,28.87
+201827,2018-W27,detected segment start,week,raw,NA,input,82,0.485029940119761,0
+201827,2018-W27,detected segment start,week,raw,NA,input,83,0.491017964071856,12.27
+201827,2018-W27,detected segment start,week,raw,NA,input,84,0.497005988023952,0
+201827,2018-W27,detected segment start,week,raw,NA,input,85,0.502994011976048,0
+201827,2018-W27,detected segment start,week,raw,NA,input,86,0.508982035928144,0
+201827,2018-W27,detected segment start,week,raw,NA,input,87,0.51497005988024,31.43
+201827,2018-W27,detected segment start,week,raw,NA,input,88,0.520958083832335,1.49
+201827,2018-W27,detected segment start,week,raw,NA,input,89,0.526946107784431,30.51
+201827,2018-W27,detected segment start,week,raw,NA,input,90,0.532934131736527,23.97
+201827,2018-W27,detected segment start,week,raw,NA,input,91,0.538922155688623,0
+201827,2018-W27,detected segment start,week,raw,NA,input,92,0.544910179640719,0
+201827,2018-W27,detected segment start,week,raw,NA,input,93,0.550898203592814,0
+201827,2018-W27,detected segment start,week,raw,NA,input,94,0.55688622754491,0
+201827,2018-W27,detected segment start,week,raw,NA,input,95,0.562874251497006,0
+201827,2018-W27,detected segment start,week,raw,NA,input,96,0.568862275449102,0
+201827,2018-W27,detected segment start,week,raw,NA,input,97,0.574850299401198,25.55
+201827,2018-W27,detected segment start,week,raw,NA,input,98,0.580838323353293,24.92
+201827,2018-W27,detected segment start,week,raw,NA,input,99,0.586826347305389,2.31
+201827,2018-W27,detected segment start,week,raw,NA,input,100,0.592814371257485,0
+201827,2018-W27,detected segment start,week,raw,NA,input,101,0.598802395209581,0
+201827,2018-W27,detected segment start,week,raw,NA,input,102,0.604790419161677,0
+201827,2018-W27,detected segment start,week,raw,NA,input,103,0.610778443113772,0
+201827,2018-W27,detected segment start,week,raw,NA,input,104,0.616766467065868,2.4
+201827,2018-W27,detected segment start,week,raw,NA,input,105,0.622754491017964,0
+201827,2018-W27,detected segment start,week,raw,NA,input,106,0.62874251497006,0
+201827,2018-W27,detected segment start,week,raw,NA,input,107,0.634730538922156,0
+201827,2018-W27,detected segment start,week,raw,NA,input,108,0.640718562874252,0
+201827,2018-W27,detected segment start,week,raw,NA,input,109,0.646706586826347,0
+201827,2018-W27,detected segment start,week,raw,NA,input,110,0.652694610778443,0
+201827,2018-W27,detected segment start,week,raw,NA,input,111,0.658682634730539,24.73
+201827,2018-W27,detected segment start,week,raw,NA,input,112,0.664670658682635,23.5
+201827,2018-W27,detected segment start,week,raw,NA,input,113,0.670658682634731,22.39
+201827,2018-W27,detected segment start,week,raw,NA,input,114,0.676646706586826,20.66
+201827,2018-W27,detected segment start,week,raw,NA,input,115,0.682634730538922,20.58
+201827,2018-W27,detected segment start,week,raw,NA,input,116,0.688622754491018,20.26
+201827,2018-W27,detected segment start,week,raw,NA,input,117,0.694610778443114,20.42
+201827,2018-W27,detected segment start,week,raw,NA,input,118,0.70059880239521,20.17
+201827,2018-W27,detected segment start,week,raw,NA,input,119,0.706586826347305,19.6
+201827,2018-W27,detected segment start,week,raw,NA,input,120,0.712574850299401,18.89
+201827,2018-W27,detected segment start,week,raw,NA,input,121,0.718562874251497,17.8
+201827,2018-W27,detected segment start,week,raw,NA,input,122,0.724550898203593,18.18
+201827,2018-W27,detected segment start,week,raw,NA,input,123,0.730538922155689,0
+201827,2018-W27,detected segment start,week,raw,NA,input,124,0.736526946107784,0
+201827,2018-W27,detected segment start,week,raw,NA,input,125,0.74251497005988,0
+201827,2018-W27,detected segment start,week,raw,NA,input,126,0.748502994011976,0
+201827,2018-W27,detected segment start,week,raw,NA,input,127,0.754491017964072,0
+201827,2018-W27,detected segment start,week,raw,NA,input,128,0.760479041916168,2.4
+201827,2018-W27,detected segment start,week,raw,NA,input,129,0.766467065868264,0
+201827,2018-W27,detected segment start,week,raw,NA,input,130,0.772455089820359,0
+201827,2018-W27,detected segment start,week,raw,NA,input,131,0.778443113772455,0
+201827,2018-W27,detected segment start,week,raw,NA,input,132,0.784431137724551,0
+201827,2018-W27,detected segment start,week,raw,NA,input,133,0.790419161676647,0
+201827,2018-W27,detected segment start,week,raw,NA,input,134,0.796407185628743,0
+201827,2018-W27,detected segment start,week,raw,NA,input,135,0.802395209580838,3.8
+201827,2018-W27,detected segment start,week,raw,NA,input,136,0.808383233532934,0
+201827,2018-W27,detected segment start,week,raw,NA,input,137,0.81437125748503,0
+201827,2018-W27,detected segment start,week,raw,NA,input,138,0.820359281437126,0
+201827,2018-W27,detected segment start,week,raw,NA,input,139,0.826347305389222,18.29
+201827,2018-W27,detected segment start,week,raw,NA,input,140,0.832335329341317,18.82
+201827,2018-W27,detected segment start,week,raw,NA,input,141,0.838323353293413,18.7
+201827,2018-W27,detected segment start,week,raw,NA,input,142,0.844311377245509,18.43
+201827,2018-W27,detected segment start,week,raw,NA,input,143,0.850299401197605,18.11
+201827,2018-W27,detected segment start,week,raw,NA,input,144,0.856287425149701,0
+201827,2018-W27,detected segment start,week,raw,NA,input,145,0.862275449101796,0
+201827,2018-W27,detected segment start,week,raw,NA,input,146,0.868263473053892,0
+201827,2018-W27,detected segment start,week,raw,NA,input,147,0.874251497005988,0
+201827,2018-W27,detected segment start,week,raw,NA,input,148,0.880239520958084,2.94
+201827,2018-W27,detected segment start,week,raw,NA,input,149,0.88622754491018,0
+201827,2018-W27,detected segment start,week,raw,NA,input,150,0.892215568862275,0
+201827,2018-W27,detected segment start,week,raw,NA,input,151,0.898203592814371,12.89
+201827,2018-W27,detected segment start,week,raw,NA,input,152,0.904191616766467,11.59
+201827,2018-W27,detected segment start,week,raw,NA,input,153,0.910179640718563,11.44
+201827,2018-W27,detected segment start,week,raw,NA,input,154,0.916167664670659,10.76
+201827,2018-W27,detected segment start,week,raw,NA,input,155,0.922155688622755,10.6
+201827,2018-W27,detected segment start,week,raw,NA,input,156,0.92814371257485,0
+201827,2018-W27,detected segment start,week,raw,NA,input,157,0.934131736526946,0
+201827,2018-W27,detected segment start,week,raw,NA,input,158,0.940119760479042,0
+201827,2018-W27,detected segment start,week,raw,NA,input,159,0.946107784431138,19.02
+201827,2018-W27,detected segment start,week,raw,NA,input,160,0.952095808383234,18.79
+201827,2018-W27,detected segment start,week,raw,NA,input,161,0.958083832335329,18.57
+201827,2018-W27,detected segment start,week,raw,NA,input,162,0.964071856287425,18.69
+201827,2018-W27,detected segment start,week,raw,NA,input,163,0.970059880239521,0
+201827,2018-W27,detected segment start,week,raw,NA,input,164,0.976047904191617,20.23
+201827,2018-W27,detected segment start,week,raw,NA,input,165,0.982035928143713,0
+201827,2018-W27,detected segment start,week,raw,NA,input,166,0.988023952095808,0
+201827,2018-W27,detected segment start,week,raw,NA,input,167,0.994011976047904,0
+201827,2018-W27,detected segment start,week,raw,NA,input,168,1,23.27
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,1,0,0
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,2,0.0625,25.0375
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,3,0.125,27.25875
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,4,0.1875,32.69
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,5,0.25,34.8125000000001
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,6,0.3125,12.58875
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,7,0.375,19.72375
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,8,0.4375,9.96562499999999
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,9,0.5,0
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,10,0.5625,0
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,11,0.625,0
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,12,0.6875,20.32
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,13,0.75,0
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,14,0.8125,0
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,15,0.875,0.367499999999993
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,16,0.9375,0
+201827,2018-W27,detected segment start,week,fs_interp,4,vertices,17,1,23.27
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,1,0,-3.16559822546953
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,2,0.0625,33.487063191052
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,3,0.125,6.04834232807759
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,4,0.1875,16.3879873317668
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,5,0.25,28.6238513569082
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,6,0.3125,6.88771094647706
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,7,0.375,7.80684835495349
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,8,0.4375,13.9590766426661
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,9,0.5,11.0589832004086
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,10,0.5625,8.29164658665395
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,11,0.625,-1.98061797887104
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,12,0.6875,26.3502712932001
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,13,0.75,-2.35997954429884
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,14,0.8125,7.61636679057352
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,15,0.875,5.19651939976033
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,16,0.9375,9.6936453136144
+201827,2018-W27,detected segment start,week,fs_ls,4,vertices,17,1,10.0107584573734
+202149,2021-W49,removed outlier week,week,raw,NA,input,1,0,235.41
+202149,2021-W49,removed outlier week,week,raw,NA,input,2,0.00598802395209581,235.94
+202149,2021-W49,removed outlier week,week,raw,NA,input,3,0.0119760479041916,11.49
+202149,2021-W49,removed outlier week,week,raw,NA,input,4,0.0179640718562874,8.55999999999999
+202149,2021-W49,removed outlier week,week,raw,NA,input,5,0.0239520958083832,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,6,0.029940119760479,263.38
+202149,2021-W49,removed outlier week,week,raw,NA,input,7,0.0359281437125749,222.42
+202149,2021-W49,removed outlier week,week,raw,NA,input,8,0.0419161676646707,186.61
+202149,2021-W49,removed outlier week,week,raw,NA,input,9,0.0479041916167665,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,10,0.0538922155688623,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,11,0.0598802395209581,387.63
+202149,2021-W49,removed outlier week,week,raw,NA,input,12,0.0658682634730539,65
+202149,2021-W49,removed outlier week,week,raw,NA,input,13,0.0718562874251497,70.99
+202149,2021-W49,removed outlier week,week,raw,NA,input,14,0.0778443113772455,411.43
+202149,2021-W49,removed outlier week,week,raw,NA,input,15,0.0838323353293413,102.12
+202149,2021-W49,removed outlier week,week,raw,NA,input,16,0.0898203592814371,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,17,0.0958083832335329,493.23
+202149,2021-W49,removed outlier week,week,raw,NA,input,18,0.101796407185629,407.86
+202149,2021-W49,removed outlier week,week,raw,NA,input,19,0.107784431137725,429.31
+202149,2021-W49,removed outlier week,week,raw,NA,input,20,0.11377245508982,617.04
+202149,2021-W49,removed outlier week,week,raw,NA,input,21,0.119760479041916,482.66
+202149,2021-W49,removed outlier week,week,raw,NA,input,22,0.125748502994012,486.83
+202149,2021-W49,removed outlier week,week,raw,NA,input,23,0.131736526946108,601
+202149,2021-W49,removed outlier week,week,raw,NA,input,24,0.137724550898204,554.5
+202149,2021-W49,removed outlier week,week,raw,NA,input,25,0.143712574850299,1037
+202149,2021-W49,removed outlier week,week,raw,NA,input,26,0.149700598802395,1055.9
+202149,2021-W49,removed outlier week,week,raw,NA,input,27,0.155688622754491,1049.19
+202149,2021-W49,removed outlier week,week,raw,NA,input,28,0.161676646706587,1050.73
+202149,2021-W49,removed outlier week,week,raw,NA,input,29,0.167664670658683,1042.44
+202149,2021-W49,removed outlier week,week,raw,NA,input,30,0.173652694610778,1069.65
+202149,2021-W49,removed outlier week,week,raw,NA,input,31,0.179640718562874,999.9
+202149,2021-W49,removed outlier week,week,raw,NA,input,32,0.18562874251497,649.94
+202149,2021-W49,removed outlier week,week,raw,NA,input,33,0.191616766467066,249.93
+202149,2021-W49,removed outlier week,week,raw,NA,input,34,0.197604790419162,899.96
+202149,2021-W49,removed outlier week,week,raw,NA,input,35,0.203592814371258,899.98
+202149,2021-W49,removed outlier week,week,raw,NA,input,36,0.209580838323353,25
+202149,2021-W49,removed outlier week,week,raw,NA,input,37,0.215568862275449,25
+202149,2021-W49,removed outlier week,week,raw,NA,input,38,0.221556886227545,60.34
+202149,2021-W49,removed outlier week,week,raw,NA,input,39,0.227544910179641,360.38
+202149,2021-W49,removed outlier week,week,raw,NA,input,40,0.233532934131737,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,41,0.239520958083832,6.54000000000008
+202149,2021-W49,removed outlier week,week,raw,NA,input,42,0.245508982035928,61.68
+202149,2021-W49,removed outlier week,week,raw,NA,input,43,0.251497005988024,25
+202149,2021-W49,removed outlier week,week,raw,NA,input,44,0.25748502994012,1149.98
+202149,2021-W49,removed outlier week,week,raw,NA,input,45,0.263473053892216,552.47
+202149,2021-W49,removed outlier week,week,raw,NA,input,46,0.269461077844311,571.33
+202149,2021-W49,removed outlier week,week,raw,NA,input,47,0.275449101796407,553.16
+202149,2021-W49,removed outlier week,week,raw,NA,input,48,0.281437125748503,346.85
+202149,2021-W49,removed outlier week,week,raw,NA,input,49,0.287425149700599,131.65
+202149,2021-W49,removed outlier week,week,raw,NA,input,50,0.293413173652695,-55.07
+202149,2021-W49,removed outlier week,week,raw,NA,input,51,0.29940119760479,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,52,0.305389221556886,179.2
+202149,2021-W49,removed outlier week,week,raw,NA,input,53,0.311377245508982,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,54,0.317365269461078,397.55
+202149,2021-W49,removed outlier week,week,raw,NA,input,55,0.323353293413174,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,56,0.32934131736527,1144.93
+202149,2021-W49,removed outlier week,week,raw,NA,input,57,0.335329341317365,1199.94
+202149,2021-W49,removed outlier week,week,raw,NA,input,58,0.341317365269461,1083.23
+202149,2021-W49,removed outlier week,week,raw,NA,input,59,0.347305389221557,379.55
+202149,2021-W49,removed outlier week,week,raw,NA,input,60,0.353293413173653,379.47
+202149,2021-W49,removed outlier week,week,raw,NA,input,61,0.359281437125749,188.91
+202149,2021-W49,removed outlier week,week,raw,NA,input,62,0.365269461077844,107.89
+202149,2021-W49,removed outlier week,week,raw,NA,input,63,0.37125748502994,25
+202149,2021-W49,removed outlier week,week,raw,NA,input,64,0.377245508982036,249.98
+202149,2021-W49,removed outlier week,week,raw,NA,input,65,0.383233532934132,179.69
+202149,2021-W49,removed outlier week,week,raw,NA,input,66,0.389221556886228,194.68
+202149,2021-W49,removed outlier week,week,raw,NA,input,67,0.395209580838323,199.93
+202149,2021-W49,removed outlier week,week,raw,NA,input,68,0.401197604790419,250
+202149,2021-W49,removed outlier week,week,raw,NA,input,69,0.407185628742515,193.77
+202149,2021-W49,removed outlier week,week,raw,NA,input,70,0.413173652694611,790.03
+202149,2021-W49,removed outlier week,week,raw,NA,input,71,0.419161676646707,77.06
+202149,2021-W49,removed outlier week,week,raw,NA,input,72,0.425149700598802,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,73,0.431137724550898,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,74,0.437125748502994,25
+202149,2021-W49,removed outlier week,week,raw,NA,input,75,0.44311377245509,189.63
+202149,2021-W49,removed outlier week,week,raw,NA,input,76,0.449101796407186,219.08
+202149,2021-W49,removed outlier week,week,raw,NA,input,77,0.455089820359281,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,78,0.461077844311377,189.15
+202149,2021-W49,removed outlier week,week,raw,NA,input,79,0.467065868263473,439.96
+202149,2021-W49,removed outlier week,week,raw,NA,input,80,0.473053892215569,612.02
+202149,2021-W49,removed outlier week,week,raw,NA,input,81,0.479041916167665,73.38
+202149,2021-W49,removed outlier week,week,raw,NA,input,82,0.485029940119761,561.71
+202149,2021-W49,removed outlier week,week,raw,NA,input,83,0.491017964071856,303.8
+202149,2021-W49,removed outlier week,week,raw,NA,input,84,0.497005988023952,70.01
+202149,2021-W49,removed outlier week,week,raw,NA,input,85,0.502994011976048,240
+202149,2021-W49,removed outlier week,week,raw,NA,input,86,0.508982035928144,235.64
+202149,2021-W49,removed outlier week,week,raw,NA,input,87,0.51497005988024,93.29
+202149,2021-W49,removed outlier week,week,raw,NA,input,88,0.520958083832335,68.41
+202149,2021-W49,removed outlier week,week,raw,NA,input,89,0.526946107784431,69.6
+202149,2021-W49,removed outlier week,week,raw,NA,input,90,0.532934131736527,104.79
+202149,2021-W49,removed outlier week,week,raw,NA,input,91,0.538922155688623,106.71
+202149,2021-W49,removed outlier week,week,raw,NA,input,92,0.544910179640719,103.5
+202149,2021-W49,removed outlier week,week,raw,NA,input,93,0.550898203592814,94.9
+202149,2021-W49,removed outlier week,week,raw,NA,input,94,0.55688622754491,51.1
+202149,2021-W49,removed outlier week,week,raw,NA,input,95,0.562874251497006,175.38
+202149,2021-W49,removed outlier week,week,raw,NA,input,96,0.568862275449102,431.25
+202149,2021-W49,removed outlier week,week,raw,NA,input,97,0.574850299401198,242.83
+202149,2021-W49,removed outlier week,week,raw,NA,input,98,0.580838323353293,227.66
+202149,2021-W49,removed outlier week,week,raw,NA,input,99,0.586826347305389,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,100,0.592814371257485,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,101,0.598802395209581,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,102,0.604790419161677,238.71
+202149,2021-W49,removed outlier week,week,raw,NA,input,103,0.610778443113772,220.69
+202149,2021-W49,removed outlier week,week,raw,NA,input,104,0.616766467065868,152.02
+202149,2021-W49,removed outlier week,week,raw,NA,input,105,0.622754491017964,56.57
+202149,2021-W49,removed outlier week,week,raw,NA,input,106,0.62874251497006,165.85
+202149,2021-W49,removed outlier week,week,raw,NA,input,107,0.634730538922156,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,108,0.640718562874252,25
+202149,2021-W49,removed outlier week,week,raw,NA,input,109,0.646706586826347,79.91
+202149,2021-W49,removed outlier week,week,raw,NA,input,110,0.652694610778443,75.21
+202149,2021-W49,removed outlier week,week,raw,NA,input,111,0.658682634730539,144.9
+202149,2021-W49,removed outlier week,week,raw,NA,input,112,0.664670658682635,67.15
+202149,2021-W49,removed outlier week,week,raw,NA,input,113,0.670658682634731,117.96
+202149,2021-W49,removed outlier week,week,raw,NA,input,114,0.676646706586826,144.66
+202149,2021-W49,removed outlier week,week,raw,NA,input,115,0.682634730538922,2.95999999999998
+202149,2021-W49,removed outlier week,week,raw,NA,input,116,0.688622754491018,92.65
+202149,2021-W49,removed outlier week,week,raw,NA,input,117,0.694610778443114,124.59
+202149,2021-W49,removed outlier week,week,raw,NA,input,118,0.70059880239521,-48.46
+202149,2021-W49,removed outlier week,week,raw,NA,input,119,0.706586826347305,-28.66
+202149,2021-W49,removed outlier week,week,raw,NA,input,120,0.712574850299401,162.22
+202149,2021-W49,removed outlier week,week,raw,NA,input,121,0.718562874251497,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,122,0.724550898203593,254.69
+202149,2021-W49,removed outlier week,week,raw,NA,input,123,0.730538922155689,238.04
+202149,2021-W49,removed outlier week,week,raw,NA,input,124,0.736526946107784,214.39
+202149,2021-W49,removed outlier week,week,raw,NA,input,125,0.74251497005988,-13.39
+202149,2021-W49,removed outlier week,week,raw,NA,input,126,0.748502994011976,-10.83
+202149,2021-W49,removed outlier week,week,raw,NA,input,127,0.754491017964072,198.7
+202149,2021-W49,removed outlier week,week,raw,NA,input,128,0.760479041916168,175.21
+202149,2021-W49,removed outlier week,week,raw,NA,input,129,0.766467065868264,151.95
+202149,2021-W49,removed outlier week,week,raw,NA,input,130,0.772455089820359,83.38
+202149,2021-W49,removed outlier week,week,raw,NA,input,131,0.778443113772455,102.1
+202149,2021-W49,removed outlier week,week,raw,NA,input,132,0.784431137724551,56.83
+202149,2021-W49,removed outlier week,week,raw,NA,input,133,0.790419161676647,-127.08
+202149,2021-W49,removed outlier week,week,raw,NA,input,134,0.796407185628743,104.53
+202149,2021-W49,removed outlier week,week,raw,NA,input,135,0.802395209580838,142.58
+202149,2021-W49,removed outlier week,week,raw,NA,input,136,0.808383233532934,135.3
+202149,2021-W49,removed outlier week,week,raw,NA,input,137,0.81437125748503,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,138,0.820359281437126,126.27
+202149,2021-W49,removed outlier week,week,raw,NA,input,139,0.826347305389222,-121.59
+202149,2021-W49,removed outlier week,week,raw,NA,input,140,0.832335329341317,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,141,0.838323353293413,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,142,0.844311377245509,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,143,0.850299401197605,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,144,0.856287425149701,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,145,0.862275449101796,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,146,0.868263473053892,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,147,0.874251497005988,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,148,0.880239520958084,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,149,0.88622754491018,82.22
+202149,2021-W49,removed outlier week,week,raw,NA,input,150,0.892215568862275,79.28
+202149,2021-W49,removed outlier week,week,raw,NA,input,151,0.898203592814371,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,152,0.904191616766467,184.06
+202149,2021-W49,removed outlier week,week,raw,NA,input,153,0.910179640718563,181.73
+202149,2021-W49,removed outlier week,week,raw,NA,input,154,0.916167664670659,126.64
+202149,2021-W49,removed outlier week,week,raw,NA,input,155,0.922155688622755,108.81
+202149,2021-W49,removed outlier week,week,raw,NA,input,156,0.92814371257485,-15.01
+202149,2021-W49,removed outlier week,week,raw,NA,input,157,0.934131736526946,89.92
+202149,2021-W49,removed outlier week,week,raw,NA,input,158,0.940119760479042,84.29
+202149,2021-W49,removed outlier week,week,raw,NA,input,159,0.946107784431138,72.88
+202149,2021-W49,removed outlier week,week,raw,NA,input,160,0.952095808383234,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,161,0.958083832335329,-71.08
+202149,2021-W49,removed outlier week,week,raw,NA,input,162,0.964071856287425,36.67
+202149,2021-W49,removed outlier week,week,raw,NA,input,163,0.970059880239521,7
+202149,2021-W49,removed outlier week,week,raw,NA,input,164,0.976047904191617,2.44
+202149,2021-W49,removed outlier week,week,raw,NA,input,165,0.982035928143713,0
+202149,2021-W49,removed outlier week,week,raw,NA,input,166,0.988023952095808,229.41
+202149,2021-W49,removed outlier week,week,raw,NA,input,167,0.994011976047904,223.42
+202149,2021-W49,removed outlier week,week,raw,NA,input,168,1,-68.71
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,1,0,235.41
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,2,0.0625,246.479375
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,3,0.125,486.30875
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,4,0.1875,524.936875000001
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,5,0.25,34.1700000000002
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,6,0.3125,74.5406249999993
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,7,0.375,165.612499999999
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,8,0.4375,35.2893749999998
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,9,0.5,155.004999999998
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,10,0.5625,167.6125
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,11,0.625,97.5499999999992
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,12,0.6875,75.833125
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,13,0.75,41.552499999999
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,14,0.8125,42.2812500000017
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,15,0.875,0
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,16,0.9375,86.7531250000001
+202149,2021-W49,removed outlier week,week,fs_interp,4,vertices,17,1,-68.71
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,1,0,169.000655921391
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,2,0.0625,56.7221817036046
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,3,0.125,713.369264496316
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,4,0.1875,783.892800950018
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,5,0.25,144.807819530036
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,6,0.3125,452.435295639476
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,7,0.375,314.149686054559
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,8,0.4375,157.889740707081
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,9,0.5,247.845295647981
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,10,0.5625,126.782659571731
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,11,0.625,110.30954465071
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,12,0.6875,62.5369509533527
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,13,0.75,138.772649926595
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,14,0.8125,22.7086360110711
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,15,0.875,28.0979508932574
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,16,0.9375,73.8759355153204
+202149,2021-W49,removed outlier week,week,fs_ls,4,vertices,17,1,50.424515024688
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,1,0,0.0535838751577048
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,2,0.00598802395209581,0.0553587296931967
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,3,0.0119760479041916,0.0571776377014146
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,4,0.0179640718562874,0.0590415852601604
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,5,0.0239520958083832,0.0609515901204968
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,6,0.029940119760479,0.0629087031648275
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,7,0.0359281437125749,0.0649140099502987
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,8,0.0419161676646707,0.0669686323437273
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,9,0.0479041916167665,0.0690737302547904
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,10,0.0538922155688623,0.0712305034748041
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,11,0.0598802395209581,0.0734401936290679
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,12,0.0658682634730539,0.0757040862514678
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,13,0.0718562874251497,0.0780235129908235
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,14,0.0778443113772455,0.0803998539593435
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,15,0.0838323353293413,0.0828345402345206
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,16,0.0898203592814371,0.0853290565268826
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,17,0.0958083832335329,0.0878849440272065
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,18,0.101796407185629,0.0905038034481418
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,19,0.107784431137725,0.0931872982766731
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,20,0.11377245508982,0.0959371582555111
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,21,0.119760479041916,0.0987551831133557
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,22,0.125748502994012,0.101643246566056
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,23,0.131736526946108,0.104603300613017
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,24,0.137724550898204,0.107637380155832
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,25,0.143712574850299,0.110747607969055
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,26,0.149700598802395,0.113936200056375
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,27,0.155688622754491,0.117205471429196
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,28,0.161676646706587,0.120557842348901
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,29,0.167664670658683,0.123995845078903
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,30,0.173652694610778,0.127522131198087
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,31,0.179640718562874,0.131139479533528
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,32,0.18562874251497,0.134850804777504
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,33,0.191616766467066,0.138659166862051
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,34,0.197604790419162,0.142567781173697
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,35,0.203592814371258,0.146580029701882
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,36,0.209580838323353,0.150699473227037
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,37,0.215568862275449,0.154929864668797
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,38,0.221556886227545,0.159275163731613
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,39,0.227544910179641,0.163739553004566
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,40,0.233532934131737,0.168327455695043
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,41,0.239520958083832,0.173043555202661
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,42,0.245508982035928,0.177892816771254
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,43,0.251497005988024,0.182880511493859
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,44,0.25748502994012,0.188012242989488
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,45,0.263473053892216,0.193293977122704
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,46,0.269461077844311,0.198732075199242
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,47,0.275449101796407,0.204333331145562
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,48,0.281437125748503,0.210105013270027
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,49,0.287425149700599,0.216054911312008
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,50,0.293413173652695,0.222191389617237
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,51,0.29940119760479,0.228523447438941
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,52,0.305389221556886,0.235060787562341
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,53,0.311377245508982,0.241813894694747
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,54,0.317365269461078,0.248794125367499
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,55,0.323353293413174,0.256013811476346
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,56,0.32934131736527,0.263486380065847
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,57,0.335329341317365,0.271226492571088
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,58,0.341317365269461,0.279250207506967
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,59,0.347305389221557,0.287575171596997
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,60,0.353293413173653,0.296220845636387
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,61,0.359281437125749,0.30520877309495
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,62,0.365269461077844,0.31456290173491
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,63,0.37125748502994,0.324309971562887
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,64,0.377245508982036,0.334479986567792
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,65,0.383233532934132,0.345106793379251
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,66,0.389221556886228,0.356228797907587
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,67,0.395209580838323,0.367889862254389
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,68,0.401197604790419,0.380140440360067
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,69,0.407185628742515,0.393039034605323
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,70,0.413173652694611,0.406654091186461
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,71,0.419161676646707,0.421066506712595
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,72,0.425149700598802,0.436373004516426
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,73,0.431137724550898,0.452690778779903
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,74,0.437125748502994,0.47016403892296
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,75,0.44311377245509,0.488973495821316
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,76,0.449101796407186,0.509350579216934
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,77,0.455089820359281,0.531599619167991
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,78,0.461077844311377,0.556134200849161
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,79,0.467065868263473,0.583540562059208
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,80,0.473053892215569,0.614697443699383
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,81,0.479041916167665,0.651029009483713
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,82,0.485029940119761,0.695131583274079
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,83,0.491017964071856,0.752796203172643
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,84,0.497005988023952,0.844637146939038
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,85,0.502994011976048,0.844637146939036
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,86,0.508982035928144,0.752796203172643
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,87,0.51497005988024,0.695131583274078
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,88,0.520958083832335,0.651029009483713
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,89,0.526946107784431,0.614697443699382
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,90,0.532934131736527,0.583540562059208
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,91,0.538922155688623,0.556134200849161
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,92,0.544910179640719,0.53159961916799
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,93,0.550898203592814,0.509350579216934
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,94,0.55688622754491,0.488973495821315
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,95,0.562874251497006,0.47016403892296
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,96,0.568862275449102,0.452690778779903
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,97,0.574850299401198,0.436373004516426
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,98,0.580838323353293,0.421066506712595
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,99,0.586826347305389,0.40665409118646
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,100,0.592814371257485,0.393039034605323
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,101,0.598802395209581,0.380140440360067
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,102,0.604790419161677,0.367889862254389
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,103,0.610778443113772,0.356228797907587
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,104,0.616766467065868,0.34510679337925
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,105,0.622754491017964,0.334479986567792
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,106,0.62874251497006,0.324309971562886
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,107,0.634730538922156,0.31456290173491
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,108,0.640718562874252,0.30520877309495
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,109,0.646706586826347,0.296220845636387
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,110,0.652694610778443,0.287575171596997
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,111,0.658682634730539,0.279250207506967
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,112,0.664670658682635,0.271226492571088
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,113,0.670658682634731,0.263486380065847
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,114,0.676646706586826,0.256013811476346
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,115,0.682634730538922,0.248794125367499
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,116,0.688622754491018,0.241813894694747
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,117,0.694610778443114,0.235060787562341
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,118,0.70059880239521,0.228523447438941
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,119,0.706586826347305,0.222191389617237
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,120,0.712574850299401,0.216054911312007
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,121,0.718562874251497,0.210105013270027
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,122,0.724550898203593,0.204333331145562
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,123,0.730538922155689,0.198732075199242
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,124,0.736526946107784,0.193293977122704
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,125,0.74251497005988,0.188012242989487
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,126,0.748502994011976,0.182880511493859
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,127,0.754491017964072,0.177892816771254
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,128,0.760479041916168,0.173043555202661
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,129,0.766467065868264,0.168327455695043
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,130,0.772455089820359,0.163739553004565
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,131,0.778443113772455,0.159275163731613
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,132,0.784431137724551,0.154929864668797
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,133,0.790419161676647,0.150699473227037
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,134,0.796407185628743,0.146580029701882
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,135,0.802395209580838,0.142567781173697
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,136,0.808383233532934,0.138659166862051
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,137,0.81437125748503,0.134850804777504
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,138,0.820359281437126,0.131139479533528
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,139,0.826347305389222,0.127522131198086
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,140,0.832335329341317,0.123995845078903
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,141,0.838323353293413,0.120557842348901
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,142,0.844311377245509,0.117205471429196
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,143,0.850299401197605,0.113936200056375
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,144,0.856287425149701,0.110747607969055
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,145,0.862275449101796,0.107637380155832
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,146,0.868263473053892,0.104603300613017
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,147,0.874251497005988,0.101643246566056
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,148,0.880239520958084,0.0987551831133557
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,149,0.88622754491018,0.095937158255511
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,150,0.892215568862275,0.0931872982766731
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,151,0.898203592814371,0.0905038034481417
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,152,0.904191616766467,0.0878849440272065
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,153,0.910179640718563,0.0853290565268826
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,154,0.916167664670659,0.0828345402345206
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,155,0.922155688622755,0.0803998539593434
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,156,0.92814371257485,0.0780235129908235
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,157,0.934131736526946,0.0757040862514677
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,158,0.940119760479042,0.0734401936290679
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,159,0.946107784431138,0.0712305034748041
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,160,0.952095808383234,0.0690737302547904
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,161,0.958083832335329,0.0669686323437273
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,162,0.964071856287425,0.0649140099502987
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,163,0.970059880239521,0.0629087031648275
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,164,0.976047904191617,0.0609515901204968
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,165,0.982035928143713,0.0590415852601603
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,166,0.988023952095808,0.0571776377014146
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,167,0.994011976047904,0.0553587296931967
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,raw,NA,input,168,1,0.0535838751577048
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,1,0,0.0535838751577048
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,2,0.0625,0.0744306466513679
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,3,0.125,0.101282238634468
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,4,0.1875,0.136040917928925
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,5,0.25,0.181633587813207
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,6,0.3125,0.243122687945888
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,7,0.375,0.330666230940953
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,8,0.4375,0.471339629979107
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,9,0.5,0.844637146939037
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,10,0.5625,0.471339629979107
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,11,0.625,0.330666230940953
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,12,0.6875,0.243122687945888
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,13,0.75,0.181633587813207
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,14,0.8125,0.136040917928925
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,15,0.875,0.101282238634468
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,16,0.9375,0.0744306466513678
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_interp,4,vertices,17,1,0.0535838751577048
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,1,0,0.0532437317122232
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,2,0.0625,0.0739042977465823
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,3,0.125,0.1006571430937
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,4,0.1875,0.135077733288913
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,5,0.25,0.180566714867918
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,6,0.3125,0.240206083930803
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,7,0.375,0.329947247403315
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,8,0.4375,0.448622414373623
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,9,0.5,0.793341158926619
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,10,0.5625,0.448622414373623
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,11,0.625,0.329947247403316
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,12,0.6875,0.240206083930803
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,13,0.75,0.180566714867918
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,14,0.8125,0.135077733288913
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,15,0.875,0.1006571430937
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,16,0.9375,0.0739042977465824
+f_alpha,f_alpha, alpha = 0.45,dissertation spike example,synthetic,fs_ls,4,vertices,17,1,0.0532437317122232

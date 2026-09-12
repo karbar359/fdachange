@@ -1,0 +1,52 @@
+# RNG discipline and seeds
+
+Every stochastic entry point sets `RNGkind("L'Ecuyer-CMRG")` and a fixed
+seed, and parallelises with `parallel::mclapply(mc.set.seed = TRUE)`, so
+each fork receives its own deterministic RNG substream.
+
+## Per-script seeds
+
+| Script | Seed | Stream structure |
+|---|---|---|
+| `driver.R` | `SEED = 42` | one L'Ecuyer substream per (gamma, ec, a) task, assigned in `expand.grid(gamma, ec_idx, a)` order via `mc.preschedule = FALSE` |
+| `smoke.R` | `set.seed(42)` | reset inside each (cell, a) evaluation, so cells are order-independent |
+| `stability.R` | `SEED = 42` | `set.seed(SEED + cell_idx)` per fixed-sample cell: fully order-independent |
+| `run_pareto_curves_rkhs_*.R`, `run_thesis_power_F1F2_rkhs_*.R` | `SEED = 42` | `set.seed(SEED + 1000*gamma_idx + 100*ec_idx + round(4*a))` per cell: order-independent |
+| `verify_statistics.R` | `SEED = 7` | serial |
+| `applications/litgrid/*.R` | `SEED = 3` | serial; the 10 Ito draws are drawn once and shared across methods and gammas |
+| `generators/*.R` (null caches) | `SEED = 2` | batched `mclapply` with a parent-RNG advance between batches |
+| package golden capture (`data-raw/capture_golden_values.R`) | `seed 7 + n` per data block | serial |
+
+## Core-count independence
+
+`driver.R` results are independent of `NCORES`: with
+`mc.preschedule = FALSE` jobs are forked in task order and each fork takes
+the next L'Ecuyer substream, so the stream-to-task assignment never depends
+on how many cores run. Verified empirically on 2026-09-12: the
+`wilcoxon/S1 n=400 corrected` sweep at `NCORES = 3` and `NCORES = 20`
+produced byte-identical CSVs, both equal to the original pipeline's output.
+
+The **null-cache generators are the exception**: their batching uses
+`batch_size = 4 * ncores`, so a regeneration's draw stream depends on the
+core count. The caches in `data-raw/cache-src/` are therefore canonical
+frozen artifacts (rescued verbatim from the original pipeline), not
+bit-reproducible outputs; regenerated caches match them distributionally
+(see `generators/validate.R`), not draw for draw.
+
+## Corrected-family sweep configuration
+
+The corrected re-run of the simulation chapter
+(`sweeps/run_corrected_n400.sh`) used: `EC_EXACT = TRUE` (exact-length
+change windows), `N = 400`, `SEED = 42`, `N_REP = 100` except F1/F2 cells
+at the printed `N_REP = 20`, `NCORES = 20` (immaterial, see above), and the
+default grids `GAMMA_GRID = c(0, 0.25, 0.45)`,
+`A_GRID = c(0, 0.25, 0.5, 1, 2, 4, 8)` for scalar scenarios with
+scenario-specific a-grids for F1-F3.
+
+## Environment
+
+R 4.3.3 on x86_64 Linux; package versions pinned in `renv.lock`. The
+statistics themselves are pure R arithmetic (no BLAS-order-sensitive
+reductions), so results are expected to be bit-stable across machines with
+identical package versions; the golden-value suite in the package tests
+enforces this.
