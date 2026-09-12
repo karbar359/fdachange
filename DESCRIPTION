@@ -1,0 +1,31 @@
+Package: fdachange
+Title: Epidemic Change-Point Tests for Functional Data
+Version: 0.1.0
+Authors@R:
+    person("Karolis", "Bartkus", email = "karolis.bartkus@users.noreply.github.com",
+           role = c("aut", "cre"))
+Description: Weighted scan tests for epidemic (changed-segment) alternatives
+    in scalar and functional data: an antisymmetric-kernel (Wilcoxon-type)
+    scan, an Lp-type scan of the weighted empirical process, a kernel
+    mean-embedding (RKHS) scan, and the CUSUM-type statistic of Birbilas
+    (2025). Provides Hoelder-type weighting, precomputed Monte-Carlo critical
+    values with on-demand simulators, the closed-form Kuiper null for the
+    unweighted Wilcoxon scan, functional-to-scalar projections, curve
+    reconstruction (smoothing) helpers, and the benchmark data-generating
+    scenarios from Bartkus (2026).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends:
+    R (>= 4.0.0)
+Imports:
+    parallel,
+    stats,
+    tools,
+    utils
+Suggests:
+    fda,
+    fda.usc,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0

@@ -1,0 +1,8 @@
+^LICENSE\.md$
+^data-raw$
+^reproduction$
+^\.github$
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.md$
+^NEWS\.md$
