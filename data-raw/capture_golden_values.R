@@ -9,8 +9,10 @@
 # with EnvStats installed, and the null caches in data-raw/cache-src.
 # Run from the package root:  Rscript data-raw/capture_golden_values.R
 
-NOTES <- Sys.getenv("PHD_NOTES_DIR",
-                    "/home/ib-karolis-b/personal/projects/personal-phd-notes")
+NOTES <- Sys.getenv("PHD_NOTES_DIR")
+if (!nzchar(NOTES)) {
+  stop("set PHD_NOTES_DIR to the root of the original thesis repo")
+}
 OLD_CODE <- file.path(NOTES, "code")
 Sys.setenv(PHD_RAW_DIR = normalizePath(file.path("data-raw", "cache-src")))
 
