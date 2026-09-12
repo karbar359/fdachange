@@ -1,0 +1,28 @@
+# fdachange 0.1.0
+
+Initial release: the epidemic change-point test family of Bartkus (2026),
+extracted from the thesis codebase after the September 2026 statistic
+audit.
+
+- Four scan statistics with localisation: `wilcoxon_statistic()` /
+  `wilcoxon_scan()`, `lp_statistic()` / `lp_scan()`, `rkhs_statistic()` /
+  `rkhs_scan()`, `birbilas_statistic()` / `birbilas_scan()`.
+- `epidemic_test()`: htest-style wrapper with p-values, critical values
+  and the detected window; split-sample aggregation via `splits =`.
+- Null calibration: closed-form Kuiper law at `gamma = 0` (Wilcoxon),
+  shipped Monte-Carlo caches for all published cells, on-demand
+  simulators plus a user-side cache (`save_null_draws()`,
+  `null_cache_dir()`) for everything else.
+- Functional-data support: projections (`project_l2()`, `project_ito()`,
+  `project_c_max_var()`, `project_wiener()`, `project_pc1()`,
+  `project_pc_d()`), curve reconstruction (`reconstruct()`: Faber-Schauder
+  interpolation, least squares, penalised B-splines), and the benchmark
+  scenarios `generate_s1()` ... `generate_f4()`.
+
+Lineage note: this package ships the corrected statistic family. The
+implementations equal brute-forced versions of the dissertation's printed
+formulas to machine precision and are pinned to the audited original code
+by a golden-value test suite. The pre-audit research implementations that
+produced some published tables are not part of the package; they are kept
+in the repository's `reproduction/` tree solely to make those runs
+reproducible.

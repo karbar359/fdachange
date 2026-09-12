@@ -1,0 +1,39 @@
+citHeader("To cite fdachange in publications, please use:")
+
+bibentry(
+  bibtype = "PhdThesis",
+  title   = "Analysis of Epidemic Changes in Functional Data",
+  author  = person("Karolis", "Bartkus"),
+  school  = "Vilnius University",
+  year    = "2026",
+  textVersion = paste(
+    "Bartkus, K. (2026). Analysis of Epidemic Changes in Functional Data.",
+    "PhD dissertation, Vilnius University.")
+)
+
+bibentry(
+  bibtype = "Article",
+  title   = "A Wilcoxon-type scan statistic for epidemic changes",
+  author  = c(person("Karolis", "Bartkus"), person("Alfredas", "Rackauskas")),
+  journal = "Lithuanian Mathematical Journal",
+  year    = "2025",
+  textVersion = paste(
+    "Bartkus, K. and Rackauskas, A. (2025).",
+    "Lithuanian Mathematical Journal.")
+)
+
+bibentry(
+  bibtype = "Article",
+  title   = "Lp and RKHS scan statistics for epidemic changes",
+  author  = c(person("Karolis", "Bartkus"), person("Alfredas", "Rackauskas")),
+  journal = "Nonlinear Analysis: Modelling and Control",
+  year    = "2026",
+  textVersion = paste(
+    "Bartkus, K. and Rackauskas, A. (2026).",
+    "Nonlinear Analysis: Modelling and Control.")
+)
+
+citFooter(paste(
+  "birbilas_statistic() implements the statistic of Birbilas, A. (2025),",
+  "Functional Data Analysis in Telecommunications, PhD dissertation,",
+  "Vilnius University, doi:10.15388/vu.thesis.841."))
