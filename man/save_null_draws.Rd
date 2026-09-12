@@ -41,8 +41,12 @@ overwritten; shipped package caches are never modified.
 }
 \examples{
 \donttest{
-draws <- simulate_wilcoxon_null(50, gamma = 0.1, grid = 200)
-save_null_draws(draws, "wilcoxon", gamma = 0.1)
-quantile(wilcoxon_null_draws(gamma = 0.1), 0.95)
+# store into a throwaway cache dir so the example leaves no trace
+op <- options(fdachange.cache_dir = tempfile("fdachange-cache-"))
+draws <- simulate_wilcoxon_null(50, gamma = 0.12, grid = 200,
+                                progress = FALSE)
+save_null_draws(draws, "wilcoxon", gamma = 0.12)
+quantile(wilcoxon_null_draws(gamma = 0.12), 0.95)
+options(op)
 }
 }
