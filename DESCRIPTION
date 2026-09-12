@@ -3,7 +3,7 @@ Title: Epidemic Change-Point Tests for Functional Data
 Version: 0.1.0
 Authors@R:
     person("Karolis", "Bartkus", email = "karolis.bartkus@users.noreply.github.com",
-           role = c("aut", "cre"))
+           role = c("aut", "cre"), comment = c(ORCID = "0009-0003-6476-8721"))
 Description: Weighted scan tests for epidemic (changed-segment) alternatives
     in scalar and functional data: an antisymmetric-kernel (Wilcoxon-type)
     scan, an Lp-type scan of the weighted empirical process, a kernel
@@ -12,7 +12,10 @@ Description: Weighted scan tests for epidemic (changed-segment) alternatives
     values with on-demand simulators, the closed-form Kuiper null for the
     unweighted Wilcoxon scan, functional-to-scalar projections, curve
     reconstruction (smoothing) helpers, and the benchmark data-generating
-    scenarios from Bartkus (2026).
+    scenarios from Bartkus (2026) <doi:10.15388/vu.thesis.950>; see also
+    Bartkus and Rackauskas (2025) <doi:10.1007/s10986-025-09699-7> and
+    (2026) <doi:10.15388/namc.2026.31.44489>, and Birbilas (2025)
+    <doi:10.15388/vu.thesis.841>.
 License: MIT + file LICENSE
 URL: https://github.com/karbar359/fdachange
 BugReports: https://github.com/karbar359/fdachange/issues

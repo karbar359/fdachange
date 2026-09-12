@@ -30,14 +30,16 @@
 #' available as [generate_s1()] ... [generate_f4()].
 #'
 #' @references
-#' Bartkus, K. (2026). *Analysis of Epidemic Changes in Functional Data*.
-#' PhD dissertation, Vilnius University.
+#' Bartkus, K. (2026). *Changed Segment Tests on Functional Data*.
+#' PhD dissertation, Vilnius University. \doi{10.15388/vu.thesis.950}
 #'
-#' Bartkus, K. and Rackauskas, A. (2025). Lithuanian Mathematical
-#' Journal.
+#' Bartkus, K. and Rackauskas, A. (2025). Changed segment tests via norm
+#' and Brownian projection. *Lithuanian Mathematical Journal*, 65(4),
+#' 481-499. \doi{10.1007/s10986-025-09699-7}
 #'
-#' Bartkus, K. and Rackauskas, A. (2026). Nonlinear Analysis: Modelling
-#' and Control.
+#' Bartkus, K. and Rackauskas, A. (2026). Nonparametric changed segment
+#' detection in functional data. *Nonlinear Analysis: Modelling and
+#' Control*, 31(1), 194-211. \doi{10.15388/namc.2026.31.44489}
 #'
 #' Birbilas, A. (2025). *Functional Data Analysis in Telecommunications*.
 #' PhD dissertation, Vilnius University. \doi{10.15388/vu.thesis.841}

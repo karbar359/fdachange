@@ -2,35 +2,48 @@ citHeader("To cite fdachange in publications, please use:")
 
 bibentry(
   bibtype = "PhdThesis",
-  title   = "Analysis of Epidemic Changes in Functional Data",
+  title   = "Changed Segment Tests on Functional Data",
   author  = person("Karolis", "Bartkus"),
   school  = "Vilnius University",
   year    = "2026",
+  doi     = "10.15388/vu.thesis.950",
   textVersion = paste(
-    "Bartkus, K. (2026). Analysis of Epidemic Changes in Functional Data.",
-    "PhD dissertation, Vilnius University.")
+    "Bartkus, K. (2026). Changed Segment Tests on Functional Data.",
+    "PhD dissertation, Vilnius University. doi:10.15388/vu.thesis.950")
 )
 
 bibentry(
   bibtype = "Article",
-  title   = "A Wilcoxon-type scan statistic for epidemic changes",
+  title   = "Changed segment tests via norm and Brownian projection",
   author  = c(person("Karolis", "Bartkus"), person("Alfredas", "Rackauskas")),
   journal = "Lithuanian Mathematical Journal",
   year    = "2025",
+  volume  = "65",
+  number  = "4",
+  pages   = "481--499",
+  doi     = "10.1007/s10986-025-09699-7",
   textVersion = paste(
     "Bartkus, K. and Rackauskas, A. (2025).",
-    "Lithuanian Mathematical Journal.")
+    "Changed segment tests via norm and Brownian projection.",
+    "Lithuanian Mathematical Journal, 65(4), 481-499.",
+    "doi:10.1007/s10986-025-09699-7")
 )
 
 bibentry(
   bibtype = "Article",
-  title   = "Lp and RKHS scan statistics for epidemic changes",
+  title   = "Nonparametric changed segment detection in functional data",
   author  = c(person("Karolis", "Bartkus"), person("Alfredas", "Rackauskas")),
   journal = "Nonlinear Analysis: Modelling and Control",
   year    = "2026",
+  volume  = "31",
+  number  = "1",
+  pages   = "194--211",
+  doi     = "10.15388/namc.2026.31.44489",
   textVersion = paste(
     "Bartkus, K. and Rackauskas, A. (2026).",
-    "Nonlinear Analysis: Modelling and Control.")
+    "Nonparametric changed segment detection in functional data.",
+    "Nonlinear Analysis: Modelling and Control, 31(1), 194-211.",
+    "doi:10.15388/namc.2026.31.44489")
 )
 
 citFooter(paste(

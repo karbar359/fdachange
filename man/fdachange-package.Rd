@@ -6,7 +6,7 @@
 \alias{fdachange-package}
 \title{fdachange: Epidemic Change-Point Tests for Functional Data}
 \description{
-Weighted scan tests for epidemic (changed-segment) alternatives in scalar and functional data: an antisymmetric-kernel (Wilcoxon-type) scan, an Lp-type scan of the weighted empirical process, a kernel mean-embedding (RKHS) scan, and the CUSUM-type statistic of Birbilas (2025). Provides Hoelder-type weighting, precomputed Monte-Carlo critical values with on-demand simulators, the closed-form Kuiper null for the unweighted Wilcoxon scan, functional-to-scalar projections, curve reconstruction (smoothing) helpers, and the benchmark data-generating scenarios from Bartkus (2026).
+Weighted scan tests for epidemic (changed-segment) alternatives in scalar and functional data: an antisymmetric-kernel (Wilcoxon-type) scan, an Lp-type scan of the weighted empirical process, a kernel mean-embedding (RKHS) scan, and the CUSUM-type statistic of Birbilas (2025). Provides Hoelder-type weighting, precomputed Monte-Carlo critical values with on-demand simulators, the closed-form Kuiper null for the unweighted Wilcoxon scan, functional-to-scalar projections, curve reconstruction (smoothing) helpers, and the benchmark data-generating scenarios from Bartkus (2026) \doi{10.15388/vu.thesis.950}; see also Bartkus and Rackauskas (2025) \doi{10.1007/s10986-025-09699-7} and (2026) \doi{10.15388/namc.2026.31.44489}, and Birbilas (2025) \doi{10.15388/vu.thesis.841}.
 }
 \details{
 fdachange implements weighted scan tests for the epidemic
@@ -40,24 +40,34 @@ The benchmark data-generating scenarios of the dissertation are
 available as \code{\link[=generate_s1]{generate_s1()}} ... \code{\link[=generate_f4]{generate_f4()}}.
 }
 \references{
-Bartkus, K. (2026). \emph{Analysis of Epidemic Changes in Functional Data}.
-PhD dissertation, Vilnius University.
+Bartkus, K. (2026). \emph{Changed Segment Tests on Functional Data}.
+PhD dissertation, Vilnius University. \doi{10.15388/vu.thesis.950}
 
-Bartkus, K. and Rackauskas, A. (2025). Lithuanian Mathematical
-Journal.
+Bartkus, K. and Rackauskas, A. (2025). Changed segment tests via norm
+and Brownian projection. \emph{Lithuanian Mathematical Journal}, 65(4),
+481-499. \doi{10.1007/s10986-025-09699-7}
 
-Bartkus, K. and Rackauskas, A. (2026). Nonlinear Analysis: Modelling
-and Control.
+Bartkus, K. and Rackauskas, A. (2026). Nonparametric changed segment
+detection in functional data. \emph{Nonlinear Analysis: Modelling and
+Control}, 31(1), 194-211. \doi{10.15388/namc.2026.31.44489}
 
 Birbilas, A. (2025). \emph{Functional Data Analysis in Telecommunications}.
 PhD dissertation, Vilnius University. \doi{10.15388/vu.thesis.841}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/karbar359/fdachange}
+  \item Report bugs at \url{https://github.com/karbar359/fdachange/issues}
+}
+
+}
 \author{
-\strong{Maintainer}: Karolis Bartkus \email{karolis.bartkus@users.noreply.github.com}
+\strong{Maintainer}: Karolis Bartkus \email{karolis.bartkus@users.noreply.github.com} (\href{https://orcid.org/0009-0003-6476-8721}{ORCID})
 
 Authors:
 \itemize{
-  \item Karolis Bartkus \email{karolis.bartkus@users.noreply.github.com}
+  \item Karolis Bartkus \email{karolis.bartkus@users.noreply.github.com} (\href{https://orcid.org/0009-0003-6476-8721}{ORCID})
 }
 
 }

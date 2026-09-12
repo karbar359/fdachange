@@ -1,8 +1,9 @@
 # Reproduction of the dissertation's computational results
 
 This directory reruns the simulation and application pipeline of Bartkus
-(2026), *Analysis of Epidemic Changes in Functional Data* (Vilnius
-University), on top of the in-tree `fdachange` package. It exists so that
+(2026), *Changed Segment Tests on Functional Data* (PhD dissertation,
+Vilnius University, doi:10.15388/vu.thesis.950), on top of the in-tree
+`fdachange` package. It exists so that
 every number the pipeline produced - including the pre-audit ("legacy")
 runs behind some published tables - can be regenerated and compared.
 
