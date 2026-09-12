@@ -26,7 +26,7 @@ through a functional-to-scalar projection (`project_l2()`, `project_ito()`,
 
 ```r
 # install.packages("remotes")
-remotes::install_github("OWNER/fdachange")
+remotes::install_github("karbar359/fdachange")
 ```
 
 The core tests run on base R alone. The basis-expansion projections

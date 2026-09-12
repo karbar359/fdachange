@@ -14,6 +14,8 @@ Description: Weighted scan tests for epidemic (changed-segment) alternatives
     reconstruction (smoothing) helpers, and the benchmark data-generating
     scenarios from Bartkus (2026).
 License: MIT + file LICENSE
+URL: https://github.com/karbar359/fdachange
+BugReports: https://github.com/karbar359/fdachange/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Depends:
