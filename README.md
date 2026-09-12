@@ -1,5 +1,7 @@
 # fdachange
 
+[![R-CMD-check](https://github.com/karbar359/fdachange/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/karbar359/fdachange/actions/workflows/R-CMD-check.yaml)
+
 Epidemic change-point tests for functional data in R.
 
 An *epidemic* (changed-segment) alternative means the sample
