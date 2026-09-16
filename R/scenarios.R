@@ -109,7 +109,7 @@ generate_s5 <- function(n, a = 0, ec_interval = c(0.4, 0.7),
   X
 }
 
-#' Benchmark functional scenarios F1-F4
+#' Benchmark functional scenarios F1-F5
 #'
 #' The dissertation's functional data-generating processes. Each returns a
 #' matrix with `l + 1` rows (the evaluation grid on `[0, 1]`) and `n`
@@ -130,12 +130,33 @@ generate_s5 <- function(n, a = 0, ec_interval = c(0.4, 0.7),
 #'   innovations and epidemic jump \eqn{g = a\sqrt{t}} on the window;
 #'   note the observations are serially dependent, and the window
 #'   convention is exact by construction (no `exact_window` argument).
+#' * `generate_f5()`: i.i.d. standard Wiener (random-walk) curves; in the
+#'   change window each curve receives an additive **spike**
+#'   \eqn{a \, f_\alpha(t)} with the dissertation's spike function
+#'   \deqn{f_\alpha(t) = \big(1 - |t - 1/2|^\alpha\big)^{1/\alpha},
+#'     \qquad \alpha \in (0, 1/2),}
+#'   which peaks at \eqn{f_\alpha(1/2) = 1} with a Hoelder-\eqn{\alpha}
+#'   cusp (the function of the Faber-Schauder smoothing figure; default
+#'   `spike_alpha = 0.45` as printed there). Restored from the paper-1
+#'   draft's scenario (S2) (archive ids `p1.TD.S2.spike` /
+#'   `wiener_TD2_spike`), which was cut before publication; the archived
+#'   forms used a tent-power bump \eqn{(1 - |2t - 1|)^k} (\eqn{k = 4} in
+#'   the draft text, \eqn{k = 20} in the code), replaced here by the
+#'   dissertation's \eqn{f_\alpha} parametrisation. The draft smoothed
+#'   the curves with the Faber-Schauder basis before testing; pair with
+#'   [reconstruct()] to replicate that pipeline. This is the scenario
+#'   behind the claim that point-evaluation projections (e.g.
+#'   [project_c_max_var()]) are particularly informative for spike-type
+#'   (time-localised) changes.
 #'
 #' @inheritParams generate_s1
 #' @param l grid resolution: curves are sampled at `l + 1` equispaced
 #'   points on `[0, 1]`.
 #' @param beta_t F4 only: the FAR(1) operator \eqn{\beta(t)}, see
 #'   [birbilas_betas].
+#' @param spike_alpha F5 only: the Hoelder exponent \eqn{\alpha} of the
+#'   spike function \eqn{f_\alpha}; the dissertation uses
+#'   \eqn{\alpha \in (0, 1/2)}, smaller values giving a sharper cusp.
 #' @return numeric matrix, `(l + 1) x n`.
 #' @seealso [project_l2()] and friends to reduce curves to scalars,
 #'   [birbilas_statistic()] which consumes the matrix directly.
@@ -252,16 +273,34 @@ generate_f4 <- function(n, a = 0, ec_interval = c(0.25, 0.45), l = 100,
   X
 }
 
+#' @rdname generate_f1
+#' @export
+generate_f5 <- function(n, a = 0, ec_interval = c(0.4, 0.7), l = 100,
+                        spike_alpha = 0.45, exact_window = TRUE) {
+  s <- (0:l) / l
+  spike <- (1 - abs(s - 0.5)^spike_alpha)^(1 / spike_alpha)
+  delta_t <- 1 / l
+  X <- matrix(0, nrow = l + 1L, ncol = n)
+  idx <- round(n * ec_interval)
+  j_lo <- if (exact_window) idx[1] + 1L else idx[1]
+  in_window <- function(j) a != 0 && j >= j_lo && j <= idx[2]
+  for (j in seq_len(n)) {
+    W <- c(0, cumsum(sqrt(delta_t) * rnorm(l, 0, 1)))
+    X[, j] <- if (in_window(j)) W + a * spike else W
+  }
+  X
+}
+
 #' Null CDF of a benchmark scenario
 #'
 #' Returns the pointwise null CDF `F_0` matching a scenario, for use as
 #' the `cdf` argument of [lp_statistic()] / [epidemic_test()]: standard
 #' normal (S1), chi-squared df 1 (S2), Pareto(1, 3) (S3, S5), Beta(1, 9)
-#' (S4). The functional scenarios (F1-F4) have no closed-form CDF after
+#' (S4). The functional scenarios (F1-F5) have no closed-form CDF after
 #' projection; for them the returned function applies the empirical CDF
 #' of the sample itself, which is also what `cdf = NULL` does.
 #'
-#' @param scenario scenario id: `"S1"` ... `"S5"`, `"F1"` ... `"F4"`
+#' @param scenario scenario id: `"S1"` ... `"S5"`, `"F1"` ... `"F5"`
 #'   (case-insensitive).
 #' @return a vectorised function `F_0(x)`.
 #' @examples
@@ -279,6 +318,7 @@ scenario_cdf <- function(scenario) {
     F1 = ,
     F2 = ,
     F3 = ,
-    F4 = function(x) ecdf(x)(x),
+    F4 = ,
+    F5 = function(x) ecdf(x)(x),
     stop("unknown scenario: ", scenario))
 }

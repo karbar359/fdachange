@@ -22,7 +22,8 @@ Functional observations enter either directly (`birbilas_statistic`) or
 through a functional-to-scalar projection (`project_l2()`, `project_ito()`,
 `project_c_max_var()`, ...), optionally preceded by curve reconstruction
 (`reconstruct()`). The dissertation's benchmark scenarios ship as
-`generate_s1()` ... `generate_f4()`.
+`generate_s1()` ... `generate_f5()` (F5: Wiener random-walk curves with a
+spike-type change, restored from the paper-1 draft).
 
 ## Installation
 

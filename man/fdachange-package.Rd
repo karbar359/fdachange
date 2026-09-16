@@ -37,7 +37,8 @@ Birbilas statistic directly, or through a functional-to-scalar
 projection (\code{\link[=project_l2]{project_l2()}}, \code{\link[=project_ito]{project_ito()}}, \code{\link[=project_c_max_var]{project_c_max_var()}},
 ...) optionally preceded by curve reconstruction (\code{\link[=reconstruct]{reconstruct()}}).
 The benchmark data-generating scenarios of the dissertation are
-available as \code{\link[=generate_s1]{generate_s1()}} ... \code{\link[=generate_f4]{generate_f4()}}.
+available as \code{\link[=generate_s1]{generate_s1()}} ... \code{\link[=generate_f5]{generate_f5()}} (F5 is the restored
+Wiener-plus-spike scenario from the paper-1 draft).
 }
 \references{
 Bartkus, K. (2026). \emph{Changed Segment Tests on Functional Data}.

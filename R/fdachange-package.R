@@ -27,7 +27,8 @@
 #' projection ([project_l2()], [project_ito()], [project_c_max_var()],
 #' ...) optionally preceded by curve reconstruction ([reconstruct()]).
 #' The benchmark data-generating scenarios of the dissertation are
-#' available as [generate_s1()] ... [generate_f4()].
+#' available as [generate_s1()] ... [generate_f5()] (F5 is the restored
+#' Wiener-plus-spike scenario from the paper-1 draft).
 #'
 #' @references
 #' Bartkus, K. (2026). *Changed Segment Tests on Functional Data*.

@@ -7,7 +7,7 @@
 scenario_cdf(scenario)
 }
 \arguments{
-\item{scenario}{scenario id: \code{"S1"} ... \code{"S5"}, \code{"F1"} ... \code{"F4"}
+\item{scenario}{scenario id: \code{"S1"} ... \code{"S5"}, \code{"F1"} ... \code{"F5"}
 (case-insensitive).}
 }
 \value{
@@ -17,7 +17,7 @@ a vectorised function \code{F_0(x)}.
 Returns the pointwise null CDF \code{F_0} matching a scenario, for use as
 the \code{cdf} argument of \code{\link[=lp_statistic]{lp_statistic()}} / \code{\link[=epidemic_test]{epidemic_test()}}: standard
 normal (S1), chi-squared df 1 (S2), Pareto(1, 3) (S3, S5), Beta(1, 9)
-(S4). The functional scenarios (F1-F4) have no closed-form CDF after
+(S4). The functional scenarios (F1-F5) have no closed-form CDF after
 projection; for them the returned function applies the empirical CDF
 of the sample itself, which is also what \code{cdf = NULL} does.
 }

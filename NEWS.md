@@ -1,3 +1,17 @@
+# fdachange 0.1.1
+
+- New scenario `generate_f5()`: i.i.d. Wiener (random-walk) curves with a
+  spike `a * f_alpha(t)` added on the epidemic window, where `f_alpha` is
+  the dissertation's spike function
+  `(1 - |t - 1/2|^alpha)^(1/alpha)` (`spike_alpha` argument, default
+  0.45 as in the Faber-Schauder smoothing figure). Restored from the
+  paper-1 draft's scenario (S2) (`p1.TD.S2.spike` / `wiener_TD2_spike` in
+  the archived research code, which used a tent-power bump), cut before
+  publication and lost in the original extraction; it is the experiment
+  behind the thesis's claim that point-evaluation projections suit
+  spike-type changes. `scenario_cdf("F5")` returns the ecdf transform
+  like the other functional scenarios.
+
 # fdachange 0.1.0
 
 Initial release: the epidemic change-point test family of Bartkus (2026),

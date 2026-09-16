@@ -5,7 +5,8 @@
 \alias{generate_f2}
 \alias{generate_f3}
 \alias{generate_f4}
-\title{Benchmark functional scenarios F1-F4}
+\alias{generate_f5}
+\title{Benchmark functional scenarios F1-F5}
 \usage{
 generate_f1(n, a = 0, ec_interval = c(0.4, 0.7), l = 100, exact_window = TRUE)
 
@@ -19,6 +20,15 @@ generate_f4(
   ec_interval = c(0.25, 0.45),
   l = 100,
   beta_t = birbilas_betas$beta1
+)
+
+generate_f5(
+  n,
+  a = 0,
+  ec_interval = c(0.4, 0.7),
+  l = 100,
+  spike_alpha = 0.45,
+  exact_window = TRUE
 )
 }
 \arguments{
@@ -39,6 +49,10 @@ included both endpoints (\code{l + 1} observations).}
 
 \item{beta_t}{F4 only: the FAR(1) operator \eqn{\beta(t)}, see
 \link{birbilas_betas}.}
+
+\item{spike_alpha}{F5 only: the Hoelder exponent \eqn{\alpha} of the
+spike function \eqn{f_\alpha}; the dissertation uses
+\eqn{\alpha \in (0, 1/2)}, smaller values giving a sharper cusp.}
 }
 \value{
 numeric matrix, \verb{(l + 1) x n}.
@@ -65,6 +79,24 @@ with the same coefficient change as F1.
 innovations and epidemic jump \eqn{g = a\sqrt{t}} on the window;
 note the observations are serially dependent, and the window
 convention is exact by construction (no \code{exact_window} argument).
+\item \code{generate_f5()}: i.i.d. standard Wiener (random-walk) curves; in the
+change window each curve receives an additive \strong{spike}
+\eqn{a \, f_\alpha(t)} with the dissertation's spike function
+\deqn{f_\alpha(t) = \big(1 - |t - 1/2|^\alpha\big)^{1/\alpha},
+    \qquad \alpha \in (0, 1/2),}
+which peaks at \eqn{f_\alpha(1/2) = 1} with a Hoelder-\eqn{\alpha}
+cusp (the function of the Faber-Schauder smoothing figure; default
+\code{spike_alpha = 0.45} as printed there). Restored from the paper-1
+draft's scenario (S2) (archive ids \code{p1.TD.S2.spike} /
+\code{wiener_TD2_spike}), which was cut before publication; the archived
+forms used a tent-power bump \eqn{(1 - |2t - 1|)^k} (\eqn{k = 4} in
+the draft text, \eqn{k = 20} in the code), replaced here by the
+dissertation's \eqn{f_\alpha} parametrisation. The draft smoothed
+the curves with the Faber-Schauder basis before testing; pair with
+\code{\link[=reconstruct]{reconstruct()}} to replicate that pipeline. This is the scenario
+behind the claim that point-evaluation projections (e.g.
+\code{\link[=project_c_max_var]{project_c_max_var()}}) are particularly informative for spike-type
+(time-localised) changes.
 }
 }
 \examples{

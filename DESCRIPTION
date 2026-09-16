@@ -1,6 +1,6 @@
 Package: fdachange
 Title: Epidemic Change-Point Tests for Functional Data
-Version: 0.1.0
+Version: 0.1.1
 Authors@R:
     person("Karolis", "Bartkus", email = "karolis.bartkus@users.noreply.github.com",
            role = c("aut", "cre"), comment = c(ORCID = "0009-0003-6476-8721"))
