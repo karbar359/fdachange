@@ -36,8 +36,10 @@ N_F_M2     <- 300                  # functional cells at m = 2
 N_STAB     <- 80                   # stability cell: small fixed-X sample
 N_PROJ_STAB <- 20                  # stability cell: Ito draws per fixed X
 NCORES     <- max(1L, parallel::detectCores() - 2L)
-A_HI <- list(S1 = 2, S2 = 4, S3 = 2, S4 = 8, S5 = 1, F1 = 10, F2 = 5, F3 = 10, F4 = 2)
-A_LO <- list(S1 = 0, S2 = 0, S3 = 0, S4 = 0, S5 = 0, F1 = 2.5, F2 = 1.5, F3 = 2.5, F4 = 0)
+A_HI <- list(S1 = 2, S2 = 4, S3 = 2, S4 = 8, S5 = 1, F1 = 10, F2 = 5, F3 = 10, F4 = 2,
+             F5 = 10)
+A_LO <- list(S1 = 0, S2 = 0, S3 = 0, S4 = 0, S5 = 0, F1 = 2.5, F2 = 1.5, F3 = 2.5, F4 = 0,
+             F5 = 0)
 RKHS_PAIR <- list(
   S1 = list(kernel = "gaussian", baseline = ""),
   S2 = list(kernel = "min",      baseline = "rnorm.sq"),

@@ -40,6 +40,25 @@ It is excluded from the built R package (`.Rbuildignore`).
   simulation-chapter fragments; without them, the committed
   `data/thesis_power_values.csv` remains the canonical artifact.
 
+## The restored F5 scenario and its power study
+
+`fdachange::generate_f5()` restores the paper-1 draft's scenario (S2)
+(archive ids `p1.TD.S2.spike` / `wiener_TD2_spike`, cut before
+publication): i.i.d. Wiener curves with a spike `a f_alpha(t)` added on
+the epidemic window, where `f_alpha(t) = (1 - |t - 1/2|^alpha)^(1/alpha)`
+is the dissertation's spike function (default `alpha = 0.45`, as in the
+Faber-Schauder smoothing figure; the archived draft/code used a
+tent-power bump instead). It appears in no printed thesis table, but it
+is the experiment behind the thesis's claim that point-evaluation
+projections suit spike-type changes
+(`ch2_dimensionality/sec_point_eval.tex`).
+
+`sweeps/run_f5_spike_power.sh` runs that experiment (corrected Wilcoxon
+h_0 and Lp p = 2 over the projections c_max_var / l2 / ito, n = 400,
+N_rep = 100, seed 42); `aggregators/aggregate_f5_spike.R` combines the
+outputs into the committed `data/f5_spike_power.csv` and prints the
+projection comparison.
+
 ## Verification gates (all green as of 2026-09-12)
 
 1. `Rscript verify_statistics.R` - every corrected statistic equals its

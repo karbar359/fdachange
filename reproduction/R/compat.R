@@ -39,6 +39,11 @@ generate_F4 <- function(n, a = 0, ec.interval = c(0.25, 0.45), l = 100,
                         beta_t = fdachange::birbilas_betas$beta1) {
   fdachange::generate_f4(n, a, ec.interval, l, beta_t)
 }
+generate_F5 <- function(n, a = 0, ec.interval = c(0.4, 0.7), l = 100,
+                        spike_alpha = 0.45) {
+  fdachange::generate_f5(n, a, ec.interval, l, spike_alpha,
+                         exact_window = .ec_exact())
+}
 
 cdf_S1 <- fdachange::scenario_cdf("S1")
 cdf_S2 <- fdachange::scenario_cdf("S2")
@@ -49,6 +54,7 @@ cdf_F1 <- fdachange::scenario_cdf("F1")
 cdf_F2 <- fdachange::scenario_cdf("F2")
 cdf_F3 <- fdachange::scenario_cdf("F3")
 cdf_F4 <- fdachange::scenario_cdf("F4")
+cdf_F5 <- fdachange::scenario_cdf("F5")
 
 kernel_fn <- function(name) {
   switch(name,
