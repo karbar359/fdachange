@@ -1,6 +1,6 @@
 Package: fdachange
 Title: Epidemic Change-Point Tests for Functional Data
-Version: 0.1.1
+Version: 0.1.2
 Authors@R:
     person("Karolis", "Bartkus", email = "karolis.bartkus@users.noreply.github.com",
            role = c("aut", "cre"), comment = c(ORCID = "0009-0003-6476-8721"))
@@ -31,6 +31,9 @@ Imports:
 Suggests:
     fda,
     fda.usc,
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.1.0

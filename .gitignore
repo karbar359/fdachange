@@ -8,3 +8,6 @@ reproduction/output/
 reproduction/results/
 data-raw/litgrid-raw/
 data-raw/litgrid-raw-v1.tar.gz
+inst/doc
+vignettes/*.html
+vignettes/*.R

@@ -1,3 +1,13 @@
+# fdachange 0.1.2
+
+- New vignette "Detecting epidemic changes in functional data"
+  (`vignette("fdachange")`): quick start, the benchmark scenarios
+  including F5's spike function, every projection visualized on the same
+  curves, the calibration-resolution story, a miniature power study with
+  the full committed study's verdict, and an application-shaped
+  reconstruct-project-test walkthrough with the corrected LITGRID
+  results quoted.
+
 # fdachange 0.1.1
 
 - New scenario `generate_f5()`: i.i.d. Wiener (random-walk) curves with a

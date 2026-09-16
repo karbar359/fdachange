@@ -1,0 +1,344 @@
+---
+title: "Detecting epidemic changes in functional data"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Detecting epidemic changes in functional data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>",
+  fig.width = 7, fig.height = 4, dpi = 96
+)
+library(fdachange)
+
+# Colorblind-safe categorical palette (validated adjacent-pair order);
+# assignments are fixed per entity across every figure in this vignette.
+pal <- c(blue = "#2a78d6", orange = "#eb6834", aqua = "#1baf7a",
+         yellow = "#eda100")
+col_changed  <- pal[["blue"]]     # curves / cells inside the change window
+col_plain    <- "grey75"          # unchanged curves, recessive marks
+col_band     <- adjustcolor("grey50", 0.18)  # true-window shading (annotation)
+proj_col <- c(l2 = pal[["blue"]], ito = pal[["orange"]],
+              c_max_var = pal[["aqua"]], pc1 = pal[["yellow"]])
+
+has_fda <- requireNamespace("fda", quietly = TRUE)
+has_usc <- has_fda && requireNamespace("fda.usc", quietly = TRUE)
+
+shade_window <- function(from, to, n) {
+  usr <- par("usr")
+  rect(from, usr[3], to, usr[4], col = col_band, border = NA)
+}
+```
+
+## The epidemic alternative
+
+An *epidemic* (changed-segment) alternative means a sample
+$X_1, \dots, X_n$ is i.i.d. except on an unknown window
+$I^\ast = \{k^\ast + 1, \dots, k^\ast + l^\ast\}$, where the distribution
+changes and then changes back. fdachange implements four weighted scan
+tests for this alternative:
+
+| Test | Function | Sensitive to |
+|---|---|---|
+| Wilcoxon-type antisymmetric-kernel scan | `wilcoxon_statistic()` | location (`h_w`) or scale/tail (`h_0`) changes |
+| Lp empirical-process scan | `lp_statistic()` | general distributional change |
+| RKHS kernel mean-embedding scan | `rkhs_statistic()` | general distributional change |
+| Birbilas CUSUM-type functional statistic | `birbilas_statistic()` | functional mean jumps under FAR(1) dependence |
+
+Each scan weights a window of relative length $t$ by the Hoelder-type
+weight $w(t) = t^{-\gamma} \log(c/t)^{-\beta}$: larger $\gamma$
+up-weights short windows, at the price of heavier-tailed null
+distributions.
+
+```{r weights, fig.height = 3.2}
+t <- seq(0.005, 0.995, length.out = 400)
+gammas <- c(0, 0.25, 0.45)
+w <- sapply(gammas, function(g) holder_weight(t * (1 - t), g))
+matplot(t, w, type = "l", lty = 1, lwd = 2, col = pal[1:3], bty = "l",
+        xlab = "relative window length l/n",
+        ylab = "symmetric weight w(t(1-t))", ylim = c(0, 12))
+text(0.06, w[20, ] + 0.6, labels = paste0("gamma = ", gammas),
+     col = pal[1:3], adj = 0, cex = 0.9)
+legend("topright", legend = paste0("gamma = ", gammas), col = pal[1:3],
+       lwd = 2, bty = "n", cex = 0.9)
+```
+
+## Quick start: a scalar series
+
+`generate_s1()` draws an i.i.d. N(0, 1) series with an epidemic mean
+shift on a chosen window; `epidemic_test()` runs a calibrated test and
+localizes the change.
+
+```{r quickstart}
+set.seed(1)
+x <- generate_s1(200, a = 1, ec_interval = c(0.4, 0.7))
+ht <- epidemic_test(x, method = "wilcoxon", gamma = 0.25)
+ht
+```
+
+```{r quickstart-plot, fig.height = 3.6}
+plot(x, type = "l", col = col_plain, lwd = 1, bty = "l",
+     xlab = "observation index", ylab = "x")
+shade_window(80.5, 140.5, 200)              # true window I* = {81..140}
+lines(81:140, x[81:140], col = col_changed, lwd = 1.4)
+abline(v = c(ht$k + 1, ht$m), lty = 2, lwd = 2)
+text(mean(c(ht$k + 1, ht$m)), max(x), "detected window", cex = 0.9)
+legend("bottomleft", bty = "n", cex = 0.9,
+       legend = c("changed segment (truth, shaded)", "detected (dashed)"),
+       col = c(col_changed, "black"), lty = c(1, 2), lwd = c(1.4, 2))
+```
+
+The shaded band is the true window; the dashed lines are the window the
+scan reports (`ht$k + 1` to `ht$m`, the thesis convention
+$I(k, m) = \{k+1, \dots, m\}$).
+
+## Functional data and the benchmark scenarios
+
+The functional scenarios return a matrix with one curve per column,
+sampled on `l + 1` grid points. `generate_f1()` puts centred-Pareto
+coefficients on a cosine basis inside the window; `generate_f5()` adds a
+spike to i.i.d. Wiener (random-walk) curves.
+
+```{r curves, fig.height = 3.8}
+set.seed(2)
+n <- 60
+X1 <- generate_f1(n, a = 3)
+X5 <- generate_f5(n, a = 4)
+s  <- seq(0, 1, length.out = nrow(X5))
+win <- 25:42                                # exact window at n = 60
+old <- par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+matplot(s, X1, type = "l", lty = 1, lwd = 0.7, col = col_plain, bty = "l",
+        xlab = "t", ylab = "X(t)", main = "F1: heavy-tailed coefficients")
+matlines(s, X1[, win], lty = 1, lwd = 0.9, col = col_changed)
+matplot(s, X5, type = "l", lty = 1, lwd = 0.7, col = col_plain, bty = "l",
+        xlab = "t", ylab = "X(t)", main = "F5: Wiener + spike")
+matlines(s, X5[, win], lty = 1, lwd = 0.9, col = col_changed)
+par(old)
+```
+
+Blue curves are the ones inside the change window. F5's spike is the
+dissertation's spike function
+$f_\alpha(t) = (1 - |t - 1/2|^\alpha)^{1/\alpha}$, a Hoelder-$\alpha$
+cusp at $t = 1/2$ (default `spike_alpha = 0.45`):
+
+```{r falpha, fig.height = 3.2}
+f_alpha <- function(t, al) (1 - abs(t - 0.5)^al)^(1 / al)
+alphas <- c(0.45, 0.3, 0.15)
+tt <- seq(0, 1, length.out = 401)
+fa <- sapply(alphas, f_alpha, t = tt)
+matplot(tt, fa, type = "l", lty = 1, lwd = 2, col = pal[1:3], bty = "l",
+        xlab = "t", ylab = expression(f[alpha](t)))
+legend("topright", legend = paste0("alpha = ", alphas), col = pal[1:3],
+       lwd = 2, bty = "n", cex = 0.9)
+```
+
+## Projections visualized
+
+The scalar scans consume a numeric series, so functional data is first
+reduced by a projection. Different projections preserve different
+aspects of the change; the color of each projection is fixed throughout
+this vignette.
+
+`project_l2()` (deterministic, the $L_2$ norm of each curve) and
+`project_ito()` (integral against one shared random Wiener path per
+call) need only base R:
+
+```{r proj-base, fig.height = 3.8}
+set.seed(3)
+p_l2  <- project_l2(X5)
+p_ito <- project_ito(X5)
+old <- par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+for (nm in c("l2", "ito")) {
+  p <- if (nm == "l2") p_l2 else p_ito
+  plot(p, type = "b", pch = 16, cex = 0.7, lwd = 1.2, col = proj_col[[nm]],
+       bty = "l", xlab = "curve index", ylab = "projected value",
+       main = paste0("project_", nm))
+  shade_window(24.5, 42.5, n)
+}
+par(old)
+```
+
+The point-evaluation style projection `project_c_max_var()` (evaluate
+every curve at a randomly chosen critical point of the variance
+function) and `project_pc1()` (inner product with the leading functional
+principal component) use the fda / fda.usc basis machinery:
+
+```{r proj-usc, eval = has_usc, fig.height = 3.8}
+set.seed(4)
+p_cmv <- project_c_max_var(X5)
+p_pc1 <- project_pc1(X5)
+old <- par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+for (nm in c("c_max_var", "pc1")) {
+  p <- if (nm == "c_max_var") p_cmv else p_pc1
+  plot(p, type = "b", pch = 16, cex = 0.7, lwd = 1.2, col = proj_col[[nm]],
+       bty = "l", xlab = "curve index", ylab = "projected value",
+       main = paste0("project_", nm))
+  shade_window(24.5, 42.5, n)
+}
+par(old)
+```
+
+At this spike amplitude several projections separate the window: the
+point-evaluation `c_max_var` because the variance-critical point lands
+on the spike, and the norm `l2` because a bump of height 4 moves the
+whole curve's norm. The projection whose random direction can simply
+miss the spike (`ito`) shows the weakest separation - and the full power
+study below confirms that ordering, with the point-evaluation advantage
+concentrated at *faint* amplitudes where the norm barely moves. The
+stochastic projections (`ito`, `c_max_var`, `wiener`) draw a fresh
+random direction on every call; `scan_over_splits()` exploits exactly
+that to aggregate independent chunks (the paper-1 $T^{(d)}$ statistic).
+
+## Testing, localization, calibration
+
+Every method runs through the same `epidemic_test()` interface. On the
+projected F5 series (a larger sample this time so the asymptotic
+calibration is comfortable):
+
+```{r tests}
+set.seed(5)
+Xb <- generate_f5(200, a = 3)
+xb <- project_l2(Xb)
+res <- lapply(c("wilcoxon", "lp", "rkhs"), function(m) {
+  ht <- epidemic_test(xb, m, gamma = 0.25)
+  data.frame(method = m, statistic = unname(ht$statistic),
+             critical = ht$critical.value, p.value = ht$p.value,
+             window = sprintf("[%d, %d]", ht$k + 1, ht$m))
+})
+do.call(rbind, res)
+```
+
+Calibration is resolved automatically, in this order:
+
+1. **Closed form** where it exists: the Wilcoxon scan at $\gamma = 0$ is
+   calibrated by Kuiper's law, exactly
+   (`kuiper_quantile(0.95)` = `r round(kuiper_quantile(0.95), 4)`).
+2. **Shipped Monte-Carlo caches** for the published
+   (gamma, kernel, p) cells: `wilcoxon_null_draws()`, `lp_null_draws()`,
+   `rkhs_null_draws()`, `birbilas_null_draws()`.
+3. **Your own draws** for anything else - simulate, then either pass via
+   `epidemic_test(null = )` or store for automatic lookup:
+
+```{r simulate-null, eval = FALSE}
+# store into a throwaway cache dir if you are only experimenting
+options(fdachange.cache_dir = tempfile("fdachange-cache-"))
+draws <- simulate_wilcoxon_null(1000, gamma = 0.1, grid = 2000, cores = 4)
+save_null_draws(draws, "wilcoxon", gamma = 0.1)
+wilcoxon_critical_value(0.1)   # now served from your draws
+```
+
+One caveat worth repeating from the reference pages: the Wilcoxon scan
+and the ecdf-path Lp scan are rank-based, so their nulls apply to any
+continuous data. The RKHS caches are tied to the H0 distribution named
+by their `baseline` tag - for other marginals, simulate with
+`simulate_rkhs_null(rdist = ...)`.
+
+## A small power simulation
+
+A miniature version of the spike experiment: does the projection choice
+matter for detecting a faint spike? (Small `n` and `N_rep` keep this
+chunk fast; the full study is described below.)
+
+```{r mini-power, fig.height = 3.6}
+set.seed(42)
+a_grid <- c(0, 1, 2, 4)
+n_rep  <- 30L
+cv <- wilcoxon_critical_value(0.25)
+power <- sapply(c("l2", "ito"), function(nm) {
+  proj <- projection_fn(nm)
+  sapply(a_grid, function(a) {
+    mean(replicate(n_rep, {
+      X <- generate_f5(100, a = a)
+      wilcoxon_statistic(proj(X), 0.25, kernel = "h_0") > cv
+    }))
+  })
+})
+matplot(a_grid, power, type = "b", pch = 16, lty = 1, lwd = 2,
+        col = proj_col[c("l2", "ito")], bty = "l", ylim = c(0, 1),
+        xlab = "spike amplitude a", ylab = "rejection rate")
+abline(h = 0.05, col = col_plain, lty = 3)
+legend("topleft", legend = c("project_l2", "project_ito"),
+       col = proj_col[c("l2", "ito")], lwd = 2, pch = 16, bty = "n")
+```
+
+The committed full-scale study (`reproduction/data/f5_spike_power.csv`:
+n = 400, N_rep = 100, corrected Wilcoxon and Lp scans over c_max_var /
+l2 / ito) gives the complete picture, and its verdict is nuanced: the
+point-evaluation projection `c_max_var` is the most powerful for *faint*
+spikes (for the Lp scan at a = 0.5 - 1 it reaches 2 - 3 times the power
+of `l2`) and has the best mean power overall for Lp (0.46 vs 0.41 / 0.40),
+but it is not uniformly dominant - at large amplitudes the norm
+projections catch up, and for the Wilcoxon h_0 scan `l2` wins on
+average. Regenerate it with `reproduction/sweeps/run_f5_spike_power.sh`.
+
+## An application-shaped analysis
+
+The dissertation's application scans weekly electricity balancing-price
+curves (168 hourly points per week). Its preprocessing step matters:
+curves are first reconstructed on the level-$K$ Faber-Schauder
+(order-2 B-spline) space. `reconstruct()` exposes that step; here it is
+on the spike function sampled with noise, the vignette-sized version of
+the dissertation's smoothing figure:
+
+```{r reconstruct, fig.height = 3.6}
+set.seed(6)
+t_in <- seq(0, 1, length.out = 168)
+y <- f_alpha(t_in, 0.45) + rnorm(168, 0, 0.05)
+Y <- matrix(y, ncol = 1)
+r2 <- reconstruct(Y, method = "fs_interp", K = 2)
+r4 <- reconstruct(Y, method = "fs_interp", K = 4)
+plot(t_in, y, type = "l", col = col_plain, lwd = 1, bty = "l",
+     xlab = "t", ylab = "curve", main = "Faber-Schauder truncation")
+lines(r2$argvals, r2$X[, 1], col = pal[["orange"]], lwd = 2)
+lines(r4$argvals, r4$X[, 1], col = pal[["blue"]], lwd = 2)
+legend("topright", bty = "n", cex = 0.9, lwd = c(1, 2, 2),
+       col = c(col_plain, pal[["orange"]], pal[["blue"]]),
+       legend = c("sampled curve (168 pts)", "fs_interp, K = 2",
+                  "fs_interp, K = 4"))
+```
+
+The full pipeline on application-shaped synthetic data - weekly-sized
+curves, reconstruct, project, test:
+
+```{r app-pipeline}
+set.seed(7)
+Xw <- generate_f5(150, a = 3, l = 167)        # 168-point grid, like a week
+rec <- reconstruct(Xw, method = "fs_interp", K = 4)
+epidemic_test(project_l2(rec$X), "wilcoxon", gamma = 0.25)
+```
+
+On the real data (345 weeks, fixed data pipeline, outlier week removed;
+raw exports are fetched and checksum-verified by
+`reproduction/applications/litgrid/download_litgrid.R`), the corrected
+scans reject at every considered gamma. A few rows of the committed
+result table (`reproduction/data/litgrid_corrected_tables.csv`):
+
+```{r app-table, echo = FALSE}
+app <- data.frame(
+  method     = c("wilcoxon", "wilcoxon", "lp", "lp", "wilcoxon", "lp"),
+  projection = c("l2", "l2", "l2", "l2", "c_max_var", "c_max_var"),
+  gamma      = c(0.25, 0.45, 0.25, 0.45, 0.45, 0.45),
+  statistic  = c(8.32, 10.98, 2.30, 2.78, 13.11, 3.43),
+  critical   = c(2.538, 3.851, 0.683, 1.082, 3.851, 1.082),
+  window     = c("[0.078, 0.603]", "[0.078, 0.603]", "[0.197, 0.603]",
+                 "[0.316, 0.603]", "[0.003, 0.603]", "[0.603, 1.000]")
+)
+knitr::kable(app, caption = paste(
+  "Corrected application results, fixed pipeline, no outlier (n = 345).",
+  "Every cell rejects at the 5% level."))
+```
+
+The detected windows agree on the segment end near the 60% mark of the
+sample - the energy-crisis period the dissertation's application chapter
+discusses.
+
+## Citing
+
+```{r citation}
+citation("fdachange")
+```
