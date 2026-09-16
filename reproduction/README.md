@@ -59,6 +59,22 @@ N_rep = 100, seed 42); `aggregators/aggregate_f5_spike.R` combines the
 outputs into the committed `data/f5_spike_power.csv` and prints the
 projection comparison.
 
+**Result (2026-09-16 run):** the point-evaluation claim holds in the
+weak-signal regime but not uniformly. For the Lp scan, c_max_var clearly
+leads where the spike is small (long window, a = 0.5-1: power 0.16-0.57
+vs 0.06-0.28 for l2) and has the best mean power over all alternatives
+(0.46 vs 0.41 ito, 0.40 l2). At large amplitudes the norm projection
+catches up (l2 reaches 1.00 where c_max_var sits at 0.84-0.99) and
+c_max_var is visibly non-monotone in a - its single randomly chosen
+variance-critical point becomes unstable when the spike dominates the
+variance function. For the Wilcoxon h_0 scan the ordering reverses on
+average (l2 0.34, c_max_var 0.30, ito 0.24). Empirical size stays near
+the nominal 0.05 in almost all cells (max 0.16 in one lp/ito cell,
+within a few MC standard errors at N_rep = 100). In short: point
+evaluations are the most informative projection for *faint* spike-type
+changes, exactly the regime the thesis argument concerns, but they are
+not uniformly dominant.
+
 ## Verification gates (all green as of 2026-09-12)
 
 1. `Rscript verify_statistics.R` - every corrected statistic equals its

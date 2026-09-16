@@ -20,6 +20,10 @@ set -u
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG="$ROOT/results/f5_spike_power_$(date '+%Y%m%d_%H%M%S').log"
 NCORES=12
+# Keep the machine usable while the sweep runs: workers at lowest CPU
+# priority, and any threaded BLAS capped to one thread per worker.
+NICE="nice -n 19"
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
 mkdir -p "$ROOT/results"
 
 log () { echo "[$(date '+%H:%M:%S')] $*" | tee -a "$LOG"; }
@@ -39,7 +43,7 @@ run_driver () {
   local pre=""
   for kv in "$@"; do pre+="$kv; "; done
   log "RUN $(basename "$out_csv")"
-  Rscript -e "
+  $NICE Rscript -e "
     ${pre}
     EC_EXACT <- TRUE
     NCORES <- ${NCORES}L
