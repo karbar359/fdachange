@@ -120,6 +120,24 @@ The test suite enforces that permanently:
   CSVs with element-wise `identical()` assertions, so critical values are
   bit-identical to the original pipeline.
 
+## Python implementation
+
+A Python twin lives under [`python/`](python/) with a one-to-one API
+(same snake_case names), numpy/scipy internals, and null caches converted
+from the same frozen sources, so critical values are bit-identical. The R
+package is the reference implementation; the two are held equal by a
+cross-language parity suite (statistics on identical inputs at 1e-10,
+critical values at 1e-12, reconstruction outputs against R fixtures).
+
+```sh
+pip install "git+https://github.com/karbar359/fdachange#subdirectory=python"
+```
+
+`skfda.FDataGrid` inputs are accepted everywhere via the optional
+scikit-fda extra (`fdachange[fda]`), which also provides the penalized
+reconstruction arm; see [`python/README.md`](python/README.md) for the
+API table and the ecosystem notes (scikit-fda, ruptures).
+
 ## Citing
 
 If you use this package, please cite the dissertation and the
