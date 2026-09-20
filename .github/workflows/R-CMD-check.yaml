@@ -36,6 +36,14 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      # CRAN's macOS arm64 binary of knitr 1.52 is corrupt (pak: "Cannot
+      # extract ... unknown archive type", 2026-09-20). Preinstalling from
+      # source makes pak skip that download; remove this step once CRAN
+      # republishes the binary.
+      - name: Preinstall knitr from source (corrupt CRAN macOS binary)
+        if: runner.os == 'macOS'
+        run: Rscript -e 'install.packages("knitr", type = "source", repos = "https://cloud.r-project.org")'
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
