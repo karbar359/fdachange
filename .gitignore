@@ -11,3 +11,9 @@ data-raw/litgrid-raw-v1.tar.gz
 inst/doc
 vignettes/*.html
 vignettes/*.R
+python/.venv/
+__pycache__/
+python/dist/
+*.egg-info/
+python/src/fdachange.egg-info/
+.pytest_cache/
