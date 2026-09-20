@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fdachange"
+version = "0.1.0"
+description = "Epidemic change-point tests for functional data (Python twin of the fdachange R package)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Karolis Bartkus" }]
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+[project.optional-dependencies]
+# multimethod 2.x breaks scikit-fda 0.10's operator imports on Python 3.12
+# (metaclass conflict); pin below 2 until skfda catches up.
+fda = ["scikit-fda>=0.9", "multimethod<2"]
+test = ["pytest>=7", "scikit-fda>=0.9", "multimethod<2"]
+
+[project.urls]
+Homepage = "https://github.com/karbar359/fdachange"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fdachange"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
