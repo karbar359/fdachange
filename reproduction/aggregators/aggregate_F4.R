@@ -24,7 +24,7 @@ root <- if (is.null(script_path)) getwd() else dirname(dirname(script_path))
 res_dir <- file.path(root, "results")
 
 files <- list.files(res_dir,
-                    pattern = "^(lp|wilcoxon|rkhs|birbilas)_F4.*\\.csv$",
+                    pattern = "^(lp|wilcoxon|rkhs|far1)_F4.*\\.csv$",
                     full.names = TRUE)
 files <- files[!grepl("_exact|_corrected", files)]   # corrected-statistic re-runs; see compare_exact_vs_legacy.R
 if (!length(files)) stop("No F4 result CSVs in ", res_dir)

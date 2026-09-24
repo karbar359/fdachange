@@ -7,9 +7,9 @@
 #'        {(m - k)^\gamma},}
 #' returned on the test scale \eqn{n^{-1/2+\gamma} E_{n,\beta,\gamma}}.
 #' `beta_t` is the pointwise multiplication operator \eqn{\beta(t)};
-#' Birbilas's canonical choice is `beta_t = birbilas_betas$beta1`
+#' Birbilas's canonical choice is `beta_t = far1_betas$beta1`
 #' (\eqn{0.7\sqrt{t}}) with `gamma = 0.4`. Reject for large values against
-#' the asymptotic null of [birbilas_null_draws()], or against a
+#' the asymptotic null of [far1_null_draws()], or against a
 #' finite-sample null passed to [epidemic_test()] via `null=`.
 #'
 #' Unlike the other three statistics, this one consumes the functional
@@ -19,24 +19,24 @@
 #' @param X numeric matrix, `(grid points) x n`, one curve per column.
 #' @param gamma window-length exponent; Birbilas's default is 0.4.
 #' @param beta_t function of `t` on `[0, 1]`: the operator
-#'   \eqn{\beta(t)}. See [birbilas_betas].
-#' @return `birbilas_statistic()`: scalar statistic (test scale).
-#'   `birbilas_scan()`: a list with `stat`, `k`, `m` (maximising window
+#'   \eqn{\beta(t)}. See [far1_betas].
+#' @return `far1_statistic()`: scalar statistic (test scale).
+#'   `far1_scan()`: a list with `stat`, `k`, `m` (maximising window
 #'   \eqn{I = \{k+1, \dots, m\}} in observation indices) and `interval`
 #'   (`c(k, m) / n`).
 #' @references Birbilas, A. (2025). *Functional Data Analysis in
 #'   Telecommunications*. PhD dissertation, Vilnius University.
 #'   \doi{10.15388/vu.thesis.841}. Bartkus (2026), Chapter 6.
-#' @seealso [epidemic_test()], [birbilas_null_draws()], [generate_f4()]
+#' @seealso [epidemic_test()], [far1_null_draws()], [generate_f4()]
 #' @examples
 #' set.seed(1)
 #' X <- generate_f4(60, a = 2, ec_interval = c(0.25, 0.45), l = 50)
-#' birbilas_statistic(X, gamma = 0.4)
-#' birbilas_scan(X, gamma = 0.4)
+#' far1_statistic(X, gamma = 0.4)
+#' far1_scan(X, gamma = 0.4)
 #' @export
-birbilas_statistic <- function(X, gamma = 0.4,
-                               beta_t = birbilas_betas$beta1) {
-  if (!is.matrix(X)) stop("birbilas_statistic expects a matrix (grid x n)")
+far1_statistic <- function(X, gamma = 0.4,
+                               beta_t = far1_betas$beta1) {
+  if (!is.matrix(X)) stop("far1_statistic expects a matrix (grid x n)")
   L <- nrow(X); n <- ncol(X)
   if (n < 1L) return(0)
   s <- seq(0, 1, length.out = L)
@@ -56,10 +56,10 @@ birbilas_statistic <- function(X, gamma = 0.4,
   E_max * n^(-0.5 + gamma)
 }
 
-#' @rdname birbilas_statistic
+#' @rdname far1_statistic
 #' @export
-birbilas_scan <- function(X, gamma = 0.4, beta_t = birbilas_betas$beta1) {
-  if (!is.matrix(X)) stop("birbilas_scan expects a matrix (grid x n)")
+far1_scan <- function(X, gamma = 0.4, beta_t = far1_betas$beta1) {
+  if (!is.matrix(X)) stop("far1_scan expects a matrix (grid x n)")
   L <- nrow(X); n <- ncol(X)
   if (n < 1L) {
     return(list(stat = 0, k = NA_integer_, m = NA_integer_,
@@ -97,9 +97,9 @@ birbilas_scan <- function(X, gamma = 0.4, beta_t = birbilas_betas$beta1) {
 #'
 #' @format A named list of four functions.
 #' @examples
-#' birbilas_betas$beta1(c(0, 0.5, 1))
+#' far1_betas$beta1(c(0, 0.5, 1))
 #' @export
-birbilas_betas <- list(
+far1_betas <- list(
   beta1 = function(t)  0.7 * sqrt(t),
   beta2 = function(t) -0.7 * sqrt(t),
   beta3 = function(t)  0.7 * sqrt(1 - t),
@@ -113,24 +113,24 @@ birbilas_betas <- list(
 #' Conservative for small `n`; for a finite-sample calibration simulate
 #' the statistic under your H0 and pass the draws to [epidemic_test()]
 #' via `null=`. Extend the asymptotic cache via
-#' [simulate_birbilas_null()] + [save_null_draws()].
+#' [simulate_far1_null()] + [save_null_draws()].
 #'
 #' @param gamma window-length exponent (scalar).
 #' @return numeric vector of null draws.
 #' @examples
-#' quantile(birbilas_null_draws(gamma = 0.4), 0.95)
+#' quantile(far1_null_draws(gamma = 0.4), 0.95)
 #' @export
-birbilas_null_draws <- function(gamma) {
+far1_null_draws <- function(gamma) {
   stopifnot(length(gamma) == 1L)
-  .null_get("birbilas", .null_key("birbilas", gamma = gamma),
-            sprintf("simulate_birbilas_null(n_draws, gamma = %s)", gamma))
+  .null_get("far1", .null_key("far1", gamma = gamma),
+            sprintf("simulate_far1_null(n_draws, gamma = %s)", gamma))
 }
 
-#' @rdname birbilas_null_draws
+#' @rdname far1_null_draws
 #' @param alpha significance level.
 #' @param splits split-aggregation adjustment, see [critical_value()].
-#' @return `birbilas_critical_value()`: scalar critical value.
+#' @return `far1_critical_value()`: scalar critical value.
 #' @export
-birbilas_critical_value <- function(gamma, alpha = 0.05, splits = 1) {
-  critical_value(birbilas_null_draws(gamma), alpha, splits)
+far1_critical_value <- function(gamma, alpha = 0.05, splits = 1) {
+  critical_value(far1_null_draws(gamma), alpha, splits)
 }

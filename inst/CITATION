@@ -47,6 +47,6 @@ bibentry(
 )
 
 citFooter(paste(
-  "birbilas_statistic() implements the statistic of Birbilas, A. (2025),",
+  "far1_statistic() implements the statistic of Birbilas, A. (2025),",
   "Functional Data Analysis in Telecommunications, PhD dissertation,",
   "Vilnius University, doi:10.15388/vu.thesis.841."))
