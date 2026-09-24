@@ -231,12 +231,12 @@ f4_fig <- function(fname) {
            ((dat$test == "wilcoxon" & dat$projection == "l2" & dat$m == 1) |
             (dat$test == "lp"       & dat$projection == "l2") |
             (dat$test == "rkhs"     & dat$projection == "l2") |
-            (dat$test == "birbilas")), ]
+            (dat$test == "far1")), ]
   check_grid(setequal(unique(d$test),
-                      c("wilcoxon", "lp", "rkhs", "birbilas")) &&
+                      c("wilcoxon", "lp", "rkhs", "far1")) &&
              setequal(unique(d$segment), c("long", "short")),
              "F4 cross-method grid incomplete")
-  method_levels <- c("wilcoxon", "lp", "rkhs", "birbilas")
+  method_levels <- c("wilcoxon", "lp", "rkhs", "far1")
   method_labels <- c("Wilcoxon (h_0, m = 1)", "Lp (p = 2)",
                      "RKHS (min)", "Birbilas E (adj. CV)")
   d$m_lab <- factor(d$test, levels = method_levels, labels = method_labels)
