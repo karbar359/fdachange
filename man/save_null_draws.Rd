@@ -6,7 +6,7 @@
 \usage{
 save_null_draws(
   draws,
-  method = c("wilcoxon", "lp", "rkhs", "birbilas"),
+  method = c("wilcoxon", "lp", "rkhs", "far1"),
   gamma,
   beta = 0,
   p = 2,
@@ -17,7 +17,7 @@ save_null_draws(
 \arguments{
 \item{draws}{numeric vector of null draws.}
 
-\item{method}{one of \code{"wilcoxon"}, \code{"lp"}, \code{"rkhs"}, \code{"birbilas"}.}
+\item{method}{one of \code{"wilcoxon"}, \code{"lp"}, \code{"rkhs"}, \code{"far1"}.}
 
 \item{gamma}{weight exponent of the cell.}
 

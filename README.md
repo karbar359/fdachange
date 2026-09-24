@@ -16,9 +16,9 @@ ready-made critical values, p-values, and change-window localisation:
 | Wilcoxon-type antisymmetric-kernel scan | `wilcoxon_statistic()` | location (`h_w`) or scale/tail (`h_0`) changes | Bartkus and Rackauskas (2025), thesis ch. 3 |
 | Lp empirical-process scan | `lp_statistic()` | general distributional change | Bartkus and Rackauskas (2026), thesis ch. 4 |
 | RKHS kernel mean-embedding scan | `rkhs_statistic()` | general distributional change | Bartkus and Rackauskas (2026), thesis ch. 5 |
-| Birbilas CUSUM-type functional statistic | `birbilas_statistic()` | functional mean jumps under FAR(1) dependence | Birbilas (2025), thesis ch. 6 |
+| Birbilas CUSUM-type functional statistic | `far1_statistic()` | functional mean jumps under FAR(1) dependence | Birbilas (2025), thesis ch. 6 |
 
-Functional observations enter either directly (`birbilas_statistic`) or
+Functional observations enter either directly (`far1_statistic`) or
 through a functional-to-scalar projection (`project_l2()`, `project_ito()`,
 `project_c_max_var()`, ...), optionally preceded by curve reconstruction
 (`reconstruct()`). The dissertation's benchmark scenarios ship as
@@ -67,7 +67,7 @@ epidemic_test(project_l2(X), method = "lp", gamma = 0.25)
 
 ## functional data without projection (Birbilas's statistic)
 Xf <- generate_f4(100, a = 2)         # FAR(1) functional time series
-epidemic_test(Xf, method = "birbilas", gamma = 0.4)
+epidemic_test(Xf, method = "far1", gamma = 0.4)
 ```
 
 ## Critical values and null distributions
@@ -81,10 +81,10 @@ resolves it automatically, in this order:
 2. **Shipped Monte-Carlo caches** (`inst/extdata`, about 2 MB): the
    dissertation's null draws for all published (gamma, kernel, p) cells;
    accessed via `wilcoxon_null_draws()`, `lp_null_draws()`,
-   `rkhs_null_draws()`, `birbilas_null_draws()`.
+   `rkhs_null_draws()`, `far1_null_draws()`.
 3. **Your own draws**: for uncached cells, run the matching simulator
    (`simulate_wilcoxon_null()`, `simulate_lp_null()`,
-   `simulate_rkhs_null()`, `simulate_birbilas_null()`) and either store
+   `simulate_rkhs_null()`, `simulate_far1_null()`) and either store
    the result with `save_null_draws()` (picked up automatically from then
    on) or pass it directly as `epidemic_test(..., null = draws)`.
 
@@ -136,7 +136,7 @@ corresponding article:
   scans.)
 - Birbilas, A. (2025). *Functional Data Analysis in Telecommunications*.
   PhD dissertation, Vilnius University. doi:10.15388/vu.thesis.841.
-  (For `birbilas_statistic()`.)
+  (For `far1_statistic()`.)
 
 See `citation("fdachange")`.
 

@@ -16,7 +16,7 @@
     lp       = sprintf("g%s_p%s", .fmt_num(gamma), .fmt_num(p)),
     rkhs     = sprintf("g%s_%s%s", .fmt_num(gamma), .kernel_name(kernel),
                        if (nzchar(baseline)) paste0("_", baseline) else ""),
-    birbilas = sprintf("g%s", .fmt_num(gamma)),
+    far1 = sprintf("g%s", .fmt_num(gamma)),
     stop("unknown method: ", method))
 }
 
@@ -78,7 +78,7 @@ null_cache_dir <- function() {
 #' overwritten; shipped package caches are never modified.
 #'
 #' @param draws numeric vector of null draws.
-#' @param method one of `"wilcoxon"`, `"lp"`, `"rkhs"`, `"birbilas"`.
+#' @param method one of `"wilcoxon"`, `"lp"`, `"rkhs"`, `"far1"`.
 #' @param gamma weight exponent of the cell.
 #' @param beta Wilcoxon only: logarithmic weight exponent.
 #' @param p Lp only: the Lp exponent.
@@ -97,7 +97,7 @@ null_cache_dir <- function() {
 #' }
 #' @export
 save_null_draws <- function(draws, method = c("wilcoxon", "lp", "rkhs",
-                                              "birbilas"),
+                                              "far1"),
                             gamma, beta = 0, p = 2, kernel = "gaussian",
                             baseline = "") {
   method <- match.arg(method)

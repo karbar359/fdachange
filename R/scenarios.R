@@ -153,13 +153,13 @@ generate_s5 <- function(n, a = 0, ec_interval = c(0.4, 0.7),
 #' @param l grid resolution: curves are sampled at `l + 1` equispaced
 #'   points on `[0, 1]`.
 #' @param beta_t F4 only: the FAR(1) operator \eqn{\beta(t)}, see
-#'   [birbilas_betas].
+#'   [far1_betas].
 #' @param spike_alpha F5 only: the Hoelder exponent \eqn{\alpha} of the
 #'   spike function \eqn{f_\alpha}; the dissertation uses
 #'   \eqn{\alpha \in (0, 1/2)}, smaller values giving a sharper cusp.
 #' @return numeric matrix, `(l + 1) x n`.
 #' @seealso [project_l2()] and friends to reduce curves to scalars,
-#'   [birbilas_statistic()] which consumes the matrix directly.
+#'   [far1_statistic()] which consumes the matrix directly.
 #' @examples
 #' set.seed(1)
 #' X <- generate_f1(80, a = 3)
@@ -251,7 +251,7 @@ generate_f3 <- function(n, a = 0, ec_interval = c(0.4, 0.7), l = 100,
 #' @rdname generate_f1
 #' @export
 generate_f4 <- function(n, a = 0, ec_interval = c(0.25, 0.45), l = 100,
-                        beta_t = birbilas_betas$beta1) {
+                        beta_t = far1_betas$beta1) {
   s <- seq(0, 1, length.out = l + 1L)
   beta_grid <- beta_t(s)
   delta_t <- 1 / l

@@ -91,8 +91,8 @@ test_that("rkhs_statistic equals the printed formula, brute-forced", {
                rkhs_statistic(x, 0.25), tolerance = TOL)
 })
 
-test_that("birbilas_statistic equals the printed formula, brute-forced", {
-  brute_birbilas <- function(X, gamma, beta_t = birbilas_betas$beta1) {
+test_that("far1_statistic equals the printed formula, brute-forced", {
+  brute_far1 <- function(X, gamma, beta_t = far1_betas$beta1) {
     L <- nrow(X); n <- ncol(X)
     s <- seq(0, 1, length.out = L)
     W <- (1 - beta_t(s)) * (X - rowMeans(X))
@@ -106,9 +106,9 @@ test_that("birbilas_statistic equals the printed formula, brute-forced", {
   }
   set.seed(SEED); Xf <- generate_f4(40, 0, c(0.4, 0.6))
   for (g in c(0.25, 0.4)) {
-    expect_equal(birbilas_statistic(Xf, g), brute_birbilas(Xf, g),
+    expect_equal(far1_statistic(Xf, g), brute_far1(Xf, g),
                  tolerance = TOL)
   }
-  expect_equal(birbilas_scan(Xf, 0.4)$stat, birbilas_statistic(Xf, 0.4),
+  expect_equal(far1_scan(Xf, 0.4)$stat, far1_statistic(Xf, 0.4),
                tolerance = TOL)
 })
