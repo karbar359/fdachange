@@ -30,7 +30,7 @@
   }
 }
 
-.def("METHOD",     "far1")              # rkhs | lp | wilcoxon | far1
+.def("METHOD",     "birbilas")              # rkhs | lp | wilcoxon | birbilas
 .def("SCENARIO",   "F4")                    # S1..S5 | F1..F4
 .def("N",          200L)
 
@@ -91,22 +91,22 @@
 # statistic (RKHS, Birbilas finite), the regenerated cache.
 .def("LP_VARIANT",       "legacy")          # legacy | corrected
 .def("RKHS_VARIANT",     "legacy")          # legacy | corrected
-.def("FAR1_VARIANT", "legacy")          # legacy | corrected
+.def("BIRBILAS_VARIANT", "legacy")          # legacy | corrected
 # TRUE makes the scenario change window exactly l points, as the thesis
 # defines I* = {k*+1..k*+l}; the legacy window carries l + 1 points.
 .def("EC_EXACT", FALSE)
 
 # Birbilas-only:
-# beta1..beta4 (fdachange::far1_betas). Selects the FAR(1) coefficient
+# beta1..beta4 (fdachange::birbilas_betas). Selects the FAR(1) coefficient
 # operator used both in (I - beta) and in F4's data generator. beta1(t) =
 # 0.7 sqrt(t) is canonical for power sims.
-.def("FAR1_BETA_ID", "beta1")
+.def("BIRBILAS_BETA_ID", "beta1")
 # "adjusted" -- finite-sample empirical (1 - alpha) quantile of
 # n^{-1/2+gamma} E_{n,beta,gamma} under H_0. Loads
 # E_n_beta_gamma_finite[_corrected].csv. Matches dissertation Algorithm
 # alg:zero / eq:adjusted_fit3 for n in [100, 1000].
 # "asymptotic" -- cached E_{q,gamma}. Conservative for n < 1000.
-.def("FAR1_CV", "adjusted")
+.def("BIRBILAS_CV", "adjusted")
 
 # Functional-only (ignored when the scenario emits a numeric vector):
 .def("PROJECTION", "none")                  # none | c_max_var | ito | l2 | wiener | pc1 | pc_d
@@ -133,16 +133,16 @@ legacy <- legacy_env(root)
 
 # Birbilas's E_{n,beta,gamma} consumes the full (l + 1) x n matrix; smoke /
 # driver bypass the per-row scalar path via make_run(matrix_in = TRUE).
-MATRIX_IN <- METHOD == "far1"
+MATRIX_IN <- METHOD == "birbilas"
 if (MATRIX_IN && PROJECTION != "none") {
-  stop("far1 statistic ignores PROJECTION; set PROJECTION = 'none'.")
+  stop("birbilas statistic ignores PROJECTION; set PROJECTION = 'none'.")
 }
-if (METHOD == "far1") {
-  FAR1_BETA_T <- far1_beta_registry[[FAR1_BETA_ID]]
-  if (is.null(FAR1_BETA_T)) {
-    stop(sprintf("Unknown FAR1_BETA_ID '%s'; available: %s",
-                 FAR1_BETA_ID,
-                 paste(names(far1_beta_registry), collapse = ", ")))
+if (METHOD == "birbilas") {
+  BIRBILAS_BETA_T <- birbilas_beta_registry[[BIRBILAS_BETA_ID]]
+  if (is.null(BIRBILAS_BETA_T)) {
+    stop(sprintf("Unknown BIRBILAS_BETA_ID '%s'; available: %s",
+                 BIRBILAS_BETA_ID,
+                 paste(names(birbilas_beta_registry), collapse = ", ")))
   }
 }
 
@@ -150,7 +150,7 @@ if (METHOD == "wilcoxon" && !WILCOXON_SCAN %in% c("legacy", "exact", "corrected"
   stop("WILCOXON_SCAN must be 'legacy', 'exact' or 'corrected', got '",
        WILCOXON_SCAN, "'")
 }
-for (.v in c("LP_VARIANT", "RKHS_VARIANT", "FAR1_VARIANT")) {
+for (.v in c("LP_VARIANT", "RKHS_VARIANT", "BIRBILAS_VARIANT")) {
   if (!get(.v) %in% c("legacy", "corrected")) {
     stop(.v, " must be 'legacy' or 'corrected', got '", get(.v), "'")
   }
@@ -166,8 +166,8 @@ statistic <- switch(METHOD,
              else legacy$lp_statistic,
   rkhs     = if (RKHS_VARIANT     == "corrected") fdachange::rkhs_statistic
              else legacy$rkhs_statistic,
-  far1 = if (FAR1_VARIANT == "corrected") fdachange::far1_statistic
-             else legacy$far1_statistic)
+  birbilas = if (BIRBILAS_VARIANT == "corrected") fdachange::birbilas_statistic
+             else legacy$birbilas_statistic)
 null_dist_fn <- get(paste0(METHOD, "_null_distribution"), envir = legacy)
 generate     <- get(paste0("generate_", SCENARIO))
 project      <- if (PROJECTION == "pc_d") {
@@ -184,7 +184,7 @@ stat_args <- switch(METHOD,
   rkhs     = list(kernel = kernel_fn(KERNEL)),
   lp       = list(p = P, cdf = get(paste0("cdf_", SCENARIO))),
   wilcoxon = list(beta = BETA, kernel = WILCOXON_KERNEL),
-  far1 = list(beta_t = FAR1_BETA_T))
+  birbilas = list(beta_t = BIRBILAS_BETA_T))
 
 null_args <- switch(METHOD,
   rkhs     = if (SCENARIO == "F4") {
@@ -200,7 +200,7 @@ null_args <- switch(METHOD,
   # cell for the closed-form Kuiper law; gamma > 0 columns stay cached.
   wilcoxon = list(beta = BETA,
                   exact_gamma0 = (WILCOXON_SCAN == "corrected")),
-  far1 = list())
+  birbilas = list())
 
 out_tag <- switch(METHOD,
   rkhs     = paste(KERNEL, if (nzchar(BASELINE)) BASELINE else "rnorm", sep = "_"),
@@ -208,12 +208,12 @@ out_tag <- switch(METHOD,
   wilcoxon = sprintf("%s_beta%s%s", WILCOXON_KERNEL, BETA,
                      switch(WILCOXON_SCAN, exact = "_exact",
                             corrected = "_corrected", "")),
-  far1 = sprintf("%s_cv_%s", FAR1_BETA_ID, FAR1_CV))
+  birbilas = sprintf("%s_cv_%s", BIRBILAS_BETA_ID, BIRBILAS_CV))
 # Corrected-variant runs must never share a CSV (or an aggregator glob match)
 # with the legacy family.
 if ((METHOD == "lp"       && LP_VARIANT       == "corrected") ||
     (METHOD == "rkhs"     && RKHS_VARIANT     == "corrected") ||
-    (METHOD == "far1" && FAR1_VARIANT == "corrected")) {
+    (METHOD == "birbilas" && BIRBILAS_VARIANT == "corrected")) {
   out_tag <- paste0(out_tag, "_corrected")
 }
 # Append the projection so a sweep over (method, projection) writes to
@@ -245,11 +245,11 @@ for (i in seq_along(ec_intervals)) {
 # Pre-load null + critical value + run-on-chunk closure per gamma. mclapply
 # children inherit these via fork.
 gamma_setup <- lapply(GAMMA_GRID, function(g) {
-  if (METHOD == "far1" && FAR1_CV == "adjusted") {
-    null <- legacy$load_far1_finite_null(N, g, FAR1_BETA_ID,
-                                             variant = FAR1_VARIANT)
-    src  <- sprintf("finite[n=%d,beta=%s,%s]", N, FAR1_BETA_ID,
-                    FAR1_VARIANT)
+  if (METHOD == "birbilas" && BIRBILAS_CV == "adjusted") {
+    null <- legacy$load_birbilas_finite_null(N, g, BIRBILAS_BETA_ID,
+                                             variant = BIRBILAS_VARIANT)
+    src  <- sprintf("finite[n=%d,beta=%s,%s]", N, BIRBILAS_BETA_ID,
+                    BIRBILAS_VARIANT)
   } else {
     null <- do.call(null_dist_fn, c(list(N %/% M, g), null_args))
     src  <- "asymptotic"

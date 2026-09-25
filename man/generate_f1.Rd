@@ -19,7 +19,7 @@ generate_f4(
   a = 0,
   ec_interval = c(0.25, 0.45),
   l = 100,
-  beta_t = far1_betas$beta1
+  beta_t = birbilas_betas$beta1
 )
 
 generate_f5(
@@ -48,7 +48,7 @@ dissertation's \eqn{I^* = \{k^*+1, \dots, k^*+l\}} with exactly
 included both endpoints (\code{l + 1} observations).}
 
 \item{beta_t}{F4 only: the FAR(1) operator \eqn{\beta(t)}, see
-\link{far1_betas}.}
+\link{birbilas_betas}.}
 
 \item{spike_alpha}{F5 only: the Hoelder exponent \eqn{\alpha} of the
 spike function \eqn{f_\alpha}; the dissertation uses
@@ -106,5 +106,5 @@ epidemic_test(project_l2(X), "rkhs", gamma = 0.25)
 }
 \seealso{
 \code{\link[=project_l2]{project_l2()}} and friends to reduce curves to scalars,
-\code{\link[=far1_statistic]{far1_statistic()}} which consumes the matrix directly.
+\code{\link[=birbilas_statistic]{birbilas_statistic()}} which consumes the matrix directly.
 }

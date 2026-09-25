@@ -15,7 +15,7 @@
 # 20 cores, one cache per gamma cell).
 #
 # Usage:
-#   Rscript reproduction/generators/far1_null.R
+#   Rscript reproduction/generators/birbilas_null.R
 
 # ---- Inputs (edit these) --------------------------------------------------
 N        <- 200L                     # grid resolution; 1200 in the real cache

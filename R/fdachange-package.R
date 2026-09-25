@@ -12,7 +12,7 @@
 #'   empirical process.
 #' * [rkhs_statistic()] / [rkhs_scan()]: kernel mean-embedding (RKHS)
 #'   scan.
-#' * [far1_statistic()] / [far1_scan()]: the CUSUM-type
+#' * [birbilas_statistic()] / [birbilas_scan()]: the CUSUM-type
 #'   functional statistic of Birbilas (2025).
 #'
 #' [epidemic_test()] wraps any of the four into a standard `htest`-style

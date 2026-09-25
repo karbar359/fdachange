@@ -1,7 +1,7 @@
 # Compatibility layer between the original pipeline's conventions and the
 # fdachange package. The original scripts expect `generate_<SCENARIO>` /
 # `cdf_<SCENARIO>` symbols, an `EC_EXACT` global selecting the change-window
-# convention, `kernel_fn(name)`, `far1_beta_registry`, and
+# convention, `kernel_fn(name)`, `birbilas_beta_registry`, and
 # `fmt_duration`. This file provides them on top of the package so the
 # ported entry points keep their original bodies.
 #
@@ -36,7 +36,7 @@ generate_F3 <- function(n, a = 0, ec.interval = c(0.4, 0.7), l = 100) {
   fdachange::generate_f3(n, a, ec.interval, l, exact_window = .ec_exact())
 }
 generate_F4 <- function(n, a = 0, ec.interval = c(0.25, 0.45), l = 100,
-                        beta_t = fdachange::far1_betas$beta1) {
+                        beta_t = fdachange::birbilas_betas$beta1) {
   fdachange::generate_f4(n, a, ec.interval, l, beta_t)
 }
 generate_F5 <- function(n, a = 0, ec.interval = c(0.4, 0.7), l = 100,
@@ -65,7 +65,7 @@ kernel_fn <- function(name) {
     stop("unknown kernel: ", name))
 }
 
-far1_beta_registry <- fdachange::far1_betas
+birbilas_beta_registry <- fdachange::birbilas_betas
 
 fmt_duration <- function(s) {
   if (!is.finite(s) || s < 0) return("--")

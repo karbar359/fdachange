@@ -8,7 +8,7 @@ test_that("simulators return the requested number of draws", {
   d <- simulate_rkhs_null(3, gamma = 0.25, kernel = "gaussian", n = 80,
                           progress = FALSE)
   expect_length(d, 3)
-  d <- simulate_far1_null(3, gamma = 0.4, grid = 40, progress = FALSE)
+  d <- simulate_birbilas_null(3, gamma = 0.4, grid = 40, progress = FALSE)
   expect_length(d, 3)
 })
 

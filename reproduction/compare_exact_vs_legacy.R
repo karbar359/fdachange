@@ -56,7 +56,7 @@ read_cell <- function(path) {
   d
 }
 
-prefix <- if (FAMILY == "exact") "^wilcoxon_" else "^(wilcoxon|lp|rkhs|far1)_"
+prefix <- if (FAMILY == "exact") "^wilcoxon_" else "^(wilcoxon|lp|rkhs|birbilas)_"
 all_files <- list.files(res_dir, pattern = paste0(prefix, ".*\\.csv$"),
                         full.names = TRUE)
 all_files <- all_files[!grepl("preswap_backup", all_files)]

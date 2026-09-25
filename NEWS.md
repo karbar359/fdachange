@@ -1,16 +1,3 @@
-# fdachange (development version)
-
-- Breaking: the functional FAR(1)-type statistic's API is renamed from the
-  author name to `far1`: `birbilas_statistic()` -> `far1_statistic()`,
-  `birbilas_scan()` -> `far1_scan()`, `birbilas_betas` -> `far1_betas`,
-  `birbilas_null_draws()` -> `far1_null_draws()`,
-  `birbilas_critical_value()` -> `far1_critical_value()`,
-  `simulate_birbilas_null()` -> `simulate_far1_null()`, and the method
-  string `"birbilas"` -> `"far1"` in `epidemic_test()` and
-  `save_null_draws()`. The shipped null cache is now
-  `inst/extdata/far1_null.rds`; a user cache saved as `birbilas_null.rds`
-  in `null_cache_dir()` must be renamed to `far1_null.rds`.
-
 # fdachange 0.1.2
 
 - New vignette "Detecting epidemic changes in functional data"

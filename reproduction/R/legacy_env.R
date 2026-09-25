@@ -14,7 +14,7 @@
   files <- c("integral_image.R", "weights.R", "kernels.R", "null_cache.R",
              "progress.R", "splits.R",
              "method_wilcoxon.R", "method_lp.R", "method_rkhs.R",
-             "method_far1.R")
+             "method_birbilas.R")
   if (projections) files <- c(files, "projections.R", "reconstruction.R")
   files
 }

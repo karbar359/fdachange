@@ -48,7 +48,7 @@ tests for this alternative:
 | Wilcoxon-type antisymmetric-kernel scan | `wilcoxon_statistic()` | location (`h_w`) or scale/tail (`h_0`) changes |
 | Lp empirical-process scan | `lp_statistic()` | general distributional change |
 | RKHS kernel mean-embedding scan | `rkhs_statistic()` | general distributional change |
-| Birbilas CUSUM-type functional statistic | `far1_statistic()` | functional mean jumps under FAR(1) dependence |
+| Birbilas CUSUM-type functional statistic | `birbilas_statistic()` | functional mean jumps under FAR(1) dependence |
 
 Each scan weights a window of relative length $t$ by the Hoelder-type
 weight $w(t) = t^{-\gamma} \log(c/t)^{-\beta}$: larger $\gamma$
@@ -220,7 +220,7 @@ Calibration is resolved automatically, in this order:
    (`kuiper_quantile(0.95)` = `r round(kuiper_quantile(0.95), 4)`).
 2. **Shipped Monte-Carlo caches** for the published
    (gamma, kernel, p) cells: `wilcoxon_null_draws()`, `lp_null_draws()`,
-   `rkhs_null_draws()`, `far1_null_draws()`.
+   `rkhs_null_draws()`, `birbilas_null_draws()`.
 3. **Your own draws** for anything else - simulate, then either pass via
    `epidemic_test(null = )` or store for automatic lookup:
 

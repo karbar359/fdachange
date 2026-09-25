@@ -149,10 +149,10 @@ for proj in ito l2 c_max_var; do
 done
 
 log "=== F4 Birbilas corrected (1 cell) ==="
-run_driver "$ROOT/results/far1_F4_n400_beta1_cv_adjusted_corrected.csv" \
-  "METHOD <- 'far1'" "SCENARIO <- 'F4'" \
-  "PROJECTION <- 'none'" "FAR1_BETA_ID <- 'beta1'" \
-  "FAR1_CV <- 'adjusted'" "FAR1_VARIANT <- 'corrected'" \
+run_driver "$ROOT/results/birbilas_F4_n400_beta1_cv_adjusted_corrected.csv" \
+  "METHOD <- 'birbilas'" "SCENARIO <- 'F4'" \
+  "PROJECTION <- 'none'" "BIRBILAS_BETA_ID <- 'beta1'" \
+  "BIRBILAS_CV <- 'adjusted'" "BIRBILAS_VARIANT <- 'corrected'" \
   "N <- 400L"
 
 # ---------------------------------------------------------------------------

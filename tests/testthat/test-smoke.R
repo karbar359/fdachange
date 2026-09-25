@@ -32,10 +32,10 @@ test_that("lp on S1 (parametric CDF): level holds, strong shift detected", {
                          cdf = scenario_cdf("S1")), 0.9)
 })
 
-test_that("far1 on F4: level holds, strong jump detected", {
+test_that("birbilas on F4: level holds, strong jump detected", {
   set.seed(105)
   gen <- function(n, a) generate_f4(n, a = a, l = 50)
-  expect_lte(reject_rate(gen, "far1", 0.4, a = 0), 0.2)
+  expect_lte(reject_rate(gen, "birbilas", 0.4, a = 0), 0.2)
   set.seed(106)
-  expect_gte(reject_rate(gen, "far1", 0.4, a = 2.5), 0.9)
+  expect_gte(reject_rate(gen, "birbilas", 0.4, a = 2.5), 0.9)
 })

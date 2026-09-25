@@ -68,13 +68,13 @@ for (n in c(40L, 60L)) {
   set.seed(SEED + n); Xf <- old$generate_F4(n, 0, c(0.4, 0.6))
   for (g in c(0.25, 0.4)) {
     for (b in c("beta1", "beta3")) {
-      put(sprintf("far1|n=%d|g=%s|b=%s|a=0", n, g, b),
+      put(sprintf("birbilas|n=%d|g=%s|b=%s|a=0", n, g, b),
           old$birbilas_statistic_corrected(Xf, g,
             beta_t = old$birbilas_beta_registry[[b]]))
     }
   }
   set.seed(SEED + n); Xf2 <- old$generate_F4(n, 2, c(0.25, 0.45))
-  put(sprintf("far1|n=%d|g=0.4|b=beta1|a=2", n),
+  put(sprintf("birbilas|n=%d|g=0.4|b=beta1|a=2", n),
       old$birbilas_statistic_corrected(Xf2, 0.4))
 }
 
@@ -122,7 +122,7 @@ for (g in GAMMAS) for (cell in rk_cells) {
 }
 for (g in c(0, 0.25, 0.4, 0.45)) {
   for (al in c(0.05, 0.01)) for (m in c(1L, 2L)) {
-    put(sprintf("cv|far1|g=%s|a=%s|s=%d", g, al, m),
+    put(sprintf("cv|birbilas|g=%s|a=%s|s=%d", g, al, m),
         old$critical_value(old$load_birbilas_null(g), al, m))
   }
 }
