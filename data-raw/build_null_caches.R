@@ -60,15 +60,15 @@ saveRDS(rkhs, file.path(out, "rkhs_null.rds"), compress = "xz")
 
 ## ---- Birbilas: E_q_gamma.csv (long: x, gamma) -----------------------------
 bbdf <- read.csv(file.path(src, "E_q_gamma.csv"))
-birbilas <- list()
+far1 <- list()
 for (g in unique(bbdf$gamma)) {
   key <- sprintf("g%s", fmt(g))
-  birbilas[[key]] <- bbdf$x[bbdf$gamma == g]
-  stopifnot(identical(birbilas[[key]], bbdf$x[bbdf$gamma == g]))
+  far1[[key]] <- bbdf$x[bbdf$gamma == g]
+  stopifnot(identical(far1[[key]], bbdf$x[bbdf$gamma == g]))
 }
-cat(sprintf("birbilas: %d cells (%s)\n", length(birbilas),
-            paste(names(birbilas), collapse = ", ")))
-saveRDS(birbilas, file.path(out, "birbilas_null.rds"), compress = "xz")
+cat(sprintf("far1: %d cells (%s)\n", length(far1),
+            paste(names(far1), collapse = ", ")))
+saveRDS(far1, file.path(out, "far1_null.rds"), compress = "xz")
 
 cat("\nextdata sizes:\n")
 for (f in list.files(out, full.names = TRUE)) {

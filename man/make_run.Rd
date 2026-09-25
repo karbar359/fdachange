@@ -32,7 +32,7 @@ returning one scalar series per row) the statistic runs on each row and
 the maximum is taken; adjust the critical value by the multiplicity
 (see \code{\link[=projection_multiplicity]{projection_multiplicity()}}). \code{matrix_in = TRUE} forwards the
 projection output to \code{stat_fn} wholesale, for statistics that consume
-the full functional sample (e.g. \code{\link[=birbilas_statistic]{birbilas_statistic()}}).
+the full functional sample (e.g. \code{\link[=far1_statistic]{far1_statistic()}}).
 }
 \examples{
 run <- make_run(project_l2, rkhs_statistic, gamma = 0.25,
