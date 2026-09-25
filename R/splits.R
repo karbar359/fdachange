@@ -51,7 +51,7 @@ scan_over_splits <- function(X, m, run) {
 #' the maximum is taken; adjust the critical value by the multiplicity
 #' (see [projection_multiplicity()]). `matrix_in = TRUE` forwards the
 #' projection output to `stat_fn` wholesale, for statistics that consume
-#' the full functional sample (e.g. [far1_statistic()]).
+#' the full functional sample (e.g. [birbilas_statistic()]).
 #'
 #' @param project projection function, e.g. [project_ito()]; use
 #'   `identity` for scalar data.

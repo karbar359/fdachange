@@ -21,7 +21,7 @@ test families are provided, each with its own null calibration:
 empirical process.
 \item \code{\link[=rkhs_statistic]{rkhs_statistic()}} / \code{\link[=rkhs_scan]{rkhs_scan()}}: kernel mean-embedding (RKHS)
 scan.
-\item \code{\link[=far1_statistic]{far1_statistic()}} / \code{\link[=far1_scan]{far1_scan()}}: the CUSUM-type
+\item \code{\link[=birbilas_statistic]{birbilas_statistic()}} / \code{\link[=birbilas_scan]{birbilas_scan()}}: the CUSUM-type
 functional statistic of Birbilas (2025).
 }
 

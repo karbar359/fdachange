@@ -49,7 +49,7 @@ test_that("make_run and scan_over_splits compose projections and statistics", {
                max(rkhs_statistic(project_l2(X), 0.25),
                    rkhs_statistic(2 * project_l2(X), 0.25)))
   # matrix_in forwards the whole matrix
-  run_b <- make_run(identity, far1_statistic, gamma = 0.4,
+  run_b <- make_run(identity, birbilas_statistic, gamma = 0.4,
                     matrix_in = TRUE)
-  expect_equal(run_b(X), far1_statistic(X, 0.4))
+  expect_equal(run_b(X), birbilas_statistic(X, 0.4))
 })

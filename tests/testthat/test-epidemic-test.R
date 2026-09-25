@@ -57,11 +57,11 @@ test_that("splits > 1 aggregates chunk maxima and adjusts the calibration", {
   expect_equal(ht2$p.value, 1 - mean(d <= max(s1, s2))^2)
 })
 
-test_that("far1 method consumes the functional matrix directly", {
+test_that("birbilas method consumes the functional matrix directly", {
   set.seed(7)
   X <- generate_f4(60, a = 2, l = 50)
-  ht <- epidemic_test(X, "far1", gamma = 0.4)
-  expect_equal(unname(ht$statistic), far1_statistic(X, 0.4))
+  ht <- epidemic_test(X, "birbilas", gamma = 0.4)
+  expect_equal(unname(ht$statistic), birbilas_statistic(X, 0.4))
   expect_true(ht$k >= 0 && ht$m <= 60)
 })
 

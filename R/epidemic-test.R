@@ -8,7 +8,7 @@
 #' law for the Wilcoxon scan at `gamma = 0, beta = 0`, otherwise the
 #' shipped Monte-Carlo cache for the method
 #' ([wilcoxon_null_draws()], [lp_null_draws()], [rkhs_null_draws()],
-#' [far1_null_draws()]). Pass your own draws via `null=` to use a
+#' [birbilas_null_draws()]). Pass your own draws via `null=` to use a
 #' scenario-specific or finite-sample calibration instead (required when
 #' `kernel` is a custom function, or for RKHS baselines that are not
 #' cached).
@@ -27,14 +27,14 @@
 #'
 #' @param x numeric vector for `"wilcoxon"`, `"lp"`, `"rkhs"` (project
 #'   functional data first, see [project_l2()]); numeric matrix
-#'   `(grid x n)` for `"far1"`.
+#'   `(grid x n)` for `"birbilas"`.
 #' @param method which scan statistic to use.
 #' @param gamma Hoelder / window-length weight exponent (scalar).
 #' @param beta logarithmic weight exponent (Wilcoxon, RKHS).
 #' @param kernel Wilcoxon: `"h_w"` or `"h_0"`; RKHS: kernel name or
 #'   function. Default: `"h_w"` for Wilcoxon, `"gaussian"` for RKHS.
 #' @param p,cdf,t_grid Lp scan parameters, see [lp_statistic()].
-#' @param beta_t Birbilas beta operator, see [far1_statistic()].
+#' @param beta_t Birbilas beta operator, see [birbilas_statistic()].
 #' @param baseline RKHS null baseline tag, see [rkhs_null_draws()].
 #' @param alpha significance level for the reported critical value.
 #' @param splits number of sample splits (default 1).
@@ -59,9 +59,9 @@
 #' epidemic_test(project_l2(X), "lp", gamma = 0.25)
 #' @export
 epidemic_test <- function(x,
-                          method = c("wilcoxon", "lp", "rkhs", "far1"),
+                          method = c("wilcoxon", "lp", "rkhs", "birbilas"),
                           gamma, beta = 0, kernel = NULL, p = 2, cdf = NULL,
-                          t_grid = 100, beta_t = far1_betas$beta1,
+                          t_grid = 100, beta_t = birbilas_betas$beta1,
                           baseline = "", alpha = 0.05, splits = 1L,
                           null = NULL) {
   method <- match.arg(method)
@@ -78,7 +78,7 @@ epidemic_test <- function(x,
     rkhs     = function(z) rkhs_scan(z, gamma,
                                      kernel = if (is.null(kernel)) "gaussian"
                                               else kernel, beta = beta),
-    far1 = function(z) far1_scan(z, gamma, beta_t = beta_t))
+    birbilas = function(z) birbilas_scan(z, gamma, beta_t = beta_t))
 
   if (splits == 1L) {
     sc <- scan_fn(x)
@@ -110,7 +110,7 @@ epidemic_test <- function(x,
           rkhs_null_draws(gamma, if (is.null(kernel)) "gaussian" else kernel,
                           baseline)
         },
-        far1 = far1_null_draws(gamma))
+        birbilas = birbilas_null_draws(gamma))
     }
     p.value <- 1 - mean(draws <= stat)^splits
     cv <- critical_value(draws, alpha, splits)
@@ -121,7 +121,7 @@ epidemic_test <- function(x,
     wilcoxon = "Epidemic change scan test (Wilcoxon-type antisymmetric kernel)",
     lp       = sprintf("Epidemic change scan test (L%s empirical process)", p),
     rkhs     = "Epidemic change scan test (RKHS kernel mean embedding)",
-    far1 = "Epidemic change test for FAR(1) (Birbilas E_{n,beta,gamma})")
+    birbilas = "Epidemic change test (Birbilas E_{n,beta,gamma})")
 
   parameter <- c(gamma = gamma)
   if (beta != 0) parameter <- c(parameter, beta = beta)

@@ -2,7 +2,7 @@
 # Finite-sample (adjusted) null for Birbilas's E_{n,beta,gamma}. Sweeps
 # (n, gamma, beta_id), simulates K H_0 replicates of n^{-1/2+gamma}
 # E_{n,beta,gamma} per cell on FAR(1) data with no jump, and writes a
-# long-format CSV that `shared/null_cache.R::load_far1_finite_null`
+# long-format CSV that `shared/null_cache.R::load_birbilas_finite_null`
 # reads.
 #
 # Implements the data-driven critical-value calibration from the
@@ -11,7 +11,7 @@
 # critical values" Birbilas uses for n in [100, 1000].
 #
 # Usage:
-#   Rscript reproduction/generators/far1_finite_null.R
+#   Rscript reproduction/generators/birbilas_finite_null.R
 #
 # Output: code/results/E_n_beta_gamma_finite.csv. Manual
 # copy-over to data-raw/cache-src/ once you have sanity-checked the quantiles:
@@ -32,7 +32,7 @@
 .def("NCORES",   max(1L, parallel::detectCores() - 2L))
 .def("SEED",     2L)
 .def("OUT_CSV",  NULL)                  # NULL -> results/E_n_beta_gamma_finite.csv
-# "corrected" simulates the null of far1_statistic_corrected (printed
+# "corrected" simulates the null of birbilas_statistic_corrected (printed
 # length^gamma denominator); the legacy cache pairs the legacy statistic.
 .def("STAT_VARIANT", "legacy")          # legacy | corrected
 # ---------------------------------------------------------------------------
@@ -53,12 +53,12 @@ root <- if (is.null(script_path)) {
 }
 source(file.path(root, "R", "legacy", "progress.R"))
 suppressPackageStartupMessages(library(fdachange)); source(file.path(root, "R", "compat.R"))
-source(file.path(root, "R", "legacy", "method_far1.R"))
+source(file.path(root, "R", "legacy", "method_birbilas.R"))
 
 .birb_stat <- if (identical(STAT_VARIANT, "corrected")) {
-  far1_statistic_corrected
+  birbilas_statistic_corrected
 } else {
-  far1_statistic
+  birbilas_statistic
 }
 RNGkind("L'Ecuyer-CMRG")
 set.seed(SEED)
@@ -71,7 +71,7 @@ cat(sprintf("Birbilas finite null: %d cells, K=%d, L=%d, NCORES=%d\n",
 rows <- list()
 for (ci in seq_len(nrow(cells))) {
   n_i <- cells$n[ci]; g_i <- cells$gamma[ci]; bid <- cells$beta_id[ci]
-  beta_t <- far1_beta_registry[[bid]]
+  beta_t <- birbilas_beta_registry[[bid]]
   if (is.null(beta_t)) stop("unknown beta_id: ", bid)
   cat(sprintf("[%d/%d]  n=%d gamma=%g beta=%s\n",
               ci, nrow(cells), n_i, g_i, bid))

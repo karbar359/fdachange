@@ -4,7 +4,7 @@ test_that("shipped caches load and expose the documented cells", {
   expect_length(lp_null_draws(0.45, p = 10), 300L)
   expect_length(rkhs_null_draws(0.45, "2max", "rbeta.1.9"), 1000L)
   expect_length(rkhs_null_draws(0, "min", "runif"), 1000L)
-  expect_length(far1_null_draws(0.4), 1000L)
+  expect_length(birbilas_null_draws(0.4), 1000L)
 })
 
 test_that("gamma = 0 Wilcoxon null is the Kuiper grid, not the cache", {
@@ -19,7 +19,7 @@ test_that("a missing cell errors and names the simulator", {
   expect_error(rkhs_null_draws(0.25, "min"), "simulate_rkhs_null")
   expect_error(rkhs_null_draws(0.25, "gaussian", "runif"),
                "simulate_rkhs_null")
-  expect_error(far1_null_draws(0.3), "simulate_far1_null")
+  expect_error(birbilas_null_draws(0.3), "simulate_birbilas_null")
 })
 
 test_that("save_null_draws stores into the user cache and takes precedence", {

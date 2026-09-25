@@ -89,7 +89,7 @@ ensure_F4_RKHS_null () {
   log "  done"
 }
 
-ensure_far1_null () {
+ensure_birbilas_null () {
   local raw_csv="$RAW_DIR/E_n_beta_gamma_finite.csv"
   if awk -F, 'NR>1 && $2=="400"{found=1; exit} END{exit !found}' "$raw_csv"; then
     log "Birbilas finite null at n=400 already in $raw_csv -- skip"
@@ -98,11 +98,11 @@ ensure_far1_null () {
   local out="$ROOT/results/E_n_beta_gamma_finite_n400.csv"
   if [ ! -f "$out" ] || [ "$(wc -l < "$out")" -le 1 ]; then
     log "Generating Birbilas finite null at n=400..."
-    local tmp_gen="$ROOT/generators/.tmp_gen_far1_n400.R"
+    local tmp_gen="$ROOT/generators/.tmp_gen_birbilas_n400.R"
     sed -e 's/^N_S       <- c(100L, 200L, 500L)/N_S       <- c(400L)/' \
         -e "s|^OUT_CSV   <- NULL|OUT_CSV   <- '$out'|" \
         -e "s/^NCORES    <- max(.*)/NCORES    <- ${NCORES}L/" \
-        "$ROOT/generators/far1_finite_null.R" > "$tmp_gen"
+        "$ROOT/generators/birbilas_finite_null.R" > "$tmp_gen"
     Rscript "$tmp_gen" 2>&1 | tee -a "$LOG"
     local rc=${PIPESTATUS[0]}
     rm -f "$tmp_gen"
@@ -119,7 +119,7 @@ ensure_far1_null () {
 }
 
 ensure_F4_RKHS_null
-ensure_far1_null
+ensure_birbilas_null
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -248,10 +248,10 @@ run_driver "$ROOT/results/rkhs_F4_n400_min_rnorm_l2.csv" \
   "PROJECTION <- 'l2'" "KERNEL <- 'min'" "N <- 400L"
 
 # F4 Birbilas
-run_driver "$ROOT/results/far1_F4_n400_beta1_cv_adjusted.csv" \
-  "METHOD <- 'far1'" "SCENARIO <- 'F4'" \
-  "PROJECTION <- 'none'" "FAR1_BETA_ID <- 'beta1'" \
-  "FAR1_CV <- 'adjusted'" "N <- 400L"
+run_driver "$ROOT/results/birbilas_F4_n400_beta1_cv_adjusted.csv" \
+  "METHOD <- 'birbilas'" "SCENARIO <- 'F4'" \
+  "PROJECTION <- 'none'" "BIRBILAS_BETA_ID <- 'beta1'" \
+  "BIRBILAS_CV <- 'adjusted'" "N <- 400L"
 
 # ---------------------------------------------------------------------------
 # 5. Scalar S1-S5 (23 cells)

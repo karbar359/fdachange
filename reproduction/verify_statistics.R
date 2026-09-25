@@ -220,7 +220,7 @@ check(abs(rkhs_scan(Xr, 0.25, kernel = "gaussian")$stat -
 cat("== 5. Birbilas: printed (m - k)^gamma denominator ==\n")
 set.seed(SEED); Xf <- generate_F4(N_B, 0, c(0.4, 0.6))
 
-brute_far1 <- function(X, gamma, beta_t = function(t) 0.7 * sqrt(t),
+brute_birbilas <- function(X, gamma, beta_t = function(t) 0.7 * sqrt(t),
                            len_minus_1 = FALSE) {
   L <- nrow(X); n <- ncol(X)
   s <- seq(0, 1, length.out = L)
@@ -236,10 +236,10 @@ brute_far1 <- function(X, gamma, beta_t = function(t) 0.7 * sqrt(t),
 }
 
 for (g in c(0.25, 0.4)) {
-  b  <- brute_far1(Xf, g)
-  co <- far1_statistic(Xf, g)
-  le <- legacy$far1_statistic(Xf, g)
-  bl <- brute_far1(Xf, g, len_minus_1 = TRUE)
+  b  <- brute_birbilas(Xf, g)
+  co <- birbilas_statistic(Xf, g)
+  le <- legacy$birbilas_statistic(Xf, g)
+  bl <- brute_birbilas(Xf, g, len_minus_1 = TRUE)
   check(abs(b - co) < TOL, sprintf("corrected == printed brute at gamma=%.2f", g),
         sprintf("brute %.6f corrected %.6f", b, co))
   # Legacy never scans length-1 windows; the (len-1)^gamma brute includes them
@@ -283,9 +283,9 @@ check(identical(lp_statistic(Xl, 0.25, p = 2, cdf = pnorm),
 check(identical(rkhs_statistic(Xr, 0.25, kernel = "gaussian"),
                 legacy$rkhs_statistic_corrected(Xr, 0.25, legacy$kernel_gaussian)),
       "rkhs: package == vendored corrected (bit-exact)")
-check(identical(far1_statistic(Xf, 0.4),
-                legacy$far1_statistic_corrected(Xf, 0.4)),
-      "far1: package == vendored corrected (bit-exact)")
+check(identical(birbilas_statistic(Xf, 0.4),
+                legacy$birbilas_statistic_corrected(Xf, 0.4)),
+      "birbilas: package == vendored corrected (bit-exact)")
 
 cat(sprintf("\n%s: %d failure(s)\n", if (fails == 0L) "ALL CHECKS PASSED" else "GATE FAILED", fails))
 if (fails > 0L) quit(status = 1L)

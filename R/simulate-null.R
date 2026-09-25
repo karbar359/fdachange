@@ -17,7 +17,7 @@
 #' * `simulate_rkhs_null()`: draws of [rkhs_statistic()] on i.i.d.
 #'   samples of size `n` from the H0 sampler `rdist` (shipped:
 #'   `n = 2000`, 1000 draws).
-#' * `simulate_far1_null()`: the asymptotic limit
+#' * `simulate_birbilas_null()`: the asymptotic limit
 #'   \eqn{E_{q,\gamma}} on a `grid` x `grid` Brownian-motion lattice
 #'   (shipped: `grid = 1200`, 1000 draws).
 #'
@@ -106,7 +106,7 @@ simulate_rkhs_null <- function(n_draws, gamma, kernel = "gaussian",
 
 #' @rdname simulate_wilcoxon_null
 #' @export
-simulate_far1_null <- function(n_draws, gamma, grid = 1200L, cores = 1L,
+simulate_birbilas_null <- function(n_draws, gamma, grid = 1200L, cores = 1L,
                                    progress = interactive()) {
   N <- as.integer(grid)
   one <- function(i) {

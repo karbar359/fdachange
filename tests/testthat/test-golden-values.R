@@ -33,13 +33,13 @@ test_that("Birbilas statistic matches the golden capture", {
     set.seed(SEED + n); Xf <- generate_f4(n, 0, c(0.4, 0.6))
     for (g in c(0.25, 0.4)) {
       for (b in c("beta1", "beta3")) {
-        expect_golden(sprintf("far1|n=%d|g=%s|b=%s|a=0", n, g, b),
-                      far1_statistic(Xf, g, beta_t = far1_betas[[b]]))
+        expect_golden(sprintf("birbilas|n=%d|g=%s|b=%s|a=0", n, g, b),
+                      birbilas_statistic(Xf, g, beta_t = birbilas_betas[[b]]))
       }
     }
     set.seed(SEED + n); Xf2 <- generate_f4(n, 2, c(0.25, 0.45))
-    expect_golden(sprintf("far1|n=%d|g=0.4|b=beta1|a=2", n),
-                  far1_statistic(Xf2, 0.4))
+    expect_golden(sprintf("birbilas|n=%d|g=0.4|b=beta1|a=2", n),
+                  birbilas_statistic(Xf2, 0.4))
   }
 })
 
@@ -89,8 +89,8 @@ test_that("critical values from every shipped cache cell match", {
   }
   for (g in c(0, 0.25, 0.4, 0.45)) {
     for (al in c(0.05, 0.01)) for (m in c(1L, 2L)) {
-      expect_golden(sprintf("cv|far1|g=%s|a=%s|s=%d", g, al, m),
-                    far1_critical_value(g, alpha = al, splits = m))
+      expect_golden(sprintf("cv|birbilas|g=%s|a=%s|s=%d", g, al, m),
+                    birbilas_critical_value(g, alpha = al, splits = m))
     }
   }
 })

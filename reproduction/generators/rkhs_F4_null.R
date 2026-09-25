@@ -63,9 +63,9 @@ source(file.path(root, "R", "legacy", "projections.R"))
 source(file.path(root, "R", "legacy", "progress.R"))
 suppressPackageStartupMessages(library(fdachange)); source(file.path(root, "R", "compat.R"))
 source(file.path(root, "R", "legacy", "method_rkhs.R"))
-source(file.path(root, "R", "legacy", "method_far1.R"))         # for beta registry
+source(file.path(root, "R", "legacy", "method_birbilas.R"))         # for beta registry
 
-beta_t <- far1_beta_registry[["beta1"]]                      # F4 default
+beta_t <- birbilas_beta_registry[["beta1"]]                      # F4 default
 
 .rkhs_stat <- if (identical(STAT_VARIANT, "corrected")) {
   rkhs_statistic_corrected

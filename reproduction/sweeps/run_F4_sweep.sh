@@ -14,7 +14,7 @@
 #             (ito, gaussian),
 #             (l2, min)}                = 3 runs (F4 finite-null cache,
 #     M=1; gaussian for real-valued projections, min for R^+-valued l2)
-#   - far1 x none                   = 1 run (matrix-input, finite-null
+#   - birbilas x none                   = 1 run (matrix-input, finite-null
 #     cache, M=1)
 #   - wiener / pc1 / pc_d projections   skipped (not in the published
 #     cross-method comparison)
@@ -68,6 +68,6 @@ run_driver rkhs ito       h_w gaussian
 run_driver rkhs l2        h_w min
 
 # Birbilas: full-matrix statistic, no projection, M=1
-run_driver far1 none
+run_driver birbilas none
 
 echo "=== $(date '+%H:%M:%S') all 16 runs complete; CSVs in $ROOT/results/ ===" | tee -a "$LOG"

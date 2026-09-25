@@ -198,7 +198,7 @@ for (seg in c("long", "short")) {
   printed[[length(printed) + 1]] <- dc
 
   d <- parse_printed(sprintf("_f4_birbilas_%s.tex", seg), c("gamma"), 3)
-  printed[[length(printed) + 1]] <- canon(d, "far1", "F4",
+  printed[[length(printed) + 1]] <- canon(d, "birbilas", "F4",
     source = sprintf("thesis _f4_birbilas_%s.tex (beta1, adjusted c.v.)", seg))
 
   # Scalar S1-S5 -----------------------------------------------------------
@@ -234,7 +234,7 @@ stopifnot(identical(
   c(1.00, 1.00, 1.00, 0.87, 0.11, 1.00)))
 stopifnot(pick(printed, test = "lp", scenario = "S1", segment = "long",
                gamma = 0, a = 0) == 0.46)
-stopifnot(pick(printed, test = "far1", scenario = "F4", segment = "long",
+stopifnot(pick(printed, test = "birbilas", scenario = "F4", segment = "long",
                gamma = 0, a = 0.5) == 0.82)
 stopifnot(pick(printed, test = "rkhs", scenario = "S4", segment = "long",
                gamma = 0.45, a = 2) == 0.95)
