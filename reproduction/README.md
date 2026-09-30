@@ -23,7 +23,7 @@ It is excluded from the built R package (`.Rbuildignore`).
 | `sweeps/` | Shell wrappers that batch `driver.R` over the thesis grids; `run_corrected_n400.sh` is the corrected-family re-run of the whole simulation chapter. |
 | `generators/` | Monte-Carlo null-cache generators + `validate.R` (distributional check against the frozen caches). |
 | `aggregators/` | Table/figure builders; LaTeX fragments and PNGs go to `output/` (gitignored). |
-| `notebooks/` | Rendered walkthroughs (view the `.md` files on GitHub): `simulations` visualizes the committed power/calibration/audit tables, `litgrid` and `telco` the two applications. Rebuild with `Rscript notebooks/render.R`; rendered in CI against the committed data. |
+| `notebooks/` | Rendered walkthroughs (view the `.md` files on GitHub): `simulations` visualizes the committed power/calibration/audit tables, `litgrid` and `telco` the two applications. Rebuild with `Rscript notebooks/render.R`; rendered in CI against the committed data. Python users: package usage and the telco application live in `python/examples/fdachange.ipynb`. |
 | `applications/litgrid/` | The LITGRID balancing-price application, including `reproduce_tables.R` (asserts the printed Tables 7.1/7.2 within print tolerance) and `download_litgrid.R`. |
 | `data/` | Committed tidy outputs (the canonical result CSVs the thesis figures used). |
 | `results/`, `output/` | Gitignored working state. |
