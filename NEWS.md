@@ -1,4 +1,4 @@
-# fdachange (development version)
+# fdachange 0.2.0
 
 - Breaking: the functional FAR(1)-type statistic's API is renamed from the
   author name to `far1`: `birbilas_statistic()` -> `far1_statistic()`,
