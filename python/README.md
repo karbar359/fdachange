@@ -39,6 +39,12 @@ Functional inputs are `(grid, n_observations)` arrays - one curve per
 column, mirroring the R convention - or `skfda.FDataGrid` objects (any
 matrix-consuming function accepts both).
 
+For a worked tour - scenarios, projections visualized, calibration, a
+mini power study and an application on the shipped dataset - see the
+executed example notebook
+[`examples/fdachange.ipynb`](examples/fdachange.ipynb), the counterpart
+of the R package's vignette (executed in CI, so it stays current).
+
 ## API
 
 Mirrors the R package one-to-one (all names are identical):

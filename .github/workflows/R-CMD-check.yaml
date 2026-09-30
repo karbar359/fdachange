@@ -70,6 +70,11 @@ jobs:
         run: pip install './python[test]'
       - name: Run pytest
         run: pytest python/tests -q
+      - name: Execute the example notebook
+        if: matrix.python-version == '3.12'
+        run: |
+          pip install matplotlib nbclient ipykernel
+          jupyter execute python/examples/fdachange.ipynb
 
   slow-tests:
     if: github.event_name == 'push'
