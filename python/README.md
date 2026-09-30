@@ -43,7 +43,11 @@ For a worked tour - scenarios, projections visualized, calibration, a
 mini power study and an application on the shipped dataset - see the
 executed example notebook
 [`examples/fdachange.ipynb`](examples/fdachange.ipynb), the counterpart
-of the R package's vignette (executed in CI, so it stays current).
+of the R package's vignette (executed in CI, so it stays current). The
+full simulation study and both applications (LITGRID and telco) are
+walked through in the R notebooks under
+[`reproduction/notebooks/`](../reproduction/notebooks/); reproduction
+itself is R-only because it reruns the thesis's R code stream-exactly.
 
 ## API
 
