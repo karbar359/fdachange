@@ -59,7 +59,7 @@ def brute_rkhs(x, gamma, kernel):
     return best / np.sqrt(n)
 
 
-def brute_birbilas(X, gamma, beta_t):
+def brute_far1(X, gamma, beta_t):
     L, n = X.shape
     s = np.linspace(0, 1, L)
     W = (1 - beta_t(s))[:, None] * (X - X.mean(axis=1, keepdims=True))
@@ -92,7 +92,7 @@ def test_rkhs_brute(x60):
             brute_rkhs(x60, g, fc.kernel_gaussian), abs=TOL)
 
 
-def test_birbilas_brute(F4):
+def test_far1_brute(F4):
     for g in (0.25, 0.4):
-        assert fc.birbilas_statistic(F4, g) == pytest.approx(
-            brute_birbilas(F4, g, fc.birbilas_betas["beta1"]), abs=TOL)
+        assert fc.far1_statistic(F4, g) == pytest.approx(
+            brute_far1(F4, g, fc.far1_betas["beta1"]), abs=TOL)

@@ -8,9 +8,9 @@ import numpy as np
 
 from ._interop import _as_matrix
 
-__all__ = ["birbilas_statistic", "birbilas_scan", "birbilas_betas"]
+__all__ = ["far1_statistic", "far1_scan", "far1_betas"]
 
-birbilas_betas = {
+far1_betas = {
     "beta1": lambda t: 0.7 * np.sqrt(t),
     "beta2": lambda t: -0.7 * np.sqrt(t),
     "beta3": lambda t: 0.7 * np.sqrt(1.0 - t),
@@ -28,8 +28,8 @@ def _prefix(X, beta_t):
     return CS, L, n
 
 
-def birbilas_statistic(X, gamma: float = 0.4,
-                       beta_t=birbilas_betas["beta1"]) -> float:
+def far1_statistic(X, gamma: float = 0.4,
+                       beta_t=far1_betas["beta1"]) -> float:
     """E_{n,beta,gamma} on the test scale n^(-1/2+gamma) E.
 
     ``X``: (grid, n) matrix or skfda FDataGrid, one curve per observation.
@@ -46,7 +46,7 @@ def birbilas_statistic(X, gamma: float = 0.4,
     return E * n ** (-0.5 + gamma)
 
 
-def birbilas_scan(X, gamma: float = 0.4, beta_t=birbilas_betas["beta1"]):
+def far1_scan(X, gamma: float = 0.4, beta_t=far1_betas["beta1"]):
     """E statistic with the maximising window (R convention {k+1..m})."""
     CS, L, n = _prefix(X, beta_t)
     if n < 1:

@@ -12,7 +12,7 @@ def test_shipped_cells():
     assert fc.wilcoxon_null_draws(0.5, beta=1).size == 30_000
     assert fc.lp_null_draws(0.45, p=10).size == 300
     assert fc.rkhs_null_draws(0.45, "2max", "rbeta.1.9").size == 1_000
-    assert fc.birbilas_null_draws(0.4).size == 1_000
+    assert fc.far1_null_draws(0.4).size == 1_000
 
 
 def test_kuiper_grid_at_gamma_zero():

@@ -11,7 +11,7 @@ from ._weights import critical_value
 from .wilcoxon import wilcoxon_scan
 from .lp import lp_scan
 from .rkhs import rkhs_scan
-from .birbilas import birbilas_scan, birbilas_betas
+from .far1 import far1_scan, far1_betas
 from .splits import scan_over_splits
 from . import nulls
 
@@ -60,7 +60,7 @@ _LABELS = {
     "wilcoxon": "Epidemic change scan test (Wilcoxon-type antisymmetric kernel)",
     "lp": "Epidemic change scan test (Lp empirical process)",
     "rkhs": "Epidemic change scan test (RKHS kernel mean embedding)",
-    "birbilas": "Epidemic change test (Birbilas E_n,beta,gamma)",
+    "far1": "Epidemic change test for FAR(1) (Birbilas E_n,beta,gamma)",
 }
 
 
@@ -78,7 +78,7 @@ def epidemic_test(x, method: str, gamma: float, *, beta: float = 0.0,
     if method not in _LABELS:
         raise ValueError(f"method must be one of {tuple(_LABELS)}")
     if beta_t is None:
-        beta_t = birbilas_betas["beta1"]
+        beta_t = far1_betas["beta1"]
 
     if method == "wilcoxon":
         scan = lambda z: wilcoxon_scan(z, gamma, beta,
@@ -89,7 +89,7 @@ def epidemic_test(x, method: str, gamma: float, *, beta: float = 0.0,
         scan = lambda z: rkhs_scan(z, gamma, kernel=kernel or "gaussian",
                                    beta=beta)
     else:
-        scan = lambda z: birbilas_scan(z, gamma, beta_t=beta_t)
+        scan = lambda z: far1_scan(z, gamma, beta_t=beta_t)
 
     if splits == 1:
         sc = scan(x)
@@ -122,7 +122,7 @@ def epidemic_test(x, method: str, gamma: float, *, beta: float = 0.0,
             draws = nulls.rkhs_null_draws(gamma, kernel or "gaussian",
                                           baseline)
         else:
-            draws = nulls.birbilas_null_draws(gamma)
+            draws = nulls.far1_null_draws(gamma)
         p_value = 1.0 - float(np.mean(draws <= stat)) ** splits
         cv = critical_value(draws, alpha, splits)
         n_null = float(draws.size)

@@ -84,7 +84,7 @@ def main() -> None:
     cells = {}
     for row in data:
         cells.setdefault(f"g{fmt(float(row[ig]))}", []).append(float(row[ix]))
-    save("birbilas", {k: np.array(v, dtype=np.float64)
+    save("far1", {k: np.array(v, dtype=np.float64)
                       for k, v in cells.items()})
 
 

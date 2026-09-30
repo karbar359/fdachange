@@ -57,10 +57,10 @@ def test_splits_aggregation():
         1.0 - float(np.mean(d <= max(s1, s2))) ** 2, rel=1e-12)
 
 
-def test_birbilas_on_matrix():
+def test_far1_on_matrix():
     X = fc.generate_f4(60, a=2, l=50, rng=7)
-    r = fc.epidemic_test(X, "birbilas", gamma=0.4)
-    assert r.statistic == pytest.approx(fc.birbilas_statistic(X, 0.4),
+    r = fc.epidemic_test(X, "far1", gamma=0.4)
+    assert r.statistic == pytest.approx(fc.far1_statistic(X, 0.4),
                                         rel=1e-12)
     assert 0 <= r.k < r.m <= 60
 

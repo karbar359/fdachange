@@ -59,13 +59,13 @@ put("scan_rkhs|stat", sc$stat); put("scan_rkhs|k", sc$k)
 put("scan_rkhs|m", sc$m)
 
 for (g in c(0.25, 0.4)) {
-  put(sprintf("birbilas|g=%s", g), birbilas_statistic(F4, g))
+  put(sprintf("far1|g=%s", g), far1_statistic(F4, g))
 }
-put("birbilas_beta3|g=0.4",
-    birbilas_statistic(F4, 0.4, beta_t = birbilas_betas$beta3))
-sc <- birbilas_scan(F4, 0.4)
-put("scan_birbilas|stat", sc$stat); put("scan_birbilas|k", sc$k)
-put("scan_birbilas|m", sc$m)
+put("far1_beta3|g=0.4",
+    far1_statistic(F4, 0.4, beta_t = far1_betas$beta3))
+sc <- far1_scan(F4, 0.4)
+put("scan_far1|stat", sc$stat); put("scan_far1|k", sc$k)
+put("scan_far1|m", sc$m)
 
 ## ---- critical values (every shipped cache cell) -----------------------------
 for (g in c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.495)) {
@@ -83,7 +83,7 @@ for (g in c(0, 0.25, 0.45)) for (cell in rk) {
       rkhs_critical_value(g, cell[1], cell[2]))
 }
 for (g in c(0, 0.25, 0.4, 0.45)) {
-  put(sprintf("cv_birbilas|g=%s", g), birbilas_critical_value(g))
+  put(sprintf("cv_far1|g=%s", g), far1_critical_value(g))
 }
 put("kuiper_q|p=0.95", kuiper_quantile(0.95))
 put("kuiper_cdf|v=1.7473", kuiper_cdf(1.7473))

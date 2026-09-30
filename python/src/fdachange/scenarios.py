@@ -159,10 +159,10 @@ def generate_f3(n, a=0.0, ec_interval=(0.4, 0.7), l=100, exact_window=True,
 def generate_f4(n, a=0.0, ec_interval=(0.25, 0.45), l=100, beta_t=None,
                 rng=None):
     """Birbilas's FAR(1) series with epidemic mean jump a*sqrt(t)."""
-    from .birbilas import birbilas_betas
+    from .far1 import far1_betas
     rng = _as_rng(rng)
     if beta_t is None:
-        beta_t = birbilas_betas["beta1"]
+        beta_t = far1_betas["beta1"]
     s = np.linspace(0.0, 1.0, l + 1)
     beta_grid = beta_t(s)
     k_lo = round(n * ec_interval[0])
