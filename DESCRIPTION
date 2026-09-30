@@ -20,6 +20,7 @@ License: MIT + file LICENSE
 URL: https://github.com/karbar359/fdachange
 BugReports: https://github.com/karbar359/fdachange/issues
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 Depends:
     R (>= 4.0.0)

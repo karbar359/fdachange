@@ -10,6 +10,12 @@
   `save_null_draws()`. The shipped null cache is now
   `inst/extdata/far1_null.rds`; a user cache saved as `birbilas_null.rds`
   in `null_cache_dir()` must be renamed to `far1_null.rds`.
+- New dataset `telco_far1`: simulated daily voice-usage curves for 11
+  customer clusters (50 months x 28 days each) following a FAR(1)
+  process, with sqrt(t)-shaped epidemic jumps in `cl2`-`cl4` and trends,
+  level shifts and outliers without a jump in `cl5`-`cl11`. Built by
+  `data-raw/telco_far1.R`; the same data is attached to the GitHub
+  release `telco_far1`.
 
 # fdachange 0.1.2
 
