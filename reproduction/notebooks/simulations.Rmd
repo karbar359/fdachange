@@ -1,0 +1,278 @@
+---
+title: "Simulation results, visualized"
+output:
+  github_document:
+    toc: true
+    html_preview: false
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      collapse = TRUE, comment = "#>",
+                      fig.width = 10, fig.height = 6, dpi = 110)
+suppressPackageStartupMessages(library(ggplot2))
+
+# ---- Constants (edit here) ----------------------------------------------
+DATA  <- "../data"     # committed tidy tables, relative to this notebook
+ALPHA <- 0.05          # nominal level (dotted reference line)
+
+# Validated reference categorical palette; the gamma encoding matches
+# aggregators/plot_thesis_power.R (blue circle 0, aqua triangle 0.25,
+# yellow square 0.45) so every figure in the repo reads the same way.
+COL1 <- "#2a78d6"; COL2 <- "#1baf7a"; COL3 <- "#eda100"; COL4 <- "#eb6834"
+INK_PRIMARY <- "#0b0b0b"; INK_SECONDARY <- "#52514e"; INK_MUTED <- "#898781"
+GRIDLINE <- "#e1e0d9"
+
+gamma_cols   <- c(`0` = COL1, `0.25` = COL2, `0.45` = COL3)
+gamma_shapes <- c(`0` = 16, `0.25` = 17, `0.45` = 15)
+gamma_labels <- c(expression(gamma == 0), expression(gamma == 0.25),
+                  expression(gamma == 0.45))
+scale_gamma <- list(
+  scale_colour_manual(values = gamma_cols, labels = gamma_labels, name = NULL),
+  scale_shape_manual(values = gamma_shapes, labels = gamma_labels, name = NULL),
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.5, 1)))
+
+theme_grid <- theme_minimal(base_size = 15) +
+  theme(legend.position  = "bottom",
+        legend.text      = element_text(size = 12, colour = INK_PRIMARY),
+        axis.title       = element_text(size = 12, colour = INK_SECONDARY),
+        axis.text        = element_text(size = 9, colour = INK_MUTED),
+        strip.text       = element_text(size = 11, colour = INK_PRIMARY,
+                                        face = "bold"),
+        panel.grid.major = element_line(colour = GRIDLINE, linewidth = 0.4),
+        panel.grid.minor = element_blank(),
+        panel.spacing    = unit(0.7, "lines"))
+
+F_LABELS <- c(F1 = "F1: N(0,1) vs Pa(a)", F2 = "F2: Pa(1.5) vs Pa(a)",
+              F3 = "F3: random walk, Pa(a)", F4 = "F4: FAR(1) epidemic")
+S_LABELS <- c(S1 = "S1: mean shift", S2 = "S2: noncentr. chi-sq",
+              S3 = "S3: Pareto scale", S4 = "S4: Beta shape",
+              S5 = "S5: Pareto shape")
+PROJ_LEVELS <- c("ito", "l2", "c_max_var")
+```
+
+Every figure below is drawn from a committed tidy table in
+`reproduction/data/`; the section text names the script that regenerates
+each table, so the plots never depend on rerunning the multi-hour sweeps.
+Provenance matters here: the thesis power section shows the
+dissertation's record as printed (assembled from the thesis tables, with
+the F1/F2 cells rerun at N_rep = 100), produced by the legacy research
+implementations, while the F5, calibration and audit sections use the
+corrected statistic family. The last section visualizes exactly what the
+correction changes. The static figure versions with the full long/short
+segment grids are produced by `aggregators/plot_thesis_power.R`.
+
+## The thesis power study
+
+`data/thesis_power_values.csv` is the tidy assembly of the dissertation's
+power tables (built by `aggregators/assemble_thesis_power.R`; the `source`
+column records the provenance of every row). Layout shared by the three
+functional figures: columns are the scenarios F1 to F4, rows the
+projections, lines the weight exponent gamma, and the dotted line the
+nominal level. Long-segment results (`l* = n/5`) are shown; the short
+segment (`l* = [log n] + 1`) tells the same story with less power and is
+in the static figures.
+
+```{r power-data}
+dat <- read.csv(file.path(DATA, "thesis_power_values.csv"))
+dat$g <- factor(dat$gamma, levels = c(0, 0.25, 0.45))
+
+functional_fig <- function(test_id, proj_labels, subtitle) {
+  d <- dat[dat$test == test_id & dat$scenario %in% names(F_LABELS) &
+           dat$segment == "long" & (is.na(dat$m) | dat$m == 1), ]
+  d$sc_lab   <- factor(d$scenario, names(F_LABELS), F_LABELS)
+  d$proj_lab <- factor(d$projection, PROJ_LEVELS, proj_labels)
+  ggplot(d, aes(a, power, colour = g, shape = g)) +
+    geom_hline(yintercept = ALPHA, linetype = "dotted", colour = INK_MUTED) +
+    geom_line(linewidth = 0.9) + geom_point(size = 2.2) +
+    facet_grid(proj_lab ~ sc_lab, scales = "free_x") +
+    scale_gamma +
+    labs(x = "change magnitude a", y = "rejection rate",
+         subtitle = subtitle) +
+    theme_grid
+}
+proj_plain <- c("Ito projection", "L2 norm", "C max-var")
+proj_rkhs  <- c("Ito + Gaussian", "L2 + min", "C max-var + Gaussian")
+```
+
+### Wilcoxon scan (h_0 kernel, m = 1)
+
+```{r power-wilcoxon}
+functional_fig("wilcoxon", proj_plain, "Wilcoxon scan, long segment")
+```
+
+### Lp scan (p = 2)
+
+```{r power-lp}
+functional_fig("lp", proj_plain, "Lp scan, long segment")
+```
+
+### RKHS scan (rank-calibrated)
+
+F4 uses the FAR(1) finite-sample null.
+
+```{r power-rkhs}
+functional_fig("rkhs", proj_rkhs, "RKHS scan, long segment")
+```
+
+### The scalar scenarios
+
+The RKHS row shows the matched kernel per scenario; the S3/S5 panels are
+empty because no Pareto-baseline null cache is shipped, the same gap as
+in the printed thesis.
+
+```{r power-scalar, fig.height = 5.6}
+d <- dat[dat$scenario %in% names(S_LABELS) & dat$segment == "long" &
+         ((dat$test == "wilcoxon" & dat$m == 1) | dat$test %in% c("lp", "rkhs")), ]
+test_labels <- c(wilcoxon = "Wilcoxon m=1", lp = "Lp p=2", rkhs = "RKHS matched")
+d$test_lab <- factor(test_labels[d$test], test_labels)
+d$sc_lab   <- factor(d$scenario, names(S_LABELS), S_LABELS)
+ggplot(d, aes(a, power, colour = g, shape = g)) +
+  geom_hline(yintercept = ALPHA, linetype = "dotted", colour = INK_MUTED) +
+  geom_line(linewidth = 0.9) + geom_point(size = 2.2) +
+  facet_grid(test_lab ~ sc_lab) +
+  scale_x_continuous(trans = "sqrt", breaks = c(0, 1, 2, 4, 8)) +
+  scale_gamma +
+  labs(x = "change magnitude a", y = "rejection rate",
+       subtitle = "Scalar scenarios, long segment") +
+  theme_grid
+```
+
+### F4 cross-method, including the FAR(1) statistic
+
+The scan tests are shown at the L2-norm projection (the
+thesis-highlighted pairing); the Birbilas-type `far1` statistic consumes
+the curves directly.
+
+```{r power-f4, fig.height = 4.8}
+d <- dat[dat$scenario == "F4" &
+         ((dat$test == "wilcoxon" & dat$projection == "l2" & dat$m == 1) |
+          (dat$test %in% c("lp", "rkhs") & dat$projection == "l2") |
+          (dat$test == "far1")), ]
+m_labels <- c(wilcoxon = "Wilcoxon (h_0, m = 1)", lp = "Lp (p = 2)",
+              rkhs = "RKHS (min)", far1 = "Birbilas E (adj. CV)")
+d$m_lab   <- factor(m_labels[d$test], m_labels)
+d$seg_lab <- factor(d$segment, c("long", "short"),
+                    c("long segment", "short segment"))
+ggplot(d, aes(a, power, colour = g, shape = g)) +
+  geom_hline(yintercept = ALPHA, linetype = "dotted", colour = INK_MUTED) +
+  geom_line(linewidth = 0.9) + geom_point(size = 2.2) +
+  facet_grid(seg_lab ~ m_lab) +
+  scale_x_continuous(trans = "sqrt", breaks = c(0, 1, 2, 4, 8)) +
+  scale_gamma +
+  labs(x = "change magnitude a", y = "rejection rate",
+       subtitle = "F4: FAR(1) epidemic mean change") +
+  theme_grid
+```
+
+## The restored F5 spike study
+
+`data/f5_spike_power.csv` (regenerate with
+`sweeps/run_f5_spike_power.sh`; n = 400, N_rep = 100) is the experiment
+behind the thesis's claim that point-evaluation projections suit
+spike-type changes. F5 adds `a * f_alpha(t)` to i.i.d. Wiener curves on
+the change window; the study runs the standard long window and a narrow
+one covering only the spike's neighbourhood.
+
+```{r f5-spike, fig.height = 5}
+f5 <- read.csv(file.path(DATA, "f5_spike_power.csv"))
+f5$g <- factor(f5$gamma, levels = c(0, 0.25, 0.45))
+f5$proj_lab <- factor(f5$projection, PROJ_LEVELS, proj_plain)
+f5$m_lab <- factor(f5$method, c("wilcoxon", "lp"),
+                   c("Wilcoxon (h_0)", "Lp (p = 2)"))
+f5$seg <- factor(f5$ec_length, c(0.2, 0.015),
+                 c("long window (0.4, 0.6)", "narrow window (l/n = 0.015)"))
+ggplot(f5, aes(a, power, colour = g, shape = g, linetype = seg)) +
+  geom_hline(yintercept = ALPHA, linetype = "dotted", colour = INK_MUTED) +
+  geom_line(linewidth = 0.9) + geom_point(size = 2.2) +
+  facet_grid(m_lab ~ proj_lab) +
+  scale_x_continuous(trans = "sqrt", breaks = c(0, 1, 2, 4, 10)) +
+  scale_gamma +
+  scale_linetype_manual(values = c("solid", "42"), name = NULL) +
+  labs(x = "spike amplitude a", y = "rejection rate",
+       subtitle = "F5: Wiener curves + f_alpha spike") +
+  theme_grid
+```
+
+The verdict is nuanced, and the figure shows it: the point-evaluation
+projection `c_max_var` is the most powerful for faint spikes (for the Lp
+scan at a = 0.5 to 1 it reaches 2 to 3 times the power of `l2`) and has
+the best mean power overall for Lp, but it is not uniformly dominant. At
+large amplitudes the norm projections catch up, and for the Wilcoxon h_0
+scan `l2` wins on average.
+
+## Asymptotic vs finite-sample calibration
+
+`data/mc_calibration_demo.csv` (regenerate with
+`mc_calibration_demo.R`) compares the asymptotic critical values with
+finite-n Monte-Carlo ones on S1. Two different stories in one figure: the
+asymptotic Wilcoxon cv is mildly conservative (size 0.01 to 0.03, some
+power lost at n = 100), while the asymptotic Lp cv is badly anticonservative
+at gamma 0 and 0.25 (size 0.25 to 0.41, not shrinking with n; this is the
+size problem visible in the printed thesis Lp tables). Finite-n
+Monte-Carlo calibration puts both tests on the nominal level; the Lp
+power cells were not part of this demo run, hence the empty panel.
+
+```{r calibration, fig.height = 4.2}
+mc <- read.csv(file.path(DATA, "mc_calibration_demo.csv"))
+long <- rbind(
+  data.frame(mc[c("test", "n", "gamma")], what = "size",
+             calibration = "asymptotic", value = mc$size_asym),
+  data.frame(mc[c("test", "n", "gamma")], what = "size",
+             calibration = "finite-n MC", value = mc$size_mc),
+  data.frame(mc[c("test", "n", "gamma")], what = "power (a = 1)",
+             calibration = "asymptotic", value = mc$power_asym),
+  data.frame(mc[c("test", "n", "gamma")], what = "power (a = 1)",
+             calibration = "finite-n MC", value = mc$power_mc))
+long$g <- factor(long$gamma, levels = c(0, 0.25, 0.45))
+long$test_lab <- factor(long$test, c("wilcoxon", "lp"),
+                        c("Wilcoxon", "Lp (p = 2)"))
+ggplot(long, aes(n, value, colour = g, shape = g, linetype = calibration)) +
+  geom_hline(data = data.frame(what = "size", y = ALPHA),
+             aes(yintercept = y), linetype = "dotted", colour = INK_MUTED) +
+  geom_line(linewidth = 0.8) + geom_point(size = 2.2) +
+  facet_grid(what ~ test_lab, scales = "free_y") +
+  scale_colour_manual(values = gamma_cols, labels = gamma_labels, name = NULL) +
+  scale_shape_manual(values = gamma_shapes, labels = gamma_labels, name = NULL) +
+  scale_linetype_manual(values = c(asymptotic = "22", `finite-n MC` = "solid"),
+                        name = NULL) +
+  scale_x_continuous(breaks = c(100, 200, 400)) +
+  labs(x = "sample size n", y = NULL,
+       subtitle = "S1 mean shift: asymptotic vs finite-n Monte-Carlo calibration") +
+  theme_grid
+```
+
+## What the statistic audit changed
+
+`data/corrected_vs_legacy.csv` (regenerate with
+`compare_exact_vs_legacy.R`, `FAMILY = "corrected"`) reruns the full
+power grid with the legacy research implementations and the corrected
+family on identical seeds. Points above the diagonal gained power from
+the correction. The Wilcoxon panel is the headline: the legacy code
+inverted the Hoelder weight, which destroyed its power at gamma > 0, so
+the corrected scan dominates there (the column of points at legacy power
+zero) while the gamma = 0 points sit near the diagonal. Lp and RKHS move
+in both directions because the correction also changes their null
+calibration, so some cells lose nominal-level-inflated "power"; far1
+barely moves.
+
+```{r audit, fig.height = 4.4}
+cl <- read.csv(file.path(DATA, "corrected_vs_legacy.csv"))
+cl$g <- factor(cl$gamma, levels = c(0, 0.25, 0.45))
+cl$m_lab <- factor(cl$method, c("wilcoxon", "lp", "rkhs", "far1"),
+                   c("Wilcoxon", "Lp", "RKHS", "far1"))
+ggplot(cl, aes(power_legacy, power_new, colour = g)) +
+  geom_abline(colour = INK_MUTED, linetype = "dotted") +
+  geom_point(size = 1.1, alpha = 0.55) +
+  facet_wrap(~ m_lab, nrow = 1) +
+  coord_equal(xlim = c(0, 1), ylim = c(0, 1)) +
+  scale_colour_manual(values = gamma_cols, labels = gamma_labels, name = NULL) +
+  labs(x = "power, legacy implementation", y = "power, corrected family",
+       subtitle = "Same seeds, both implementations, full grid") +
+  theme_grid + theme(legend.position = "bottom")
+```
+
+The companion `data/corrected_vs_legacy_stability.csv` repeats the
+comparison over independent seeds to separate genuine differences from
+Monte-Carlo noise; `data/exact_vs_legacy.csv` documents that the package
+equals the audited original code exactly where no defect was corrected.
