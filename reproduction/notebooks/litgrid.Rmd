@@ -1,0 +1,271 @@
+---
+title: "The LITGRID application, visualized"
+output:
+  github_document:
+    toc: true
+    html_preview: false
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      collapse = TRUE, comment = "#>",
+                      fig.width = 10, fig.height = 5, dpi = 110)
+suppressPackageStartupMessages(library(ggplot2))
+
+# ---- Constants (edit here) ----------------------------------------------
+DATA         <- "../data"
+SPAN_END     <- 202433L   # calendar-week span end used by the printed trim
+OUTLIER_WEEK <- 202149L   # ISO 2021-W49, the removed spike week
+
+COL1 <- "#2a78d6"; COL2 <- "#1baf7a"; COL3 <- "#eda100"; COL4 <- "#eb6834"
+INK_PRIMARY <- "#0b0b0b"; INK_SECONDARY <- "#52514e"; INK_MUTED <- "#898781"
+GRIDLINE <- "#e1e0d9"; COL_PLAIN <- "grey75"
+gamma_cols <- c(`0` = COL1, `0.05` = COL1, `0.25` = COL2, `0.45` = COL3)
+
+theme_nb <- theme_minimal(base_size = 15) +
+  theme(legend.position  = "bottom",
+        legend.text      = element_text(size = 12, colour = INK_PRIMARY),
+        axis.title       = element_text(size = 12, colour = INK_SECONDARY),
+        axis.text        = element_text(size = 10, colour = INK_MUTED),
+        strip.text       = element_text(size = 11, colour = INK_PRIMARY,
+                                        face = "bold"),
+        panel.grid.major = element_line(colour = GRIDLINE, linewidth = 0.4),
+        panel.grid.minor = element_blank())
+
+# The full-curve sections need the raw exports (a gitignored local
+# download); everything else renders from committed CSVs.
+RAW <- Sys.getenv("LITGRID_RAW_DIR", unset = "")
+if (!nzchar(RAW)) RAW <- file.path("..", "..", "data-raw", "litgrid-raw")
+has_raw <- dir.exists(RAW) &&
+  length(list.files(RAW, pattern = "^balancing-energy-prices")) > 0
+```
+
+The dissertation's application scans weekly Lithuanian electricity
+balancing-price curves: one curve per week, 168 hourly points, built from
+the public exports of the [Baltic transparency
+dashboard](https://baltic.transparency-dashboard.eu/). Everything below
+except the last section renders from committed CSVs in
+`reproduction/data/`; the full-curve sections at the end additionally need
+the raw exports, fetched and checksum-verified by
+`applications/litgrid/download_litgrid.R` (raw data present at render
+time: `r has_raw`).
+
+One distinction runs through all of it: the **legacy pipeline** reproduces
+the printed tables including their data quirks (summed export overlaps,
+boundary-week mislabelling), while the **fixed pipeline** deduplicates and
+orders weeks chronologically. Both are computed by
+`applications/litgrid/corrected_tables.R`; the fixed no-outlier sample has
+n = 345 weeks. The audit-corrected statistics are used throughout.
+
+## The data in numbers
+
+`data/litgrid_tail_stats.csv` (built by `aggregators/litgrid_tail_stats.R`)
+summarizes the analysed hourly series against the deduplicated raw one:
+
+```{r tail-stats}
+ts <- read.csv(file.path(DATA, "litgrid_tail_stats.csv"))
+knitr::kable(ts, digits = 3)
+```
+
+## What the curves look like
+
+`data/smoothing_example_curves.csv` carries two real weeks sampled from
+the analysis (the detected segment's first week and the removed outlier
+week), raw and after the two Faber-Schauder reconstructions the
+dissertation's preprocessing uses. The reconstruction chapter's conclusion
+in one picture: level K = 4 keeps the shape while flattening hour-level
+noise.
+
+```{r example-curves, fig.height = 4.2}
+# keep the two real weeks; the file's synthetic f_alpha rows carry an
+# unquoted comma in their role field and would shift the columns
+lines_raw <- readLines(file.path(DATA, "smoothing_example_curves.csv"))
+keep <- grepl("^(label|201827|202149),", lines_raw)
+sm <- read.csv(text = paste(lines_raw[keep], collapse = "\n"))
+sm$series_lab <- factor(sm$series, c("raw", "fs_interp", "fs_ls"),
+                        c("raw (168 hourly points)", "fs_interp, K = 4",
+                          "fs_ls, K = 4"))
+sm$week_lab <- factor(sm$label, c("201827", "202149"),
+                      c("2018-W27: detected segment start",
+                        "2021-W49: removed outlier week"))
+ggplot(sm, aes(t, value, colour = series_lab, linewidth = series_lab)) +
+  geom_line() +
+  facet_wrap(~ week_lab, scales = "free_y") +
+  scale_colour_manual(values = c(COL_PLAIN, COL4, COL1), name = NULL) +
+  scale_linewidth_manual(values = c(0.5, 0.9, 0.9), name = NULL) +
+  labs(x = "position in the week (t)", y = "balancing price signal") +
+  theme_nb
+```
+
+## The corrected result tables
+
+`data/litgrid_corrected_tables.csv` recomputes the full printed grid with
+the corrected statistics, on both pipelines and both samples. The fixed
+no-outlier rows are the headline: every method rejects at every
+considered gamma, and the detected windows share the right endpoint near
+60% of the sample, the energy-crisis period the application chapter
+discusses.
+
+```{r corrected-tables}
+ct <- read.csv(file.path(DATA, "litgrid_corrected_tables.csv"))
+fixed <- subset(ct, pipeline == "fixed" & sample == "no_outlier",
+                select = c(method, projection, gamma, stat, cv,
+                           lo, hi, week_lo, week_hi))
+fixed$window <- sprintf("[%.3f, %.3f]", fixed$lo, fixed$hi)
+fixed$weeks  <- sprintf("%s to %s", fixed$week_lo, fixed$week_hi)
+knitr::kable(fixed[c("method", "projection", "gamma", "stat", "cv",
+                     "window", "weeks")],
+             digits = 2, row.names = FALSE,
+             caption = "Fixed pipeline, outlier removed, n = 345. Ito rows: mean over 10 shared paths.")
+```
+
+Rejection is universal here (`stat > cv` in every row); the same table's
+legacy-pipeline rows document how the printed values arise, including the
+printed Wilcoxon statistics that *decrease* in gamma because the legacy
+implementation divided by the weight it should multiply by.
+
+## Interval agreement across tests
+
+The dissertation's Table 7.1 (outlier removed) reports one detected
+segment per test and projection; `data/litgrid_intervals.csv` transcribes
+it, and the picture shows the agreement: whatever the test and whatever
+the projection, the right endpoint lands near the 60% mark. The lighter
+bars are the complementary window that the C max-var rows flag at
+gamma = 0.25, the same break seen from the right.
+
+```{r intervals, fig.height = 5.4}
+d <- read.csv(file.path(DATA, "litgrid_intervals.csv"))
+TEST_COLS <- c(wilcoxon = "#7b003f", lp = "#1f6f8b", rkhs = "#3d7a4f")
+TEST_LABS <- c(wilcoxon = "Wilcoxon", lp = "Lp (p = 2)", rkhs = "RKHS")
+PROJ_LABS <- c(ito = "Ito", l2 = "L2 norm", c_max_var = "C max-var")
+loc <- rbind(d[d$test == "wilcoxon" & d$gamma == 0.05, ],
+             d[d$test == "lp" & d$gamma == 0, ],
+             d[d$test == "rkhs" & d$gamma == 0, ])
+loc$alpha_v <- 1
+loc$glab <- ifelse(loc$test == "wilcoxon", "g = 0.05", "g = 0")
+comp <- d[d$projection == "c_max_var" & d$gamma == 0.25 &
+          d$test %in% c("lp", "rkhs"), ]
+comp$alpha_v <- 0.45
+comp$glab <- "g = 0.25"
+pd <- rbind(loc, comp)
+pd$row_lab <- sprintf("%s | %s (%s)", TEST_LABS[pd$test],
+                      PROJ_LABS[pd$projection], pd$glab)
+pd$row_lab <- factor(pd$row_lab, levels = rev(unique(pd$row_lab)))
+ggplot(pd, aes(y = row_lab, colour = test)) +
+  geom_vline(xintercept = 0.60, linetype = "dashed", colour = INK_MUTED) +
+  geom_segment(aes(x = l_lo, xend = l_hi, yend = row_lab, alpha = alpha_v),
+               linewidth = 3.2, lineend = "round") +
+  geom_errorbarh(aes(xmin = l_lo - l_lo_sd, xmax = l_lo + l_lo_sd),
+                 height = 0.28, linewidth = 0.5, na.rm = TRUE) +
+  geom_errorbarh(aes(xmin = l_hi - l_hi_sd, xmax = l_hi + l_hi_sd),
+                 height = 0.28, linewidth = 0.5, na.rm = TRUE) +
+  scale_colour_manual(values = TEST_COLS, guide = "none") +
+  scale_alpha_identity() +
+  scale_x_continuous(limits = c(0, 1.02), breaks = seq(0, 1, 0.2),
+                     expand = c(0, 0)) +
+  labs(x = "position in the sample (fraction of n)", y = NULL,
+       subtitle = "Detected segments, printed Table 7.1 (outlier removed)",
+       caption = "Ito whiskers: +-1 sd over 10 draws") +
+  theme_nb + theme(panel.grid.major.y = element_blank(),
+                   plot.caption = element_text(colour = INK_MUTED, size = 9))
+```
+
+## Smoothing moves localisation, not detection
+
+`data/smoothing_sensitivity.csv` (built by
+`aggregators/smoothing_sensitivity.R`) reruns the corrected Wilcoxon
+application over reconstruction variants. Detection is stable: every
+variant rejects. Localisation is what moves, mostly the left endpoint of
+the detected window.
+
+```{r smoothing-sensitivity, fig.height = 8}
+ss <- read.csv(file.path(DATA, "smoothing_sensitivity.csv"))
+app <- subset(ss, arm == "application" & gamma == 0.25 &
+              (grid != "input" | method == "none"))
+app <- app[order(app$method != "none", app$method, app$K), ]
+app$recon_lab <- ifelse(app$method == "none", "none (raw curves)",
+                        sprintf("%s, K = %d", app$method, app$K))
+app$recon_lab <- factor(app$recon_lab, rev(unique(app$recon_lab)))
+app$proj_lab <- factor(PROJ_LABS[app$projection], PROJ_LABS)
+ggplot(app, aes(y = recon_lab)) +
+  geom_vline(xintercept = 0.60, linetype = "dashed", colour = INK_MUTED) +
+  geom_segment(aes(x = lo, xend = hi, yend = recon_lab, colour = proj_lab),
+               linewidth = 2.6, lineend = "round") +
+  facet_wrap(~ proj_lab, ncol = 1) +
+  scale_colour_manual(values = c(COL4, COL1, COL2), guide = "none") +
+  scale_x_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
+  labs(x = "position in the sample (fraction of n)", y = NULL,
+       subtitle = "Corrected Wilcoxon, gamma = 0.25; every variant rejects") +
+  theme_nb + theme(panel.grid.major.y = element_blank(),
+                   axis.text.y = element_text(size = 8.5))
+```
+
+## The full sample, live
+
+The rest needs the raw exports. Fetch them once with
+
+```sh
+Rscript reproduction/applications/litgrid/download_litgrid.R
+```
+
+and re-render; with `has_raw = FALSE` the chunks below are skipped.
+
+```{r load-raw, eval = has_raw}
+source(file.path("..", "applications", "litgrid", "data.R"))
+m <- suppressWarnings(load_litgrid_balancing_prices(
+  RAW, dedup_exports = TRUE, fix_week_labels = TRUE, stamp = "from"))
+lab <- as.integer(rownames(m))
+m <- m[lab <= SPAN_END & lab != OUTLIER_WEEK, , drop = FALSE]
+X <- t(m)                                  # curves in columns, (168 x 345)
+dim(X)
+```
+
+```{r curves-live, eval = has_raw, fig.height = 4.6}
+n <- ncol(X)
+h <- seq_len(nrow(X))
+win <- which(seq_len(n) / n > 0.078 & seq_len(n) / n <= 0.603)
+show <- unique(round(seq(1, n, length.out = 80)))
+df <- data.frame(
+  hour = rep(h, length(show)), week = rep(show, each = nrow(X)),
+  value = as.vector(X[, show]),
+  inwin = rep(show %in% win, each = nrow(X)))
+ggplot(df, aes(hour, value, group = week,
+               colour = inwin, alpha = inwin)) +
+  geom_line(linewidth = 0.35) +
+  scale_colour_manual(values = c(`FALSE` = COL_PLAIN, `TRUE` = COL1),
+                      labels = c("outside detected window", "inside"),
+                      name = NULL) +
+  scale_alpha_manual(values = c(`FALSE` = 0.6, `TRUE` = 0.5), guide = "none") +
+  labs(x = "hour of week", y = "balancing price signal",
+       subtitle = "80 of the 345 weekly curves; blue weeks lie in the detected window") +
+  theme_nb
+```
+
+```{r weekly-index, eval = has_raw, fig.height = 3.8}
+wk <- data.frame(i = seq_len(n) / n, l2 = fdachange::project_l2(X))
+ggplot(wk, aes(i, l2)) +
+  annotate("rect", xmin = 0.078, xmax = 0.603, ymin = -Inf, ymax = Inf,
+           fill = "grey50", alpha = 0.15) +
+  geom_line(colour = COL1, linewidth = 0.5) +
+  labs(x = "position in the sample (fraction of n)", y = "weekly L2 norm",
+       subtitle = "The projected series the scans consume; shaded = detected window") +
+  theme_nb
+```
+
+The live test, exactly the fixed-pipeline analysis of the corrected
+tables (Faber-Schauder least squares at K = 4, L2-norm projection,
+corrected Wilcoxon scan), checked against the committed row:
+
+```{r live-test, eval = has_raw}
+library(fdachange)
+Xr <- reconstruct(X, "fs_ls", K = 4, grid = "vertices")$X
+ht <- epidemic_test(project_l2(Xr), "wilcoxon", gamma = 0.25, kernel = "h_0")
+ht
+row <- subset(ct, pipeline == "fixed" & sample == "no_outlier" &
+              method == "wilcoxon" & projection == "l2" & gamma == 0.25)
+cat(sprintf("committed row: stat %.6f, window [%.4f, %.4f] (%s..%s)\n",
+            row$stat, row$lo, row$hi, row$week_lo, row$week_hi))
+stopifnot(isTRUE(all.equal(unname(ht$statistic), row$stat, tolerance = 1e-8)),
+          isTRUE(all.equal(ht$m / ncol(Xr), row$hi, tolerance = 1e-8)))
+cat("live run matches the committed table row\n")
+```

@@ -5,8 +5,9 @@
 #   Rscript reproduction/notebooks/render.R
 #
 # The LITGRID notebook's raw-data sections evaluate only when the raw
-# download is present (applications/litgrid/download_litgrid.R); without
-# it they render as skipped, which is the state the committed .md is in.
+# download is present (applications/litgrid/download_litgrid.R). The
+# committed .md was rendered WITH the raw data; rendering without it
+# still succeeds, with those sections skipped.
 
 here <- dirname(normalizePath(sub("--file=", "",
   grep("--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])))
