@@ -34,8 +34,9 @@ from .simulate import (
     simulate_wilcoxon_null, simulate_lp_null,
     simulate_rkhs_null, simulate_far1_null,
 )
+from .datasets import TelcoCluster, load_telco_far1
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "holder_weight", "holder_weights", "critical_value",
@@ -60,4 +61,5 @@ __all__ = [
     "far1_null_draws", "far1_critical_value",
     "simulate_wilcoxon_null", "simulate_lp_null",
     "simulate_rkhs_null", "simulate_far1_null",
+    "TelcoCluster", "load_telco_far1",
 ]

@@ -88,6 +88,17 @@ for (g in c(0, 0.25, 0.4, 0.45)) {
 put("kuiper_q|p=0.95", kuiper_quantile(0.95))
 put("kuiper_cdf|v=1.7473", kuiper_cdf(1.7473))
 
+## ---- telco_far1 dataset conversion + end-to-end ------------------------------
+for (nm in names(telco_far1)) {
+  put(sprintf("telco|%s|sum", nm), sum(telco_far1[[nm]]))
+}
+put("telco|cl2|y[1,1]",   telco_far1$cl2[1, 1])
+put("telco|cl2|y[37,28]", telco_far1$cl2[37, 28])
+put("telco|cl9|y[50,14]", telco_far1$cl9[50, 14])
+sc <- wilcoxon_scan(project_l2(t(telco_far1$cl2)), 0.25)
+put("telco|scan_cl2|stat", sc$stat)
+put("telco|scan_cl2|k", sc$k); put("telco|scan_cl2|m", sc$m)
+
 ## ---- projections and reconstruction on the F5 input -------------------------
 write_vec(project_l2(F5), "expected_l2.csv")
 write_mat(reconstruct(F5, "fs_interp", K = 4)$X, "expected_fsinterp.csv")

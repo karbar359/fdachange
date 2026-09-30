@@ -30,6 +30,9 @@ res.reject, res.interval
 
 X = fc.generate_f5(100, a=4, rng=2)            # Wiener curves + spike
 fc.epidemic_test(fc.project_l2(X), "lp", gamma=0.25)
+
+telco = fc.load_telco_far1()                   # shipped FAR(1) dataset
+fc.epidemic_test(fc.project_l2(telco["cl2"].y.T), "wilcoxon", gamma=0.25)
 ```
 
 Functional inputs are `(grid, n_observations)` arrays - one curve per
@@ -48,6 +51,7 @@ Mirrors the R package one-to-one (all names are identical):
 | Projections | `project_l2/ito/wiener/c_max_var/pc1/pc_d`, `projection_fn`, `projection_multiplicity` |
 | Reconstruction | `reconstruct` (`fs_interp` = Faber-Schauder truncation proper; `fs_ls` = least squares onto the same polygonal space; `bspline_pen` via scikit-fda) |
 | Aggregation | `scan_over_splits`, `make_run` |
+| Data | `load_telco_far1` (the R package's `telco_far1` dataset, bit-identical) |
 
 ## Differences from the R package
 

@@ -14,6 +14,7 @@ vignettes/*.R
 python/.venv/
 __pycache__/
 python/dist/
+python/tools/telco-src/
 *.egg-info/
 python/src/fdachange.egg-info/
 .pytest_cache/
