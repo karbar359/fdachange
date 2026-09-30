@@ -47,13 +47,13 @@ def test_rkhs_statistics(expected, x60):
         expected["rkhs_2max|g=0.25"], rel=RTOL)
 
 
-def test_birbilas_statistics(expected, F4):
+def test_far1_statistics(expected, F4):
     for g in (0.25, 0.4):
-        assert fc.birbilas_statistic(F4, g) == pytest.approx(
-            expected[f"birbilas|g={g:g}"], rel=RTOL)
-    assert fc.birbilas_statistic(
-        F4, 0.4, beta_t=fc.birbilas_betas["beta3"]) == pytest.approx(
-        expected["birbilas_beta3|g=0.4"], rel=RTOL)
+        assert fc.far1_statistic(F4, g) == pytest.approx(
+            expected[f"far1|g={g:g}"], rel=RTOL)
+    assert fc.far1_statistic(
+        F4, 0.4, beta_t=fc.far1_betas["beta3"]) == pytest.approx(
+        expected["far1_beta3|g=0.4"], rel=RTOL)
 
 
 def test_scan_windows(expected, x60, F4):
@@ -70,10 +70,10 @@ def test_scan_windows(expected, x60, F4):
     assert sc["stat"] == pytest.approx(expected["scan_rkhs|stat"], rel=RTOL)
     assert sc["k"] == int(expected["scan_rkhs|k"])
     assert sc["m"] == int(expected["scan_rkhs|m"])
-    sc = fc.birbilas_scan(F4, 0.4)
-    assert sc["stat"] == pytest.approx(expected["scan_birbilas|stat"], rel=RTOL)
-    assert sc["k"] == int(expected["scan_birbilas|k"])
-    assert sc["m"] == int(expected["scan_birbilas|m"])
+    sc = fc.far1_scan(F4, 0.4)
+    assert sc["stat"] == pytest.approx(expected["scan_far1|stat"], rel=RTOL)
+    assert sc["k"] == int(expected["scan_far1|k"])
+    assert sc["m"] == int(expected["scan_far1|m"])
 
 
 def test_critical_values_bit_parity(expected):
@@ -97,8 +97,8 @@ def test_critical_values_bit_parity(expected):
                 pytest.approx(expected[f"cv_rkhs|g={g:g}|k={kernel}|b={baseline}"],
                               rel=1e-12)
     for g in (0, 0.25, 0.4, 0.45):
-        assert fc.birbilas_critical_value(g) == pytest.approx(
-            expected[f"cv_birbilas|g={g:g}"], rel=1e-12)
+        assert fc.far1_critical_value(g) == pytest.approx(
+            expected[f"cv_far1|g={g:g}"], rel=1e-12)
 
 
 def test_kuiper(expected):

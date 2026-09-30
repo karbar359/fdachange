@@ -10,7 +10,7 @@ from ._kuiper import kuiper_cdf, kuiper_quantile
 from .wilcoxon import wilcoxon_statistic, wilcoxon_scan
 from .lp import lp_statistic, lp_scan
 from .rkhs import rkhs_statistic, rkhs_scan
-from .birbilas import birbilas_statistic, birbilas_scan, birbilas_betas
+from .far1 import far1_statistic, far1_scan, far1_betas
 from .epidemic_test import epidemic_test, EpidemicTestResult
 from .scenarios import (
     generate_s1, generate_s2, generate_s3, generate_s4, generate_s5,
@@ -28,11 +28,11 @@ from .nulls import (
     wilcoxon_null_draws, wilcoxon_critical_value,
     lp_null_draws, lp_critical_value,
     rkhs_null_draws, rkhs_critical_value,
-    birbilas_null_draws, birbilas_critical_value,
+    far1_null_draws, far1_critical_value,
 )
 from .simulate import (
     simulate_wilcoxon_null, simulate_lp_null,
-    simulate_rkhs_null, simulate_birbilas_null,
+    simulate_rkhs_null, simulate_far1_null,
 )
 
 __version__ = "0.1.0"
@@ -44,7 +44,7 @@ __all__ = [
     "wilcoxon_statistic", "wilcoxon_scan",
     "lp_statistic", "lp_scan",
     "rkhs_statistic", "rkhs_scan",
-    "birbilas_statistic", "birbilas_scan", "birbilas_betas",
+    "far1_statistic", "far1_scan", "far1_betas",
     "epidemic_test", "EpidemicTestResult",
     "generate_s1", "generate_s2", "generate_s3", "generate_s4",
     "generate_s5", "generate_f1", "generate_f2", "generate_f3",
@@ -57,7 +57,7 @@ __all__ = [
     "wilcoxon_null_draws", "wilcoxon_critical_value",
     "lp_null_draws", "lp_critical_value",
     "rkhs_null_draws", "rkhs_critical_value",
-    "birbilas_null_draws", "birbilas_critical_value",
+    "far1_null_draws", "far1_critical_value",
     "simulate_wilcoxon_null", "simulate_lp_null",
-    "simulate_rkhs_null", "simulate_birbilas_null",
+    "simulate_rkhs_null", "simulate_far1_null",
 ]

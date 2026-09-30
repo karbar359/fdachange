@@ -16,7 +16,7 @@ from .rkhs import rkhs_statistic
 
 __all__ = [
     "simulate_wilcoxon_null", "simulate_lp_null",
-    "simulate_rkhs_null", "simulate_birbilas_null",
+    "simulate_rkhs_null", "simulate_far1_null",
 ]
 
 
@@ -79,7 +79,7 @@ def simulate_rkhs_null(n_draws: int, gamma: float, kernel="gaussian",
                      for _ in range(n_draws)])
 
 
-def simulate_birbilas_null(n_draws: int, gamma: float, grid: int = 1200,
+def simulate_far1_null(n_draws: int, gamma: float, grid: int = 1200,
                            rng=None) -> np.ndarray:
     """Draws of the asymptotic limit E_{q,gamma} on a Brownian lattice."""
     rng = _as_rng(rng)

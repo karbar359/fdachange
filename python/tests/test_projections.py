@@ -64,9 +64,9 @@ def test_make_run_and_splits(F5):
     assert v2 == pytest.approx(max(run(F5[:, :25]), run(F5[:, 25:])))
     with pytest.raises(ValueError, match="divisible"):
         fc.scan_over_splits(F5, 7, run)
-    run_b = fc.make_run(lambda X: X, fc.birbilas_statistic, 0.4,
+    run_b = fc.make_run(lambda X: X, fc.far1_statistic, 0.4,
                         matrix_in=True)
-    assert run_b(F5) == pytest.approx(fc.birbilas_statistic(F5, 0.4))
+    assert run_b(F5) == pytest.approx(fc.far1_statistic(F5, 0.4))
 
 
 def test_reconstruct_contracts(F5):

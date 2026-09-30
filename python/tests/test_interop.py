@@ -20,7 +20,7 @@ def _as_fdatagrid(X):
 
 def test_fdatagrid_inputs_match_ndarray(F5):
     fd = _as_fdatagrid(F5)
-    assert fc.birbilas_statistic(fd, 0.4) == fc.birbilas_statistic(F5, 0.4)
+    assert fc.far1_statistic(fd, 0.4) == fc.far1_statistic(F5, 0.4)
     np.testing.assert_array_equal(fc.project_l2(fd), fc.project_l2(F5))
     a = fc.project_ito(fd, rng=11)
     b = fc.project_ito(F5, rng=11)

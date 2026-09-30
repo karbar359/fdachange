@@ -24,10 +24,10 @@ __all__ = [
     "wilcoxon_null_draws", "wilcoxon_critical_value",
     "lp_null_draws", "lp_critical_value",
     "rkhs_null_draws", "rkhs_critical_value",
-    "birbilas_null_draws", "birbilas_critical_value",
+    "far1_null_draws", "far1_critical_value",
 ]
 
-_METHODS = ("wilcoxon", "lp", "rkhs", "birbilas")
+_METHODS = ("wilcoxon", "lp", "rkhs", "far1")
 _TABLES: dict[str, dict[str, np.ndarray]] = {}
 
 
@@ -45,7 +45,7 @@ def _null_key(method: str, gamma, beta=0, p=2, kernel="gaussian",
     if method == "rkhs":
         suffix = f"_{baseline}" if baseline else ""
         return f"g{_fmt(gamma)}_{_kernel_name(kernel)}{suffix}"
-    if method == "birbilas":
+    if method == "far1":
         return f"g{_fmt(gamma)}"
     raise ValueError(f"unknown method: {method}")
 
@@ -138,9 +138,9 @@ def rkhs_null_draws(gamma, kernel="gaussian", baseline="") -> np.ndarray:
                      f"kernel={kernel!r}, rdist=<H0 sampler>)")
 
 
-def birbilas_null_draws(gamma) -> np.ndarray:
-    return _null_get("birbilas", _null_key("birbilas", gamma),
-                     f"simulate_birbilas_null(n_draws, gamma={gamma})")
+def far1_null_draws(gamma) -> np.ndarray:
+    return _null_get("far1", _null_key("far1", gamma),
+                     f"simulate_far1_null(n_draws, gamma={gamma})")
 
 
 def wilcoxon_critical_value(gamma, beta=0, alpha=0.05, splits=1) -> float:
@@ -157,5 +157,5 @@ def rkhs_critical_value(gamma, kernel="gaussian", baseline="",
                           alpha, splits)
 
 
-def birbilas_critical_value(gamma, alpha=0.05, splits=1) -> float:
-    return critical_value(birbilas_null_draws(gamma), alpha, splits)
+def far1_critical_value(gamma, alpha=0.05, splits=1) -> float:
+    return critical_value(far1_null_draws(gamma), alpha, splits)
