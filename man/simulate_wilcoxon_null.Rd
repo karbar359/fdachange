@@ -4,7 +4,7 @@
 \alias{simulate_wilcoxon_null}
 \alias{simulate_lp_null}
 \alias{simulate_rkhs_null}
-\alias{simulate_birbilas_null}
+\alias{simulate_far1_null}
 \title{Simulate null draws for the scan statistics}
 \usage{
 simulate_wilcoxon_null(
@@ -36,7 +36,7 @@ simulate_rkhs_null(
   progress = interactive()
 )
 
-simulate_birbilas_null(
+simulate_far1_null(
   n_draws,
   gamma,
   grid = 1200L,
@@ -92,7 +92,7 @@ Wiener sheet on a \code{grid} x \code{grid} lattice (shipped: \code{grid = 200},
 \item \code{simulate_rkhs_null()}: draws of \code{\link[=rkhs_statistic]{rkhs_statistic()}} on i.i.d.
 samples of size \code{n} from the H0 sampler \code{rdist} (shipped:
 \code{n = 2000}, 1000 draws).
-\item \code{simulate_birbilas_null()}: the asymptotic limit
+\item \code{simulate_far1_null()}: the asymptotic limit
 \eqn{E_{q,\gamma}} on a \code{grid} x \code{grid} Brownian-motion lattice
 (shipped: \code{grid = 1200}, 1000 draws).
 }

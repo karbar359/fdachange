@@ -159,7 +159,7 @@ for (sc in names(A_HI)) {
     # only meaningful on FAR(1) scenarios. Wire on F4 only.
     if (sc == "F4") {
       cells[[length(cells) + 1L]] <- list(
-        method = "birbilas", sc = sc, N = N_F1, project = project_identity,
+        method = "far1", sc = sc, N = N_F1, project = project_identity,
         stat_args = list(beta_t = function(t) 0.7 * sqrt(t)),
         null_args = list(),
         matrix_in = TRUE,

@@ -52,12 +52,12 @@ plot_theme <- theme_minimal(base_size = 13) +
 # One curve per method, picking the projection that gives the cleanest
 # size + power tradeoff so the supervisor can read it.
 canon <- rbind(
-  df[df$method == "birbilas", ],
+  df[df$method == "far1", ],
   df[df$method == "lp"       & df$projection == "c_max_var", ],
   df[df$method == "wilcoxon" & df$projection == "c_max_var" & df$m == 1L, ],
   df[df$method == "rkhs"     & grepl("^min_rnorm", df$tag), ])
 canon$method_label <- factor(canon$method,
-  levels = c("birbilas", "rkhs", "lp", "wilcoxon"),
+  levels = c("far1", "rkhs", "lp", "wilcoxon"),
   labels = c("Birbilas E (adjusted CV)", "RKHS (min, l2)",
              "Lp (p=2, c_max_var)", "Wilcoxon (h_0, c_max_var, M=1)"))
 

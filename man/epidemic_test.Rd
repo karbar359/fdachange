@@ -7,14 +7,14 @@
 \usage{
 epidemic_test(
   x,
-  method = c("wilcoxon", "lp", "rkhs", "birbilas"),
+  method = c("wilcoxon", "lp", "rkhs", "far1"),
   gamma,
   beta = 0,
   kernel = NULL,
   p = 2,
   cdf = NULL,
   t_grid = 100,
-  beta_t = birbilas_betas$beta1,
+  beta_t = far1_betas$beta1,
   baseline = "",
   alpha = 0.05,
   splits = 1L,
@@ -26,7 +26,7 @@ epidemic_test(
 \arguments{
 \item{x}{numeric vector for \code{"wilcoxon"}, \code{"lp"}, \code{"rkhs"} (project
 functional data first, see \code{\link[=project_l2]{project_l2()}}); numeric matrix
-\verb{(grid x n)} for \code{"birbilas"}.}
+\verb{(grid x n)} for \code{"far1"}.}
 
 \item{method}{which scan statistic to use.}
 
@@ -39,7 +39,7 @@ function. Default: \code{"h_w"} for Wilcoxon, \code{"gaussian"} for RKHS.}
 
 \item{p, cdf, t_grid}{Lp scan parameters, see \code{\link[=lp_statistic]{lp_statistic()}}.}
 
-\item{beta_t}{Birbilas beta operator, see \code{\link[=birbilas_statistic]{birbilas_statistic()}}.}
+\item{beta_t}{Birbilas beta operator, see \code{\link[=far1_statistic]{far1_statistic()}}.}
 
 \item{baseline}{RKHS null baseline tag, see \code{\link[=rkhs_null_draws]{rkhs_null_draws()}}.}
 
@@ -69,7 +69,7 @@ The null distribution is resolved automatically: the closed-form Kuiper
 law for the Wilcoxon scan at \verb{gamma = 0, beta = 0}, otherwise the
 shipped Monte-Carlo cache for the method
 (\code{\link[=wilcoxon_null_draws]{wilcoxon_null_draws()}}, \code{\link[=lp_null_draws]{lp_null_draws()}}, \code{\link[=rkhs_null_draws]{rkhs_null_draws()}},
-\code{\link[=birbilas_null_draws]{birbilas_null_draws()}}). Pass your own draws via \verb{null=} to use a
+\code{\link[=far1_null_draws]{far1_null_draws()}}). Pass your own draws via \verb{null=} to use a
 scenario-specific or finite-sample calibration instead (required when
 \code{kernel} is a custom function, or for RKHS baselines that are not
 cached).
