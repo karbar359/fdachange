@@ -25,7 +25,8 @@ classifiers = [
 # multimethod 2.x breaks scikit-fda 0.10's operator imports on Python 3.12
 # (metaclass conflict); pin below 2 until skfda catches up.
 fda = ["scikit-fda>=0.9", "multimethod<2"]
-test = ["pytest>=7", "scikit-fda>=0.9", "multimethod<2"]
+test = ["pytest>=7", "pytest-describe>=2", "pyhamcrest>=2",
+        "scikit-fda>=0.9", "multimethod<2"]
 
 [project.urls]
 Homepage = "https://github.com/karbar359/fdachange"

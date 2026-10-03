@@ -7,6 +7,10 @@ cross-language parity suite: statistics, scan windows and critical values
 are asserted in pytest against values computed by the R package on
 identical inputs, and the packaged null caches are converted from the
 same frozen Monte-Carlo sources, so critical values are bit-identical.
+The suite is split by level: `tests/unit/` holds self-contained
+printed-formula brute forces and behavioral contracts (one file per
+source module), `tests/parity/` the cross-language gates against the
+R-generated fixtures.
 
 ## Install
 

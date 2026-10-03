@@ -10,7 +10,7 @@ suppressPackageStartupMessages(library(fdachange))
 
 out_dir <- file.path(dirname(sub("--file=", "",
   grep("--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])),
-  "..", "tests", "fixtures")
+  "..", "tests", "parity", "fixtures")
 out_dir <- normalizePath(out_dir, mustWork = FALSE)
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
