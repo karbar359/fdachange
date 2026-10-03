@@ -165,6 +165,75 @@ ggplot(d, aes(a, power, colour = g, shape = g)) +
   theme_grid
 ```
 
+### The splitting parameter m
+
+Paper 1's split statistic `T^(d)` divides the sample into m chunks,
+redraws the (stochastic) projection per chunk, and takes the outer
+maximum; `scan_over_splits()` implements it. The printed record covers
+m in {1, 2, 4} for the Wilcoxon scan: the full scalar grids and the
+F3/F4 functional grids (all three projections; l2 shown below), while
+for F1/F2 only the l2 strip at gamma = 0 survives.
+
+```{r m-scalar, fig.height = 5.6}
+dm <- dat[dat$test == "wilcoxon" & dat$scenario %in% names(S_LABELS) &
+          dat$segment == "long", ]
+dm$m_lab  <- factor(dm$m, c(1, 2, 4), paste("m =", c(1, 2, 4)))
+dm$sc_lab <- factor(dm$scenario, names(S_LABELS), S_LABELS)
+ggplot(dm, aes(a, power, colour = g, shape = g)) +
+  geom_hline(yintercept = ALPHA, linetype = "dotted", colour = INK_MUTED) +
+  geom_line(linewidth = 0.9) + geom_point(size = 2.2) +
+  facet_grid(m_lab ~ sc_lab) +
+  scale_x_continuous(trans = "sqrt", breaks = c(0, 1, 2, 4, 8)) +
+  scale_gamma +
+  labs(x = "change magnitude a", y = "rejection rate",
+       subtitle = "Wilcoxon scan over splits, scalar scenarios, long segment") +
+  theme_grid
+```
+
+```{r m-functional, fig.height = 5.2}
+df <- dat[dat$test == "wilcoxon" & dat$scenario %in% c("F3", "F4") &
+          dat$segment == "long" & dat$projection == "l2", ]
+df$m_lab  <- factor(df$m, c(1, 2, 4), paste("m =", c(1, 2, 4)))
+df$sc_lab <- factor(df$scenario, c("F3", "F4"), F_LABELS[c("F3", "F4")])
+ggplot(df, aes(a, power, colour = g, shape = g)) +
+  geom_hline(yintercept = ALPHA, linetype = "dotted", colour = INK_MUTED) +
+  geom_line(linewidth = 0.9) + geom_point(size = 2.2) +
+  facet_grid(m_lab ~ sc_lab, scales = "free_x") +
+  scale_gamma +
+  labs(x = "change magnitude a", y = "rejection rate",
+       subtitle = "Wilcoxon over splits, F3/F4 at the L2-norm projection, long segment") +
+  theme_grid
+```
+
+```{r m-strip, fig.height = 3.6}
+wm <- dat[dat$test == "wilcoxon" & dat$scenario %in% c("F1", "F2") &
+          dat$segment == "long" & dat$projection == "l2" & dat$gamma == 0, ]
+wm$sc_lab <- factor(wm$scenario, c("F1", "F2"), F_LABELS[c("F1", "F2")])
+wm$m <- factor(wm$m)
+ggplot(wm, aes(a, power, colour = m, shape = m)) +
+  geom_hline(yintercept = ALPHA, linetype = "dotted", colour = INK_MUTED) +
+  geom_line(linewidth = 1.1) + geom_point(size = 2.6) +
+  facet_wrap(~ sc_lab, nrow = 1, scales = "free_x") +
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.5, 1)) +
+  scale_colour_manual(values = c(`1` = COL1, `2` = COL2, `4` = COL3),
+                      name = "splits m") +
+  scale_shape_manual(values = c(`1` = 16, `2` = 17, `4` = 15),
+                     name = "splits m") +
+  labs(x = "Pareto tail index a", y = "rejection rate",
+       subtitle = "The preserved F1/F2 evidence: l2 projection, gamma = 0, long segment") +
+  theme_grid
+```
+
+The record's verdict: splitting costs power on these designs. m = 1 has
+the best mean power everywhere (scalar long segment: 0.47 vs 0.29 at
+m = 2 and 0.34 at m = 4; F3/F4 show the same ordering at every
+projection), because each chunk sees a shorter sample and the change
+window can straddle chunk boundaries. m = 4 consistently recovers part
+of m = 2's loss - more chunks mean more chances that one chunk isolates
+the window with a fresh projection draw. These are printed (legacy
+family) values, so the m comparison is internally consistent, but the
+gamma = 0.45 rows inherit the weight defect shown in the audit section.
+
 ## The restored F5 spike study
 
 `data/f5_spike_power.csv` (regenerate with
@@ -200,6 +269,53 @@ scan at a = 0.5 to 1 it reaches 2 to 3 times the power of `l2`) and has
 the best mean power overall for Lp, but it is not uniformly dominant. At
 large amplitudes the norm projections catch up, and for the Wilcoxon h_0
 scan `l2` wins on average.
+
+## The Lp exponent p
+
+The thesis printed the Lp scan at p = 2 only. `data/lp_p_power.csv`
+(regenerate with `sweeps/run_lp_p_study.sh`, then
+`aggregators/aggregate_lp_p.R`) extends the scalar grid to p in
+{2, 4, 10} - all three runs use the **corrected** family on identical
+seeds (n = 400, N_rep = 100), so unlike the printed scalar figure above
+this is a like-for-like comparison, not the legacy record.
+
+```{r lp-p, fig.height = 5.6}
+pp <- read.csv(file.path(DATA, "lp_p_power.csv"))
+pp$g <- factor(pp$gamma, levels = c(0, 0.25, 0.45))
+pp$p_lab  <- factor(pp$p, c(2, 4, 10), paste("p =", c(2, 4, 10)))
+pp$sc_lab <- factor(pp$scenario, names(S_LABELS), S_LABELS)
+lp_p_fig <- function(d, subtitle) {
+  ggplot(d, aes(a, power, colour = g, shape = g)) +
+    geom_hline(yintercept = ALPHA, linetype = "dotted", colour = INK_MUTED) +
+    geom_line(linewidth = 0.9) + geom_point(size = 2.2) +
+    facet_grid(p_lab ~ sc_lab) +
+    scale_x_continuous(trans = "sqrt", breaks = c(0, 1, 2, 4, 8)) +
+    scale_gamma +
+    labs(x = "change magnitude a", y = "rejection rate",
+         subtitle = subtitle) +
+    theme_grid
+}
+lp_p_fig(pp[pp$ec_length == 0.2, ],
+         "Corrected Lp scan, scalar scenarios, long segment (l = n/5)")
+```
+
+```{r lp-p-short, fig.height = 5.6}
+lp_p_fig(pp[pp$ec_length == 0.015, ],
+         "The same grid on the short segment (l = floor(log n) + 1 = 6)")
+```
+
+The verdict: the exponent barely matters where the test has power. On
+the long segment p = 2 and p = 4 are within Monte-Carlo noise of each
+other in every cell, and p = 10 trails by a few points at most. The
+short segment separates them: at gamma = 0.25 the p = 10 scan loses
+roughly two thirds of its (already small) power (mean 0.05 to 0.07
+over the alternatives, vs 0.13 to 0.18 for p = 2 and 4), while at
+gamma = 0.45, the right weight for short windows, p = 2 and p = 4
+remain indistinguishable and p = 10 trails modestly, most visibly on
+S5's heavy tails. Empirical size sits near the nominal level throughout (worst
+cells 0.11 to 0.13, about three binomial standard errors at
+N_rep = 100). Nothing here rewards an exponent above the thesis's
+p = 2 default.
 
 ## Asymptotic vs finite-sample calibration
 
