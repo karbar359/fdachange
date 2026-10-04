@@ -1,8 +1,8 @@
 # Due to lack of monthly telco data availability clusters 1-4 from Birbilas (2025) 
-# were expanded using simulations defined bellow. Custers 5-11 were simulated using 
+# were expanded using simulations defined below. Clusters 5-11 were simulated using 
 # cluster 2 data. Details: 
-#  ├─────────┼─────────┼──────────────────────────────────────┤
-#  | Cluster │ Model   │                Design                │
+#  ┌─────────┬─────────┬──────────────────────────────────────┐
+#  │ Cluster │ Model   │                Design                │
 #  │         │  from   │                                      │
 #  ├─────────┼─────────┼──────────────────────────────────────┤
 #  │ cl1     │ cl1     │ no change                            │
@@ -29,7 +29,7 @@
 #  │ cl10    │ cl2     │ high and falling ×1.50 → ×1.05       │
 #  ├─────────┼─────────┼──────────────────────────────────────┤
 #  │ cl11    │ cl2     │ low and rising ×0.60 → ×0.84         │
-#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  └─────────┴─────────┴──────────────────────────────────────┘
 
 # Build data/telco_far1.rda: simulated telco daily voice-usage curves that
 # follow a functional autoregressive FAR(1) process, 11 clusters x 50 months
