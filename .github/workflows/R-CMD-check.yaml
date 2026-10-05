@@ -1,7 +1,7 @@
 # Standard R CMD check matrix (r-lib/actions).
 on:
   push:
-    branches: [main]
+    branches: [main, 'feature/**']
   pull_request:
     branches: [main]
 
@@ -36,6 +36,14 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      # CRAN's macOS arm64 binary of knitr 1.52 is corrupt (pak: "Cannot
+      # extract ... unknown archive type", 2026-09-20). Preinstalling from
+      # source makes pak skip that download; remove this step once CRAN
+      # republishes the binary.
+      - name: Preinstall knitr from source (corrupt CRAN macOS binary)
+        if: runner.os == 'macOS'
+        run: Rscript -e 'install.packages("knitr", type = "source", repos = "https://cloud.r-project.org")'
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
@@ -45,6 +53,28 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual", "--compact-vignettes=gs+qpdf")'
+
+  python-tests:
+    runs-on: ubuntu-latest
+    name: python (${{ matrix.python-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install package with test extras
+        run: pip install './python[test]'
+      - name: Run pytest
+        run: pytest python/tests -q
+      - name: Execute the example notebook
+        if: matrix.python-version == '3.12'
+        run: |
+          pip install matplotlib nbclient ipykernel
+          jupyter execute python/examples/fdachange.ipynb
 
   slow-tests:
     if: github.event_name == 'push'

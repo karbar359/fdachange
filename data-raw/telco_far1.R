@@ -1,3 +1,36 @@
+# Due to lack of monthly telco data availability clusters 1-4 from Birbilas (2025) 
+# were expanded using simulations defined below. Clusters 5-11 were simulated using 
+# cluster 2 data. Details: 
+#  ┌─────────┬─────────┬──────────────────────────────────────┐
+#  │ Cluster │ Model   │                Design                │
+#  │         │  from   │                                      │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl1     │ cl1     │ no change                            │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl2     │ cl2     │ sqrt(t) jump +25%, months 37–46      │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl3     │ cl3     │ sqrt(t) jump −25%, months 37–49,     │
+#  │         │         │ plus outlier months and days         │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl4     │ cl4     │ sqrt(t) jump from month 37,          │
+#  │         │         │ deepening 2.5% per month             │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl5     │ cl2     │ rising trend ×1.00 → ×1.30           │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl6     │ cl2     │ falling trend ×1.00 → ×0.70          │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl7     │ cl2     │ higher level ×1.50                   │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl8     │ cl2     │ lower level ×0.60                    │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl9     │ cl2     │ 5% outlier days at 2–4× plus 4       │
+#  │         │         │ outlier months at ×1.5               │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl10    │ cl2     │ high and falling ×1.50 → ×1.05       │
+#  ├─────────┼─────────┼──────────────────────────────────────┤
+#  │ cl11    │ cl2     │ low and rising ×0.60 → ×0.84         │
+#  └─────────┴─────────┴──────────────────────────────────────┘
+
 # Build data/telco_far1.rda: simulated telco daily voice-usage curves that
 # follow a functional autoregressive FAR(1) process, 11 clusters x 50 months
 # x 28 days. Documented in R/data.R (?telco_far1).
