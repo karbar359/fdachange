@@ -57,10 +57,15 @@ x <- rnorm(200)
 x[81:140] <- x[81:140] + 1
 
 epidemic_test(x, method = "wilcoxon", gamma = 0.25)
-#>  Epidemic change scan test (Wilcoxon-type antisymmetric kernel)
-#>  T = ..., p-value = ...
-#>  critical value (alpha = 0.05): ...
-#>  detected window: observations ...
+#>
+#>     Epidemic change scan test (Wilcoxon-type antisymmetric kernel)
+#>
+#> data:  x
+#> T = 4.1877, gamma = 0.25, p-value < 2.2e-16
+#> alternative hypothesis: an epidemic (changed then restored) segment
+#>
+#> critical value (alpha = 0.05): 2.5379  [30000 null draws]
+#> detected window: observations 81..133 (fractions 0.400..0.665)
 
 ## functional data: project, then test (the ecdf-based Lp path is
 ## calibration-safe for any projected marginal)
