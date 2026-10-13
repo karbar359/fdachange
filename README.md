@@ -160,7 +160,7 @@ pip install "git+https://github.com/karbar359/fdachange#subdirectory=python"
 ```
 
 `skfda.FDataGrid` inputs are accepted everywhere via the optional
-scikit-fda extra (`fdachange[fda]`), which also provides the penalized
+scikit-fda extra (`fdachange[fda]`), which also provides the penalised
 reconstruction arm; see [`python/README.md`](python/README.md) for the
 API table and the ecosystem notes (scikit-fda, ruptures).
 
