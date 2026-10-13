@@ -23,7 +23,9 @@ through a functional-to-scalar projection (`project_l2()`, `project_ito()`,
 `project_c_max_var()`, ...), optionally preceded by curve reconstruction
 (`reconstruct()`). The dissertation's benchmark scenarios ship as
 `generate_s1()` ... `generate_f5()` (F5: Wiener random-walk curves with a
-spike-type change, restored from the paper-1 draft).
+spike-type change, restored from the paper-1 draft). A shipped dataset,
+`telco_far1` (eleven simulated FAR(1) customer clusters, see
+`?telco_far1`), serves as the worked application.
 
 ## Installation
 
@@ -69,6 +71,19 @@ epidemic_test(project_l2(X), method = "lp", gamma = 0.25)
 Xf <- generate_f4(100, a = 2)         # FAR(1) functional time series
 epidemic_test(Xf, method = "far1", gamma = 0.4)
 ```
+
+## Walkthroughs
+
+| Walkthrough | What it shows |
+|---|---|
+| [`vignettes/fdachange.Rmd`](vignettes/fdachange.Rmd) | The R tour: the benchmark scenarios, every projection on the same curves, calibration, a miniature power study and a reconstruct-project-test application. Read it in R as `vignette("fdachange")` after installing with `build_vignettes = TRUE`. |
+| [`python/examples/fdachange.ipynb`](python/examples/fdachange.ipynb) | The same tour in Python, executed, ending with the `telco_far1` application. |
+| [`reproduction/notebooks/simulations.md`](reproduction/notebooks/simulations.md) | The thesis power study, the restored F5 spike study, the Lp exponent, asymptotic vs finite-sample calibration, and what the statistic audit changed. |
+| [`reproduction/notebooks/litgrid.md`](reproduction/notebooks/litgrid.md) | The LITGRID application: weekly Lithuanian balancing-price curves, legacy vs fixed pipeline, the corrected result tables. |
+| [`reproduction/notebooks/telco.md`](reproduction/notebooks/telco.md) | The telco application: all eleven `telco_far1` clusters scanned, with exact calibration under FAR(1) dependence. |
+
+The three `reproduction` notebooks render from committed result tables,
+so their figures never depend on rerunning the multi-hour sweeps.
 
 ## Critical values and null distributions
 
@@ -120,6 +135,12 @@ The test suite enforces that permanently:
   CSVs with element-wise `identical()` assertions, so critical values are
   bit-identical to the original pipeline.
 
+The rerun pipeline behind those checks, including the vendored
+pre-audit code, lives under [`reproduction/`](reproduction/): its
+[`README.md`](reproduction/README.md) describes the layout and the
+verification gates, [`SEEDS.md`](reproduction/SEEDS.md) the RNG
+discipline that makes every run core-count independent.
+
 ## Python implementation
 
 A Python twin lives under [`python/`](python/) with a one-to-one API
@@ -158,6 +179,11 @@ corresponding article:
 
 See `citation("fdachange")`.
 
+## Contributing
+
+Issues and pull requests are welcome; the checks to run are listed in
+[`CONTRIBUTING.md`](CONTRIBUTING.md). Release notes: [`NEWS.md`](NEWS.md).
+
 ## License
 
-MIT. See `LICENSE.md`.
+MIT. See [`LICENSE.md`](LICENSE.md).

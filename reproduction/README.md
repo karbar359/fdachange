@@ -3,7 +3,7 @@
 This directory reruns the simulation and application pipeline of Bartkus
 (2026), *Changed Segment Tests on Functional Data* (PhD dissertation,
 Vilnius University, doi:10.15388/vu.thesis.950), on top of the in-tree
-`fdachange` package. It exists so that
+[`fdachange`](../README.md) package. It exists so that
 every number the pipeline produced - including the pre-audit ("legacy")
 runs behind some published tables - can be regenerated and compared.
 
@@ -23,7 +23,7 @@ It is excluded from the built R package (`.Rbuildignore`).
 | `sweeps/` | Shell wrappers that batch `driver.R` over the thesis grids; `run_corrected_n400.sh` is the corrected-family re-run of the whole simulation chapter. |
 | `generators/` | Monte-Carlo null-cache generators + `validate.R` (distributional check against the frozen caches). |
 | `aggregators/` | Table/figure builders; LaTeX fragments and PNGs go to `output/` (gitignored). |
-| `notebooks/` | Rendered walkthroughs (view the `.md` files on GitHub): `simulations` visualizes the committed power/calibration/audit tables, `litgrid` and `telco` the two applications. Rebuild with `Rscript notebooks/render.R`; rendered in CI against the committed data. Python users: package usage and the telco application live in `python/examples/fdachange.ipynb`. |
+| `notebooks/` | Rendered walkthroughs (view the `.md` files on GitHub): [`simulations.md`](notebooks/simulations.md) visualizes the committed power/calibration/audit tables, [`litgrid.md`](notebooks/litgrid.md) and [`telco.md`](notebooks/telco.md) the two applications. Rebuild with `Rscript notebooks/render.R`; rendered in CI against the committed data. Python users: package usage and the telco application live in [`python/examples/fdachange.ipynb`](../python/examples/fdachange.ipynb). |
 | `applications/litgrid/` | The LITGRID balancing-price application, including `reproduce_tables.R` (asserts the printed Tables 7.1/7.2 within print tolerance) and `download_litgrid.R`. |
 | `data/` | Committed tidy outputs (the canonical result CSVs the thesis figures used). |
 | `results/`, `output/` | Gitignored working state. |
@@ -86,12 +86,14 @@ not uniformly dominant.
    (`wilcoxon/S1, n = 400, seed 42, EC_EXACT`) regenerated through this
    driver is byte-identical to the original pipeline's
    `wilcoxon_S1_n400_h_w_beta0_corrected.csv`, at any core count (see
-   `SEEDS.md`).
+   [`SEEDS.md`](SEEDS.md)).
 3. `Rscript applications/litgrid/reproduce_tables.R` - the printed
    dissertation Tables 7.1 and 7.2 reproduce within print tolerance
    (exits non-zero otherwise).
 
 ## Typical runs
+
+From this directory:
 
 ```sh
 Rscript verify_statistics.R                       # < 1 min, run first
@@ -102,7 +104,8 @@ Rscript applications/litgrid/reproduce_tables.R   # printed-table assertion
 Rscript notebooks/render.R                        # re-render the notebooks
 ```
 
-Seeds, RNG streams and the core-count-independence proof: `SEEDS.md`.
+Seeds, RNG streams and the core-count-independence proof:
+[`SEEDS.md`](SEEDS.md).
 
 ## Environment
 

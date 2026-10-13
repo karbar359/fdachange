@@ -49,9 +49,12 @@ executed example notebook
 [`examples/fdachange.ipynb`](examples/fdachange.ipynb), the counterpart
 of the R package's vignette (executed in CI, so it stays current). The
 full simulation study and both applications (LITGRID and telco) are
-walked through in the R notebooks under
-[`reproduction/notebooks/`](../reproduction/notebooks/); reproduction
-itself is R-only because it reruns the thesis's R code stream-exactly.
+walked through in the R notebooks
+[`simulations.md`](../reproduction/notebooks/simulations.md),
+[`litgrid.md`](../reproduction/notebooks/litgrid.md) and
+[`telco.md`](../reproduction/notebooks/telco.md) under
+`reproduction/notebooks/`; reproduction itself is R-only because it
+reruns the thesis's R code stream-exactly.
 
 ## API
 
@@ -89,4 +92,4 @@ the niche fdachange fills.
 ## Citing
 
 Cite the dissertation and articles listed by `citation("fdachange")` in
-the R package (see the repository root README).
+the R package (see the [repository root README](../README.md)).
