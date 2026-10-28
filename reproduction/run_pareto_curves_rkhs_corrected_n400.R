@@ -58,6 +58,10 @@ source(file.path(root, "R", "legacy", "kernels.R"))
 source(file.path(root, "R", "legacy", "null_cache.R"))
 source(file.path(root, "R", "legacy", "projections.R"))
 source(file.path(root, "R", "legacy", "method_rkhs.R"))
+# Scenario generators (generate_F1 ...) come from R/compat.R on top of the
+# package, as in driver.R.
+suppressPackageStartupMessages(library(fdachange))
+source(file.path(root, "R", "compat.R"))
 
 suppressPackageStartupMessages(library(parallel))
 
