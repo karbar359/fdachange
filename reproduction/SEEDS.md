@@ -1,8 +1,10 @@
 # RNG discipline and seeds
 
 Every stochastic entry point sets `RNGkind("L'Ecuyer-CMRG")` and a fixed
-seed, and parallelises with `parallel::mclapply(mc.set.seed = TRUE)`, so
-each fork receives its own deterministic RNG substream.
+seed, and parallelises either with `parallel::mclapply(mc.set.seed = TRUE)`
+(driver, smoke) or with one explicit `nextRNGStream` substream per draw
+(the null-cache generators), so each fork receives its own deterministic
+RNG substream.
 
 ## Per-script seeds
 
@@ -31,12 +33,18 @@ The null-cache generators are core-count independent as well:
 substream, whatever `ncores` or `batch_size`. Until 2026-10 it relied on
 `mc.set.seed = TRUE` plus a `runif(1)` between batches, which re-forked
 the same substreams every second batch shifted by one normal draw: the
-patched `gamma = 0` Wilcoxon column (acf 0.994 at lag 160) and the RKHS
-and far1 caches (acf 0.84 to 0.92) were produced that way and held about
-100 to 160 distinct draws each. The RKHS corrected and far1 caches in
-`data-raw/cache-src/` were regenerated with the fixed helper; the Wilcoxon
-`gamma > 0` and Lp caches are the original pipeline's sequential runs and
-were never affected. Regenerated caches match the frozen ones
+patched `gamma = 0` Wilcoxon column (acf 0.994 at lag 160), the RKHS
+`SD_h_n2000_corrected` and far1 `E_q_gamma` caches (acf 0.84 to 0.92) and
+the finite F4 caches `E_n_beta_gamma_finite*` and `SD_h_F4_finite*` (acf
+0.66 to 0.84) were produced that way and held about 100 to 160 distinct
+draws each. All of them were regenerated with the fixed helper on
+2026-10-28 (`data-raw/cache-src/`; the gamma = 0 rows carry the CSV tag
+`port_wilcoxon_null_N10000_MC30000_independent`), and the committed tables
+in `data/` that read them were refreshed with
+`sweeps/refresh_regenerated_nulls.sh`. The Wilcoxon `gamma > 0` and Lp
+caches are the original pipeline's sequential runs and the legacy RKHS
+cache `SD_h_n2000_dist_t` is the thesis's own 300-draw artefact; none of
+them was affected. Regenerated caches match the frozen ones
 distributionally (see `generators/validate.R`), not draw for draw.
 
 ## Corrected-family sweep configuration

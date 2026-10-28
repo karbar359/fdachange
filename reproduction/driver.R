@@ -196,10 +196,11 @@ null_args <- switch(METHOD,
     list(kernel_name = KERNEL, baseline = BASELINE, variant = RKHS_VARIANT)
   },
   lp       = list(p = P),
-  # The corrected Wilcoxon family swaps the provably-wrong gamma = 0 cache
-  # cell for the closed-form Kuiper law; gamma > 0 columns stay cached.
-  wilcoxon = list(beta = BETA,
-                  exact_gamma0 = (WILCOXON_SCAN == "corrected")),
+  # Every family reads the cached gamma = 0 cell, regenerated with
+  # independent draws on 2026-10-28 (its 95% point sits just below the
+  # Brownian-bridge range law's 1.7473, as a discretised maximum should).
+  # Until then the corrected family swapped in the closed-form Kuiper law.
+  wilcoxon = list(beta = BETA, exact_gamma0 = FALSE),
   far1 = list())
 
 out_tag <- switch(METHOD,

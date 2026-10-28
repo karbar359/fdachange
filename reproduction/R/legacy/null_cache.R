@@ -88,7 +88,10 @@ raw_read <- function(filename) {
 #' helper that patched the column re-forked the same L'Ecuyer substreams
 #' every second batch (shifted by one normal draw), so the 30,000 rows hold
 #' about 160 distinct bridges (acf 0.994 at lag 160); see progress.R. The
-#' column stays in the CSV as the audit's witness and is never served.
+#' cell was regenerated with independent draws on 2026-10-28 (CSV tag
+#' `port_wilcoxon_null_N10000_MC30000_independent`): it sits just below the
+#' limit like the printed row and is what every family and the package
+#' serve. This closed form stays as the audit's reference (`exact_gamma0`).
 kuiper_cdf <- function(v) {
   vapply(v, function(vi) {
     if (vi <= 0.3) return(0)
@@ -132,9 +135,9 @@ kuiper_quantile <- function(p) {
 #' Antisymmetric-kernel (Wilcoxon) 2-sided limit distribution at (gamma, beta).
 #' The CSV only varies beta at gamma = 0.5; elsewhere beta is forced to 0.
 #' `exact_gamma0 = TRUE` serves the (0, 0) cell from the closed-form Kuiper
-#' law instead of the cache (see `kuiper_cdf` above for why the cached column
-#' is wrong); the gamma > 0 columns match printed Table 3.1 within MC noise
-#' and stay cached either way.
+#' law instead of the cache; no family has used it since the cell was
+#' regenerated (2026-10-28), it remains as the audit's reference (see
+#' `kuiper_cdf` above).
 load_wilcoxon_null <- function(gamma, beta = 0, exact_gamma0 = FALSE) {
   if (gamma != 0.5) beta <- 0
   if (isTRUE(exact_gamma0) && gamma == 0 && beta == 0) {

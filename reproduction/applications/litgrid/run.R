@@ -114,8 +114,7 @@ scan <- switch(SCAN,
   exact     = wilcoxon_scan_exact(X_proj, GAMMA, kernel = KERNEL),
   legacy    = wilcoxon_scan(X_proj, GAMMA, kernel = KERNEL),
   stop("SCAN must be corrected | exact | legacy"))
-null <- wilcoxon_null_distribution(ncol(X), GAMMA,
-                                   exact_gamma0 = (SCAN == "corrected"))
+null <- wilcoxon_null_distribution(ncol(X), GAMMA)
 cv   <- critical_value(null, ALPHA, m.d = 1L)
 
 cat("\n==== result ====\n")

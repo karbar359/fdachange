@@ -17,10 +17,10 @@ It is excluded from the built R package (`.Rbuildignore`).
 | `R/compat.R` | Original-pipeline conventions (`generate_S1`, `cdf_F2`, `EC_EXACT`, ...) mapped onto the package, whose generators are bit-identical to the originals. |
 | `R/legacy_env.R` | `legacy_env()` loads the vendored files into an isolated environment; `legacy_attach()` into the global one (for pure-legacy scripts). |
 | `driver.R` | The simulation driver: one (method, scenario) sweep per run; variant flags pick `fdachange::` (corrected) or `legacy$` (pre-audit). |
-| `verify_statistics.R` | The audit gate: brute-forced printed formulas vs both families, Kuiper law vs printed Table 3.1, scenario-level checks, package == vendored-corrected identity. Run this first. |
+| `verify_statistics.R` | The audit gate: brute-forced printed formulas vs both families, the gamma = 0 cell vs the Brownian-bridge range law and printed Table 3.1, scenario-level checks, package == vendored-corrected identity. Run this first. |
 | `smoke.R`, `stability.R`, `mc_calibration_demo.R`, `benchmark_scaling.R` | End-to-end smoke table, projection-stability study, Monte-Carlo calibration demo, timing/memory limits. |
 | `compare_exact_vs_legacy.R` | Pairs re-run family CSVs with legacy CSVs and writes the committed `data/{exact,corrected}_vs_legacy.csv`. |
-| `sweeps/` | Shell wrappers that batch `driver.R` over the thesis grids; `run_corrected_n400.sh` is the corrected-family re-run of the whole simulation chapter. |
+| `sweeps/` | Shell wrappers that batch `driver.R` over the thesis grids; `run_corrected_n400.sh` is the corrected-family re-run of the whole simulation chapter, `refresh_regenerated_nulls.sh` re-runs only the cells whose null cache was regenerated and feeds the aggregators' `PATCH=1` mode. |
 | `generators/` | Monte-Carlo null-cache generators + `validate.R` (distributional check against the frozen caches). |
 | `aggregators/` | Table/figure builders; LaTeX fragments and PNGs go to `output/` (gitignored). |
 | `notebooks/` | Rendered walkthroughs (view the `.md` files on GitHub): [`simulations.md`](notebooks/simulations.md) visualizes the committed power/calibration/audit tables, [`litgrid.md`](notebooks/litgrid.md) and [`telco.md`](notebooks/telco.md) the two applications. Rebuild with `Rscript notebooks/render.R`; rendered in CI against the committed data. Python users: package usage and the telco application live in [`python/examples/fdachange.ipynb`](../python/examples/fdachange.ipynb). |
@@ -30,7 +30,9 @@ It is excluded from the built R package (`.Rbuildignore`).
 
 ## Inputs
 
-- **Null caches**: `../data-raw/cache-src/` (committed; the frozen originals).
+- **Null caches**: `../data-raw/cache-src/` (committed; the Wilcoxon
+  `gamma > 0`, Lp and legacy RKHS cells are the frozen originals, the rest
+  were regenerated with independent draws on 2026-10-28, see `SEEDS.md`).
   Override with `REPRO_CACHE_DIR`.
 - **LITGRID raw data** (~119 MB, gitignored): fetch with
   `Rscript applications/litgrid/download_litgrid.R` (GitHub release asset
@@ -76,7 +78,7 @@ evaluations are the most informative projection for *faint* spike-type
 changes, exactly the regime the thesis argument concerns, but they are
 not uniformly dominant.
 
-## Verification gates (all green as of 2026-09-12)
+## Verification gates (all green as of 2026-10-28)
 
 1. `Rscript verify_statistics.R` - every corrected statistic equals its
    brute-forced printed formula at 1e-10, every legacy defect mechanism

@@ -99,7 +99,7 @@ for (i in seq_along(GAMMAS)) {
 cat("== 2. gamma = 0 null: closed-form Kuiper vs printed Table 3.1 ==\n")
 printed_levels <- c(0.5, 0.8, 0.9, 0.95, 0.975, 0.99, 0.995, 0.9975, 0.999)
 printed_row    <- c(1.213, 1.460, 1.612, 1.741, 1.857, 2.012, 2.104, 2.195, 2.311)
-qk <- kuiper_quantile(printed_levels)
+qk <- vapply(printed_levels, legacy$kuiper_quantile, numeric(1))   # vendored reference
 for (i in seq_along(printed_levels)) {
   cat(sprintf("        %6.2f%%: printed %.3f  exact %.4f  diff %+.4f\n",
               100 * (1 - printed_levels[i]), printed_row[i], qk[i],
@@ -108,22 +108,25 @@ for (i in seq_along(printed_levels)) {
 # Bulk levels (50-2.5%): grid discretisation of the sup biases the MC row
 # DOWN, so printed <= exact there. Extreme tail (1-0.1%): the 30,000-draw MC
 # noise dominates and the sign is free. Both regimes stay within 0.014. The
-# cached column is +0.023 off at the 5% point with an impossible maximum
-# because its draws were not independent: the batched mclapply helper that
-# patched it re-forked the same RNG substreams every second batch, so its
-# 30,000 rows hold about 160 distinct bridges (acf 0.994 at lag 160). The
-# bridge construction itself reproduces the law once the draws are
-# independent (see R/legacy/progress.R).
+# cached column shipped until 2026-10-28 was +0.023 off at the 5% point with
+# an impossible maximum because its draws were not independent: the batched
+# mclapply helper that patched it re-forked the same RNG substreams every
+# second batch, so its 30,000 rows held about 160 distinct bridges (acf
+# 0.994 at lag 160; see R/legacy/progress.R). The regenerated cell (same
+# bridge construction, independent draws) behaves like the printed row:
+# below the limit in the bulk, within two-sample MC noise of the print.
 check(all(abs(printed_row - qk) < 0.014) && all((printed_row - qk)[1:5] <= 0),
       "printed row tracks the closed form (below in the bulk, MC noise in the tail)")
 grid95 <- as.numeric(quantile(legacy$load_wilcoxon_null(0, 0, exact_gamma0 = TRUE), 0.95))
-check(abs(grid95 - 1.7473) < 5e-4, "drop-in grid 95% point = 1.7473",
+check(abs(grid95 - 1.7473) < 5e-4, "drop-in grid 95% point = 1.7473 (vendored reference, no longer served)",
       sprintf("got %.5f", grid95))
-pkg95 <- as.numeric(quantile(wilcoxon_null_draws(0), 0.95))
-check(abs(pkg95 - grid95) < 1e-6, "package Kuiper grid == vendored grid")
-cache95 <- as.numeric(quantile(legacy$load_wilcoxon_null(0, 0), 0.95))
-check(cache95 > qk[4], "legacy cache 95% point exceeds the continuous limit (dependent draws)",
-      sprintf("cache %.4f vs exact %.4f", cache95, qk[4]))
+cell_q <- as.numeric(quantile(legacy$load_wilcoxon_null(0, 0), printed_levels))
+check(cell_q[4] < qk[4] && all(abs(cell_q - printed_row)[1:5] < 0.014),
+      "regenerated gamma = 0 cell sits below the continuous limit and tracks the printed row",
+      sprintf("cell %.4f vs exact %.4f, printed %.3f", cell_q[4], qk[4], printed_row[4]))
+pkg_q <- as.numeric(quantile(wilcoxon_null_draws(0), printed_levels))
+check(isTRUE(all.equal(pkg_q, cell_q, tolerance = 1e-12)),
+      "package gamma = 0 cell == vendored CSV cell")
 
 # ============================ 3. Lp =========================================
 cat("== 3. Lp: reduced (printed, uncentred) vs centred vs implementations ==\n")

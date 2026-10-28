@@ -1,0 +1,61 @@
+== 1. Wilcoxon: printed T = max |Delta| / rho((l/n)(1 - l/n)) ==
+  [PASS] corrected == printed brute at gamma=0.00  (brute 1.401464 corrected 1.401464)
+        legacy/brute = 1.053   exact/brute = 1.000
+  [PASS] corrected == printed brute at gamma=0.25  (brute 2.018859 corrected 2.018859)
+        legacy/brute = 0.505   exact/brute = 0.479
+  [PASS] corrected == printed brute at gamma=0.45  (brute 2.703493 corrected 2.703493)
+        legacy/brute = 0.280   exact/brute = 0.266
+  [PASS] vectorised-gamma call and scan agree with the statistic
+  W2 index off-by-one alone (multiply direction, legacy pairing):
+        gamma=0.00  legacy-pairing 1.401464 vs corrected 1.401464 (ratio 1.0000)
+        gamma=0.25  legacy-pairing 2.029255 vs corrected 2.018859 (ratio 1.0051)
+        gamma=0.45  legacy-pairing 2.822328 vs corrected 2.703493 (ratio 1.0440)
+== 2. gamma = 0 null: closed-form Kuiper vs printed Table 3.1 ==
+         50.00%: printed 1.213  exact 1.2235  diff -0.0105
+         20.00%: printed 1.460  exact 1.4734  diff -0.0134
+         10.00%: printed 1.612  exact 1.6196  diff -0.0076
+          5.00%: printed 1.741  exact 1.7473  diff -0.0063
+          2.50%: printed 1.857  exact 1.8624  diff -0.0054
+          1.00%: printed 2.012  exact 2.0009  diff +0.0111
+          0.50%: printed 2.104  exact 2.0977  diff +0.0063
+          0.25%: printed 2.195  exact 2.1891  diff +0.0059
+          0.10%: printed 2.311  exact 2.3030  diff +0.0080
+  [PASS] printed row tracks the closed form (below in the bulk, MC noise in the tail)
+  [PASS] drop-in grid 95% point = 1.7473 (vendored reference, no longer served)  (got 1.74725)
+  [PASS] regenerated gamma = 0 cell sits below the continuous limit and tracks the printed row  (cell 1.7346 vs exact 1.7473, printed 1.741)
+  [PASS] package gamma = 0 cell == vendored CSV cell
+== 3. Lp: reduced (printed, uncentred) vs centred vs implementations ==
+  [PASS] legacy == printed REDUCED statistic at gamma=0.00  (brute 0.636592 legacy 0.636592)
+  [PASS] corrected == centred statistic at gamma=0.00  (brute 0.443642 corrected 0.443642)
+  [PASS] legacy == printed REDUCED statistic at gamma=0.25  (brute 0.747963 legacy 0.747963)
+  [PASS] corrected == centred statistic at gamma=0.25  (brute 0.570118 corrected 0.570118)
+  [PASS] legacy == printed REDUCED statistic at gamma=0.45  (brute 0.914168 legacy 0.914168)
+  [PASS] corrected == centred statistic at gamma=0.45  (brute 0.805354 corrected 0.805354)
+  [PASS] ecdf path: corrected ~ legacy (centring auto-supplied)  (max diff 0.0194)
+  [PASS] lp_scan agrees with the corrected statistic
+== 4. RKHS: printed Delta^2 vs implementations ==
+  [PASS] corrected == printed brute at gamma=0.00  (brute 0.665408 corrected 0.665408)
+  [PASS] legacy mechanism reproduced at gamma=0.00  (code-family brute 0.782975 legacy 0.782975 (printed 0.665408))
+  [PASS] corrected == printed brute at gamma=0.25  (brute 0.868974 corrected 0.868974)
+  [PASS] legacy mechanism reproduced at gamma=0.25  (code-family brute 0.945250 legacy 0.945250 (printed 0.868974))
+  [PASS] corrected == printed brute at gamma=0.45  (brute 1.367325 corrected 1.367325)
+  [PASS] legacy mechanism reproduced at gamma=0.45  (code-family brute 1.406784 legacy 1.406784 (printed 1.367325))
+        2-max on B(1,9): legacy 1.9071  sqrt(2 mean K) 1.9250  corrected 0.2172
+  [PASS] 2-max degeneracy: legacy tracks sqrt(2 mean K); corrected does not
+  [PASS] rkhs_scan agrees with the corrected statistic
+== 5. Birbilas: printed (m - k)^gamma denominator ==
+  [PASS] corrected == printed brute at gamma=0.25  (brute 0.808340 corrected 0.808340)
+  [PASS] legacy == (length-1)^gamma variant at gamma=0.25  (variant 0.829914 legacy 0.829914 (printed 0.808340, ratio 1.027))
+  [PASS] corrected == printed brute at gamma=0.40  (brute 0.995183 corrected 0.995183)
+  [PASS] legacy == (length-1)^gamma variant at gamma=0.40  (variant 1.197874 legacy 1.197874 (printed 0.995183, ratio 1.204))
+== 6. Scenarios: S2 non-centrality and the l + 1 change window ==
+        S2 in-window mean 5.001: chi2_1(ncp=a^2) predicts 5, chi2_1(ncp=a) predicts 3
+  [PASS] S2 generates ncp = a^2, not the printed ncp = a
+  [PASS] short-regime window: legacy 7 points, EC_EXACT 6 (= l)  (legacy 7 exact 6)
+== 7. fdachange package == vendored corrected implementations ==
+  [PASS] wilcoxon: package == vendored corrected (bit-exact)
+  [PASS] lp: package == vendored corrected (bit-exact)
+  [PASS] rkhs: package == vendored corrected (bit-exact)
+  [PASS] far1: package == vendored corrected (bit-exact)
+
+ALL CHECKS PASSED: 0 failure(s)

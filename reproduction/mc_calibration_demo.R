@@ -41,7 +41,7 @@ ALPHA    <- 0.05
 A_SHIFT  <- 1                      # S1-style mean shift on the changed window
 SEG_FRAC <- 1 / 5                  # window length as fraction of n (centered)
 LP_TGRID <- 100L                   # t-grid of the Lp statistic (pipeline value)
-NCORES   <- max(1L, parallel::detectCores() - 2L)
+if (!exists("NCORES")) NCORES <- max(1L, parallel::detectCores() - 2L)
 SEED     <- 42L
 OUT_CSV  <- NULL                   # NULL -> data/mc_calibration_demo.csv on a
                                    # full run; QUICK runs write to results/
@@ -146,8 +146,7 @@ for (n in N_S) {
   # ---- Wilcoxon: problem + fix -------------------------------------------
   cat(sprintf("== wilcoxon, n = %d ==\n", n))
   cv_asym <- vapply(GAMMA_S, function(g)
-                      wilcoxon_critical_value(n, g, alpha = ALPHA,
-                                              exact_gamma0 = TRUE),
+                      wilcoxon_critical_value(n, g, alpha = ALPHA),
                     numeric(1))
   A <- run_batch(N_CAL, n, 0,       wilc_fn, "batch A: calibration (H0)")
   B <- run_batch(N_REP, n, 0,       wilc_fn, "batch B: size (H0)")

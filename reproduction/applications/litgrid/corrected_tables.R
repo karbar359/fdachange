@@ -132,7 +132,7 @@ for (pipeline in c("legacy", "fixed")) {
         for (g in gammas) {
           cv <- tryCatch(switch(method,
             wilcoxon = critical_value(
-              wilcoxon_null_distribution(n, g, exact_gamma0 = TRUE), ALPHA, 1L),
+              wilcoxon_null_distribution(n, g), ALPHA, 1L),
             lp       = critical_value(lp_null_distribution(n, g, p = 2L), ALPHA, 1L),
             rkhs     = critical_value(rkhs_null_distribution(
               n, g, kernel_name = RKHS_KERNEL[[proj]],
