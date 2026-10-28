@@ -4,12 +4,11 @@
 #' returns a standard `htest`-style result with the statistic, a p-value,
 #' the level-`alpha` critical value, and the detected change window.
 #'
-#' The null distribution is resolved automatically: the closed-form Kuiper
-#' law for the Wilcoxon scan at `gamma = 0, beta = 0`, otherwise the
-#' shipped Monte-Carlo cache for the method
-#' ([wilcoxon_null_draws()], [lp_null_draws()], [rkhs_null_draws()],
-#' [far1_null_draws()]). Pass your own draws via `null=` to use a
-#' scenario-specific or finite-sample calibration instead (required when
+#' The null distribution is resolved automatically from the shipped
+#' Monte-Carlo cache for the method ([wilcoxon_null_draws()],
+#' [lp_null_draws()], [rkhs_null_draws()], [far1_null_draws()]). Pass
+#' your own draws via `null=` to use a scenario-specific or finite-sample
+#' calibration instead (required when
 #' `kernel` is a custom function, or for RKHS baselines that are not
 #' cached).
 #'
@@ -44,7 +43,7 @@
 #'   `statistic`, `p.value`, `critical.value`, `alpha`, `interval`
 #'   (fractional change window `c(k, m)/n`), `k`, `m`, `parameter`,
 #'   `method`, `data.name`, `n.null` (number of null draws backing the
-#'   calibration, `Inf` for the closed form) and `splits`.
+#'   calibration) and `splits`.
 #' @references Bartkus (2026); Bartkus and Rackauskas (2025, 2026);
 #'   Birbilas (2025).
 #' @examples
@@ -88,34 +87,26 @@ epidemic_test <- function(x,
     k <- NA_integer_; m <- NA_integer_; interval <- c(NA_real_, NA_real_)
   }
 
-  exact_kuiper <- is.null(null) && method == "wilcoxon" &&
-    gamma == 0 && beta == 0
-  if (exact_kuiper) {
-    p.value <- 1 - kuiper_cdf(stat)^splits
-    cv <- kuiper_quantile((1 - alpha)^(1 / splits))
-    n.null <- Inf
+  draws <- if (!is.null(null)) {
+    stopifnot(is.numeric(null), length(null) > 1)
+    null
   } else {
-    draws <- if (!is.null(null)) {
-      stopifnot(is.numeric(null), length(null) > 1)
-      null
-    } else {
-      switch(method,
-        wilcoxon = wilcoxon_null_draws(gamma, beta),
-        lp       = lp_null_draws(gamma, p),
-        rkhs     = {
-          if (is.function(kernel)) {
-            stop("rkhs with a custom kernel function needs explicit null ",
-                 "draws: pass null = simulate_rkhs_null(...)", call. = FALSE)
-          }
-          rkhs_null_draws(gamma, if (is.null(kernel)) "gaussian" else kernel,
-                          baseline)
-        },
-        far1 = far1_null_draws(gamma))
-    }
-    p.value <- 1 - mean(draws <= stat)^splits
-    cv <- critical_value(draws, alpha, splits)
-    n.null <- length(draws)
+    switch(method,
+      wilcoxon = wilcoxon_null_draws(gamma, beta),
+      lp       = lp_null_draws(gamma, p),
+      rkhs     = {
+        if (is.function(kernel)) {
+          stop("rkhs with a custom kernel function needs explicit null ",
+               "draws: pass null = simulate_rkhs_null(...)", call. = FALSE)
+        }
+        rkhs_null_draws(gamma, if (is.null(kernel)) "gaussian" else kernel,
+                        baseline)
+      },
+      far1 = far1_null_draws(gamma))
   }
+  p.value <- 1 - mean(draws <= stat)^splits
+  cv <- critical_value(draws, alpha, splits)
+  n.null <- length(draws)
 
   method_label <- switch(method,
     wilcoxon = "Epidemic change scan test (Wilcoxon-type antisymmetric kernel)",
@@ -145,8 +136,7 @@ print.epidemic_htest <- function(x, ...) {
   class(y) <- "htest"
   print(y, ...)
   cat(sprintf("critical value (alpha = %s): %.4f  [%s null draws]\n",
-              format(x$alpha), x$critical.value,
-              if (is.finite(x$n.null)) format(x$n.null) else "closed-form"))
+              format(x$alpha), x$critical.value, format(x$n.null)))
   if (!is.na(x$k)) {
     cat(sprintf("detected window: observations %d..%d (fractions %.3f..%.3f)\n",
                 x$k + 1L, x$m, x$interval[1], x$interval[2]))

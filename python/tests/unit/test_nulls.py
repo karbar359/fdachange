@@ -29,17 +29,17 @@ def describe_the_shipped_null_caches():
             assert_that(draws.size, is_(equal_to(exp_size)))
 
     def describe_when_gamma_is_zero_for_the_wilcoxon_scan():
-        def test_it_serves_the_deterministic_kuiper_quantile_grid():
+        def test_it_serves_a_cell_just_below_the_bridge_range_law():
             # Setup.
+            exact_q95 = 1.7473  # 95% point of the Brownian-bridge range
 
             # Test.
             d = fc.wilcoxon_null_draws(0.0)
 
             # Assert.
-            assert_that(d.size, is_(equal_to(200_000)))
-            assert_that(bool(np.all(np.diff(d) >= 0)), is_(True))
+            assert_that(d.size, is_(equal_to(30_000)))
             assert_that(float(np.quantile(d, 0.95)),
-                        is_(close_to(1.7473, 5e-4)))
+                        is_(close_to(exact_q95 - 0.01, 0.01)))
 
     def describe_when_a_cell_is_not_cached():
         def test_it_names_the_simulator_in_the_error():

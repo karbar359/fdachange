@@ -58,5 +58,5 @@ Bartkus (2026), Chapter 3; Bartkus and Rackauskas (2025).
 }
 \seealso{
 \code{\link[=epidemic_test]{epidemic_test()}} for the calibrated test,
-\code{\link[=wilcoxon_null_draws]{wilcoxon_null_draws()}} and \code{\link[=kuiper_cdf]{kuiper_cdf()}} for the null.
+\code{\link[=wilcoxon_null_draws]{wilcoxon_null_draws()}} for the null.
 }

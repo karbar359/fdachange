@@ -26,13 +26,13 @@ numeric vector of null draws.
 \description{
 Draws of the two-sided Hoelder-weighted Brownian-bridge range
 \eqn{\sup_{s < t} |W(t) - W(s)| \, w(|t-s|(1-|t-s|))} that calibrate
-\code{\link[=wilcoxon_statistic]{wilcoxon_statistic()}}. At \verb{(gamma = 0, beta = 0)} the law is Kuiper's
-V and the draws are a deterministic quantile grid of the closed form
-(\code{\link[=kuiper_cdf]{kuiper_cdf()}}); other cells come from the shipped Monte-Carlo cache
-(30,000 draws per cell, gammas 0.05 to 0.495 at \code{beta = 0}, plus
-\verb{gamma = 0.5, beta = 1}), extendable via \code{\link[=simulate_wilcoxon_null]{simulate_wilcoxon_null()}} +
-\code{\link[=save_null_draws]{save_null_draws()}}.
+\code{\link[=wilcoxon_statistic]{wilcoxon_statistic()}}. Every cell comes from the shipped Monte-Carlo
+cache (30,000 draws per cell on a 10,000-point bridge: gammas 0 to
+0.495 at \code{beta = 0}, plus \verb{gamma = 0.5, beta = 1}), extendable via
+\code{\link[=simulate_wilcoxon_null]{simulate_wilcoxon_null()}} + \code{\link[=save_null_draws]{save_null_draws()}}. At \code{gamma = 0} the
+law is the range of a Brownian bridge, whose exact 95\% point is 1.7473;
+the cached cell's discretised maximum sits just below it.
 }
 \examples{
-quantile(wilcoxon_null_draws(gamma = 0), 0.95)   # 1.7473 (Kuiper)
+quantile(wilcoxon_null_draws(gamma = 0), 0.95)   # about 1.74
 }

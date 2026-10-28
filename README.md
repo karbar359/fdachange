@@ -95,14 +95,11 @@ so their figures never depend on rerunning the multi-hour sweeps.
 Every test needs the null distribution of its scan statistic. The package
 resolves it automatically, in this order:
 
-1. **Closed form** where it exists: the Wilcoxon scan at `gamma = 0` is
-   calibrated by Kuiper's law (`kuiper_cdf()`, `kuiper_quantile()`),
-   exactly.
-2. **Shipped Monte-Carlo caches** (`inst/extdata`, about 2 MB): the
+1. **Shipped Monte-Carlo caches** (`inst/extdata`, about 2 MB): the
    dissertation's null draws for all published (gamma, kernel, p) cells;
    accessed via `wilcoxon_null_draws()`, `lp_null_draws()`,
    `rkhs_null_draws()`, `far1_null_draws()`.
-3. **Your own draws**: for uncached cells, run the matching simulator
+2. **Your own draws**: for uncached cells, run the matching simulator
    (`simulate_wilcoxon_null()`, `simulate_lp_null()`,
    `simulate_rkhs_null()`, `simulate_far1_null()`) and either store
    the result with `save_null_draws()` (picked up automatically from then

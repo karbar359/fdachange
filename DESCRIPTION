@@ -9,8 +9,7 @@ Description: Weighted scan tests for epidemic (changed-segment) alternatives
     scan, an Lp-type scan of the weighted empirical process, a kernel
     mean-embedding (RKHS) scan, and the CUSUM-type statistic of Birbilas
     (2025). Provides Hoelder-type weighting, precomputed Monte-Carlo critical
-    values with on-demand simulators, the closed-form Kuiper null for the
-    unweighted Wilcoxon scan, functional-to-scalar projections, curve
+    values with on-demand simulators, functional-to-scalar projections, curve
     reconstruction (smoothing) helpers, and the benchmark data-generating
     scenarios from Bartkus (2026) <doi:10.15388/vu.thesis.950>; see also
     Bartkus and Rackauskas (2025) <doi:10.1007/s10986-025-09699-7> and

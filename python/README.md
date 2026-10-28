@@ -63,7 +63,7 @@ Mirrors the R package one-to-one (all names are identical):
 | Area | Functions |
 |---|---|
 | Statistics + localization | `wilcoxon_statistic/scan`, `lp_statistic/scan`, `rkhs_statistic/scan`, `far1_statistic/scan`, `epidemic_test` |
-| Calibration | `kuiper_cdf/quantile` (exact gamma = 0 law), `*_null_draws`, `*_critical_value`, `simulate_*_null`, `save_null_draws`, `null_cache_dir` |
+| Calibration | `*_null_draws`, `*_critical_value`, `simulate_*_null`, `save_null_draws`, `null_cache_dir` |
 | Scenarios | `generate_s1..s5`, `generate_f1..f5`, `scenario_cdf` |
 | Projections | `project_l2/ito/wiener/c_max_var/pc1/pc_d`, `projection_fn`, `projection_multiplicity` |
 | Reconstruction | `reconstruct` (`fs_interp` = Faber-Schauder truncation proper; `fs_ls` = least squares onto the same polygonal space; `bspline_pen` via scikit-fda) |

@@ -85,8 +85,6 @@ for (g in c(0, 0.25, 0.45)) for (cell in rk) {
 for (g in c(0, 0.25, 0.4, 0.45)) {
   put(sprintf("cv_far1|g=%s", g), far1_critical_value(g))
 }
-put("kuiper_q|p=0.95", kuiper_quantile(0.95))
-put("kuiper_cdf|v=1.7473", kuiper_cdf(1.7473))
 
 ## ---- telco_far1 dataset conversion + end-to-end ------------------------------
 for (nm in names(telco_far1)) {

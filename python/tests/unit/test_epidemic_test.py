@@ -53,19 +53,20 @@ def describe_epidemic_test():
             assert_that(r.k, is_(less_than(140)))
 
     def describe_when_gamma_is_zero_for_the_wilcoxon_scan():
-        def test_it_calibrates_by_the_exact_kuiper_law():
+        def test_it_calibrates_from_the_shipped_cell():
             # Setup.
             x = fc.generate_s1(150, rng=3)
+            draws = fc.wilcoxon_null_draws(0.0)
 
             # Test.
             r = fc.epidemic_test(x, "wilcoxon", gamma=0.0)
 
             # Assert.
-            assert_that(bool(np.isinf(r.n_null)), is_(True))
-            assert_that(1.0 - r.p_value,
-                        is_(_close_rel(fc.kuiper_cdf(r.statistic))))
+            assert_that(r.n_null, is_(equal_to(30_000.0)))
+            assert_that(r.p_value, is_(_close_rel(
+                1.0 - float(np.mean(draws <= r.statistic)))))
             assert_that(r.critical_value,
-                        is_(_close_rel(fc.kuiper_quantile(0.95), 1e-9)))
+                        is_(_close_rel(fc.critical_value(draws, 0.05, 1))))
 
     def describe_when_null_draws_are_injected():
         def test_it_calibrates_against_them_with_the_type_7_quantile():

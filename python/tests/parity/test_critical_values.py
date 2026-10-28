@@ -87,17 +87,3 @@ def describe_far1_critical_value():
         # Assert.
         assert_that(cv, is_(close_rel(exp_cv, RTOL)))
 
-
-def describe_the_kuiper_closed_form():
-    def test_it_matches_r_in_both_directions(expected):
-        # Setup.
-        exp_quantile = expected["kuiper_q|p=0.95"]
-        exp_cdf = expected["kuiper_cdf|v=1.7473"]
-
-        # Test.
-        quantile = fc.kuiper_quantile(0.95)
-        cdf = fc.kuiper_cdf(1.7473)
-
-        # Assert.
-        assert_that(quantile, is_(close_rel(exp_quantile, 1e-9)))
-        assert_that(cdf, is_(close_rel(exp_cdf, RTOL)))

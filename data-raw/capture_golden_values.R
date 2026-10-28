@@ -94,11 +94,7 @@ wc <- read.csv(file.path("data-raw", "cache-src", "T2_gamma_beta.csv"))
 for (i in seq_len(nrow(unique(wc[, c("gamma", "beta")])))) {
   cell <- unique(wc[, c("gamma", "beta")])[i, ]
   g <- cell$gamma; b <- cell$beta
-  draws <- if (g == 0 && b == 0) {
-    old$load_wilcoxon_null(0, 0, exact_gamma0 = TRUE)
-  } else {
-    old$load_wilcoxon_null(g, b)
-  }
+  draws <- old$load_wilcoxon_null(g, b)
   for (al in c(0.05, 0.01)) for (m in c(1L, 2L)) {
     put(sprintf("cv|wilcoxon|g=%s|b=%s|a=%s|s=%d", g, b, al, m),
         old$critical_value(draws, al, m))

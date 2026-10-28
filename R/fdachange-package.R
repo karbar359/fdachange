@@ -18,8 +18,7 @@
 #' [epidemic_test()] wraps any of the four into a standard `htest`-style
 #' object with a p-value, a critical value, and the detected window.
 #' Critical values come from shipped Monte-Carlo caches
-#' ([wilcoxon_null_draws()] and friends), from the closed-form Kuiper law
-#' where it applies ([kuiper_cdf()]), or from user-run simulators
+#' ([wilcoxon_null_draws()] and friends) or from user-run simulators
 #' ([simulate_wilcoxon_null()] and friends).
 #'
 #' Functional (curve-per-observation) data enter either through the

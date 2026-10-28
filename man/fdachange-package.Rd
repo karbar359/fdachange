@@ -6,7 +6,7 @@
 \alias{fdachange-package}
 \title{fdachange: Epidemic Change-Point Tests for Functional Data}
 \description{
-Weighted scan tests for epidemic (changed-segment) alternatives in scalar and functional data: an antisymmetric-kernel (Wilcoxon-type) scan, an Lp-type scan of the weighted empirical process, a kernel mean-embedding (RKHS) scan, and the CUSUM-type statistic of Birbilas (2025). Provides Hoelder-type weighting, precomputed Monte-Carlo critical values with on-demand simulators, the closed-form Kuiper null for the unweighted Wilcoxon scan, functional-to-scalar projections, curve reconstruction (smoothing) helpers, and the benchmark data-generating scenarios from Bartkus (2026) \doi{10.15388/vu.thesis.950}; see also Bartkus and Rackauskas (2025) \doi{10.1007/s10986-025-09699-7} and (2026) \doi{10.15388/namc.2026.31.44489}, and Birbilas (2025) \doi{10.15388/vu.thesis.841}.
+Weighted scan tests for epidemic (changed-segment) alternatives in scalar and functional data: an antisymmetric-kernel (Wilcoxon-type) scan, an Lp-type scan of the weighted empirical process, a kernel mean-embedding (RKHS) scan, and the CUSUM-type statistic of Birbilas (2025). Provides Hoelder-type weighting, precomputed Monte-Carlo critical values with on-demand simulators, functional-to-scalar projections, curve reconstruction (smoothing) helpers, and the benchmark data-generating scenarios from Bartkus (2026) \doi{10.15388/vu.thesis.950}; see also Bartkus and Rackauskas (2025) \doi{10.1007/s10986-025-09699-7} and (2026) \doi{10.15388/namc.2026.31.44489}, and Birbilas (2025) \doi{10.15388/vu.thesis.841}.
 }
 \details{
 fdachange implements weighted scan tests for the epidemic
@@ -28,8 +28,7 @@ functional statistic of Birbilas (2025).
 \code{\link[=epidemic_test]{epidemic_test()}} wraps any of the four into a standard \code{htest}-style
 object with a p-value, a critical value, and the detected window.
 Critical values come from shipped Monte-Carlo caches
-(\code{\link[=wilcoxon_null_draws]{wilcoxon_null_draws()}} and friends), from the closed-form Kuiper law
-where it applies (\code{\link[=kuiper_cdf]{kuiper_cdf()}}), or from user-run simulators
+(\code{\link[=wilcoxon_null_draws]{wilcoxon_null_draws()}} and friends) or from user-run simulators
 (\code{\link[=simulate_wilcoxon_null]{simulate_wilcoxon_null()}} and friends).
 
 Functional (curve-per-observation) data enter either through the

@@ -15,7 +15,6 @@ from pathlib import Path
 
 import numpy as np
 
-from ._kuiper import _kuiper_grid
 from ._kernels import _kernel_name
 from ._weights import critical_value
 
@@ -119,9 +118,7 @@ def save_null_draws(draws, method: str, gamma, *, beta=0, p=2,
 
 
 def wilcoxon_null_draws(gamma, beta=0) -> np.ndarray:
-    """Null draws for the Wilcoxon scan; the exact Kuiper grid at (0, 0)."""
-    if float(gamma) == 0.0 and float(beta) == 0.0:
-        return _kuiper_grid()
+    """Null draws for the Wilcoxon scan: the cached cell for (gamma, beta)."""
     return _null_get("wilcoxon", _null_key("wilcoxon", gamma, beta=beta),
                      f"simulate_wilcoxon_null(n_draws, gamma={gamma}, beta={beta})")
 

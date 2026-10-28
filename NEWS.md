@@ -6,9 +6,16 @@
   about 100 effectively independent draws (autocorrelation 0.84 to 0.92 at
   the batch lag). Both are rebuilt with independent draws at the published
   settings; critical values move within that cell's former Monte-Carlo
-  noise. The Wilcoxon `gamma = 0` cell, which `wilcoxon_null_draws()` has
-  always served from the closed-form Kuiper law, is no longer shipped.
-  The Wilcoxon `gamma > 0` and Lp caches were never affected.
+  noise. The Wilcoxon `gamma = 0` cell (30,000 draws, autocorrelation
+  0.994 at the batch lag) is regenerated the same way at its published
+  scale, and the reproduction tree's finite-sample F4 caches with it;
+  every committed result table that read a regenerated cache is
+  refreshed. The Wilcoxon `gamma > 0` and Lp caches were never affected.
+- Breaking: `kuiper_cdf()` and `kuiper_quantile()` are removed (R and
+  Python). The Wilcoxon scan at `gamma = 0` is calibrated from the
+  regenerated cache cell like every other cell, so `epidemic_test()`
+  always reports a finite `n.null`; the closed-form 95% point 1.7473
+  survives as the bound the shipped cell is tested against.
 - `simulate_*_null()` give every draw its own L'Ecuyer-CMRG substream, so
   parallel runs (`cores > 1`) are now independent, identical for any core
   count, and reproducible under `set.seed()` with any generator kind.

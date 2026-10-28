@@ -6,7 +6,6 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from ._kuiper import kuiper_cdf, kuiper_quantile
 from ._weights import critical_value
 from .wilcoxon import wilcoxon_scan
 from .lp import lp_scan
@@ -45,9 +44,7 @@ class EpidemicTestResult:
             f"p-value = {self.p_value:.4g}",
             "alternative hypothesis: an epidemic (changed then restored) segment",
             f"critical value (alpha = {self.alpha:g}): "
-            f"{self.critical_value:.4f}  "
-            f"[{'closed-form' if np.isinf(self.n_null) else int(self.n_null)}"
-            f"{'' if np.isinf(self.n_null) else ' null draws'}]",
+            f"{self.critical_value:.4f}  [{int(self.n_null)} null draws]",
         ]
         if self.k is not None:
             lines.append(
@@ -70,10 +67,9 @@ def epidemic_test(x, method: str, gamma: float, *, beta: float = 0.0,
                   splits: int = 1, null=None) -> EpidemicTestResult:
     """Run one scan statistic against its null calibration.
 
-    Calibration resolution mirrors the R package: the closed-form Kuiper
-    law for Wilcoxon at gamma = 0 (beta = 0), otherwise the packaged
-    Monte-Carlo caches, unless explicit draws are passed via ``null=``
-    (required for custom RKHS kernels or uncached baselines).
+    Calibration resolution mirrors the R package: the packaged Monte-Carlo
+    caches, unless explicit draws are passed via ``null=`` (required for
+    custom RKHS kernels or uncached baselines).
     """
     if method not in _LABELS:
         raise ValueError(f"method must be one of {tuple(_LABELS)}")
@@ -99,33 +95,25 @@ def epidemic_test(x, method: str, gamma: float, *, beta: float = 0.0,
         k = m = None
         interval = (None, None)
 
-    exact_kuiper = (null is None and method == "wilcoxon"
-                    and float(gamma) == 0.0 and float(beta) == 0.0)
-    if exact_kuiper:
-        p_value = 1.0 - float(kuiper_cdf(stat)) ** splits
-        cv = float(kuiper_quantile((1.0 - alpha) ** (1.0 / splits)))
-        n_null = float("inf")
+    if null is not None:
+        draws = np.asarray(null, dtype=float)
+        if draws.size < 2:
+            raise ValueError("null= needs a vector of draws")
+    elif method == "wilcoxon":
+        draws = nulls.wilcoxon_null_draws(gamma, beta)
+    elif method == "lp":
+        draws = nulls.lp_null_draws(gamma, p)
+    elif method == "rkhs":
+        if callable(kernel):
+            raise ValueError(
+                "rkhs with a custom kernel function needs explicit "
+                "null draws: pass null=simulate_rkhs_null(...)")
+        draws = nulls.rkhs_null_draws(gamma, kernel or "gaussian", baseline)
     else:
-        if null is not None:
-            draws = np.asarray(null, dtype=float)
-            if draws.size < 2:
-                raise ValueError("null= needs a vector of draws")
-        elif method == "wilcoxon":
-            draws = nulls.wilcoxon_null_draws(gamma, beta)
-        elif method == "lp":
-            draws = nulls.lp_null_draws(gamma, p)
-        elif method == "rkhs":
-            if callable(kernel):
-                raise ValueError(
-                    "rkhs with a custom kernel function needs explicit "
-                    "null draws: pass null=simulate_rkhs_null(...)")
-            draws = nulls.rkhs_null_draws(gamma, kernel or "gaussian",
-                                          baseline)
-        else:
-            draws = nulls.far1_null_draws(gamma)
-        p_value = 1.0 - float(np.mean(draws <= stat)) ** splits
-        cv = critical_value(draws, alpha, splits)
-        n_null = float(draws.size)
+        draws = nulls.far1_null_draws(gamma)
+    p_value = 1.0 - float(np.mean(draws <= stat)) ** splits
+    cv = critical_value(draws, alpha, splits)
+    n_null = float(draws.size)
 
     params = {"gamma": gamma}
     if beta:

@@ -58,7 +58,7 @@
 #'   `interval` (`c(k, m) / n`).
 #' @references Bartkus (2026), Chapter 3; Bartkus and Rackauskas (2025).
 #' @seealso [epidemic_test()] for the calibrated test,
-#'   [wilcoxon_null_draws()] and [kuiper_cdf()] for the null.
+#'   [wilcoxon_null_draws()] for the null.
 #' @examples
 #' set.seed(1)
 #' x <- rnorm(100)
@@ -103,22 +103,21 @@ wilcoxon_scan <- function(x, gamma, beta = 0, kernel = c("h_w", "h_0")) {
 #'
 #' Draws of the two-sided Hoelder-weighted Brownian-bridge range
 #' \eqn{\sup_{s < t} |W(t) - W(s)| \, w(|t-s|(1-|t-s|))} that calibrate
-#' [wilcoxon_statistic()]. At `(gamma = 0, beta = 0)` the law is Kuiper's
-#' V and the draws are a deterministic quantile grid of the closed form
-#' ([kuiper_cdf()]); other cells come from the shipped Monte-Carlo cache
-#' (30,000 draws per cell, gammas 0.05 to 0.495 at `beta = 0`, plus
-#' `gamma = 0.5, beta = 1`), extendable via [simulate_wilcoxon_null()] +
-#' [save_null_draws()].
+#' [wilcoxon_statistic()]. Every cell comes from the shipped Monte-Carlo
+#' cache (30,000 draws per cell on a 10,000-point bridge: gammas 0 to
+#' 0.495 at `beta = 0`, plus `gamma = 0.5, beta = 1`), extendable via
+#' [simulate_wilcoxon_null()] + [save_null_draws()]. At `gamma = 0` the
+#' law is the range of a Brownian bridge, whose exact 95% point is 1.7473;
+#' the cached cell's discretised maximum sits just below it.
 #'
 #' @inheritParams wilcoxon_statistic
 #' @param gamma scalar weight exponent.
 #' @return numeric vector of null draws.
 #' @examples
-#' quantile(wilcoxon_null_draws(gamma = 0), 0.95)   # 1.7473 (Kuiper)
+#' quantile(wilcoxon_null_draws(gamma = 0), 0.95)   # about 1.74
 #' @export
 wilcoxon_null_draws <- function(gamma, beta = 0) {
   stopifnot(length(gamma) == 1L, length(beta) == 1L)
-  if (gamma == 0 && beta == 0) return(.kuiper_grid())
   .null_get("wilcoxon", .null_key("wilcoxon", gamma = gamma, beta = beta),
             sprintf("simulate_wilcoxon_null(n_draws, gamma = %s, beta = %s)",
                     gamma, beta))

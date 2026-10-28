@@ -7,10 +7,15 @@ test_that("shipped caches load and expose the documented cells", {
   expect_length(far1_null_draws(0.4), 1000L)
 })
 
-test_that("gamma = 0 Wilcoxon null is the Kuiper grid, not the cache", {
+test_that("gamma = 0 Wilcoxon cell sits just below the Brownian-bridge range law", {
+  # At gamma = 0 the limit is the range of a Brownian bridge (Kuiper's V),
+  # whose exact 95% point is 1.7473; the cell's discretised maximum on a
+  # 10,000-point bridge must land below it, within discretisation error.
   d <- wilcoxon_null_draws(0)
-  expect_length(d, 200000L)
-  expect_false(is.unsorted(d))   # deterministic quantile grid
+  expect_length(d, 30000L)
+  q95 <- unname(quantile(d, 0.95))
+  expect_lt(q95, 1.7473)
+  expect_gt(q95, 1.7473 - 0.02)
 })
 
 test_that("a missing cell errors and names the simulator", {
@@ -56,7 +61,7 @@ test_that("null draws feed critical values consistently", {
 test_that("shipped cache cells are independent draws", {
   # Reused RNG substreams show up as autocorrelation at the batch lag: the
   # pre-fix RKHS and far1 caches had 0.84 to 0.92 (about 100 distinct draws
-  # of 1000). The gamma = 0 Wilcoxon cell is the Kuiper grid, not a cache.
+  # of 1000) and the gamma = 0 Wilcoxon cell 0.994 (about 160 of 30,000).
   for (m in c("wilcoxon", "lp", "rkhs", "far1")) {
     tbl <- readRDS(system.file("extdata", paste0(m, "_null.rds"),
                                package = "fdachange"))
@@ -69,5 +74,5 @@ test_that("shipped cache cells are independent draws", {
   }
   wilcoxon <- readRDS(system.file("extdata", "wilcoxon_null.rds",
                                   package = "fdachange"))
-  expect_false("g0_b0" %in% names(wilcoxon))
+  expect_true("g0_b0" %in% names(wilcoxon))
 })

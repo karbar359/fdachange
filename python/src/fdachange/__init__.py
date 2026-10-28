@@ -6,7 +6,6 @@ the two are held equal by a cross-language parity test suite.
 
 from ._weights import holder_weight, holder_weights, critical_value
 from ._kernels import kernel_gaussian, kernel_min, kernel_2max, gram
-from ._kuiper import kuiper_cdf, kuiper_quantile
 from .wilcoxon import wilcoxon_statistic, wilcoxon_scan
 from .lp import lp_statistic, lp_scan
 from .rkhs import rkhs_statistic, rkhs_scan
@@ -41,7 +40,6 @@ __version__ = "0.2.0"
 __all__ = [
     "holder_weight", "holder_weights", "critical_value",
     "kernel_gaussian", "kernel_min", "kernel_2max", "gram",
-    "kuiper_cdf", "kuiper_quantile",
     "wilcoxon_statistic", "wilcoxon_scan",
     "lp_statistic", "lp_scan",
     "rkhs_statistic", "rkhs_scan",

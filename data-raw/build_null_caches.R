@@ -20,9 +20,6 @@ cells <- unique(t2[, c("gamma", "beta")])
 wilcoxon <- list()
 for (i in seq_len(nrow(cells))) {
   g <- cells$gamma[i]; b <- cells$beta[i]
-  # The (0, 0) cell is served from the closed-form Kuiper law (R/kuiper.R);
-  # its CSV rows stay only as the audit's witness (verify_statistics.R).
-  if (g == 0 && b == 0) next
   key <- sprintf("g%s_b%s", fmt(g), fmt(b))
   wilcoxon[[key]] <- t2$x[t2$gamma == g & t2$beta == b]
   stopifnot(identical(wilcoxon[[key]], t2$x[t2$gamma == g & t2$beta == b]))

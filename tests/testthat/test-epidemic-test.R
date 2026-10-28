@@ -23,14 +23,15 @@ test_that("a strong epidemic is detected and localised", {
   expect_lt(ht$k, 120)
 })
 
-test_that("wilcoxon gamma = 0 uses the exact Kuiper law", {
+test_that("wilcoxon gamma = 0 is calibrated from the shipped cell", {
   set.seed(3)
   x <- rnorm(150)
   ht <- epidemic_test(x, "wilcoxon", gamma = 0)
-  expect_identical(ht$n.null, Inf)
-  expect_equal(1 - ht$p.value, kuiper_cdf(unname(ht$statistic)),
+  draws <- wilcoxon_null_draws(0)
+  expect_identical(ht$n.null, 30000L)
+  expect_equal(ht$p.value, 1 - mean(draws <= unname(ht$statistic)),
                tolerance = 1e-12)
-  expect_equal(ht$critical.value, kuiper_quantile(0.95), tolerance = 1e-9)
+  expect_equal(ht$critical.value, critical_value(draws, 0.05), tolerance = 1e-12)
 })
 
 test_that("null = injection overrides the automatic calibration", {

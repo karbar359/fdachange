@@ -215,13 +215,12 @@ do.call(rbind, res)
 
 Calibration is resolved automatically, in this order:
 
-1. **Closed form** where it exists: the Wilcoxon scan at $\gamma = 0$ is
-   calibrated by Kuiper's law, exactly
-   (`kuiper_quantile(0.95)` = `r round(kuiper_quantile(0.95), 4)`).
-2. **Shipped Monte-Carlo caches** for the published
+1. **Shipped Monte-Carlo caches** for the published
    (gamma, kernel, p) cells: `wilcoxon_null_draws()`, `lp_null_draws()`,
-   `rkhs_null_draws()`, `far1_null_draws()`.
-3. **Your own draws** for anything else - simulate, then either pass via
+   `rkhs_null_draws()`, `far1_null_draws()`. At $\gamma = 0$ the Wilcoxon
+   cell's 95% point, `r round(wilcoxon_critical_value(0), 4)`, sits just
+   below the exact Brownian-bridge range value 1.7473.
+2. **Your own draws** for anything else - simulate, then either pass via
    `epidemic_test(null = )` or store for automatic lookup:
 
 ```{r simulate-null, eval = FALSE}

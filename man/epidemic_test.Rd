@@ -57,7 +57,7 @@ an object of class \code{c("epidemic_htest", "htest")}: a list with
 \code{statistic}, \code{p.value}, \code{critical.value}, \code{alpha}, \code{interval}
 (fractional change window \code{c(k, m)/n}), \code{k}, \code{m}, \code{parameter},
 \code{method}, \code{data.name}, \code{n.null} (number of null draws backing the
-calibration, \code{Inf} for the closed form) and \code{splits}.
+calibration) and \code{splits}.
 }
 \description{
 Runs one of the four scan statistics against its null calibration and
@@ -65,12 +65,11 @@ returns a standard \code{htest}-style result with the statistic, a p-value,
 the level-\code{alpha} critical value, and the detected change window.
 }
 \details{
-The null distribution is resolved automatically: the closed-form Kuiper
-law for the Wilcoxon scan at \verb{gamma = 0, beta = 0}, otherwise the
-shipped Monte-Carlo cache for the method
-(\code{\link[=wilcoxon_null_draws]{wilcoxon_null_draws()}}, \code{\link[=lp_null_draws]{lp_null_draws()}}, \code{\link[=rkhs_null_draws]{rkhs_null_draws()}},
-\code{\link[=far1_null_draws]{far1_null_draws()}}). Pass your own draws via \verb{null=} to use a
-scenario-specific or finite-sample calibration instead (required when
+The null distribution is resolved automatically from the shipped
+Monte-Carlo cache for the method (\code{\link[=wilcoxon_null_draws]{wilcoxon_null_draws()}},
+\code{\link[=lp_null_draws]{lp_null_draws()}}, \code{\link[=rkhs_null_draws]{rkhs_null_draws()}}, \code{\link[=far1_null_draws]{far1_null_draws()}}). Pass
+your own draws via \verb{null=} to use a scenario-specific or finite-sample
+calibration instead (required when
 \code{kernel} is a custom function, or for RKHS baselines that are not
 cached).
 
