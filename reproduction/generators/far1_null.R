@@ -18,12 +18,19 @@
 #   Rscript reproduction/generators/far1_null.R
 
 # ---- Inputs (edit these) --------------------------------------------------
-N        <- 200L                     # grid resolution; 1200 in the real cache
-N_MC     <- 50L                      # MC draws per gamma cell; 1000 paper-scale
-GAMMA_S  <- c(0, 0.25, 0.4, 0.45)    # 0.4 is Birbilas's default for E_{n,beta,gamma}
-NCORES   <- max(1L, parallel::detectCores() - 2L)
-SEED     <- 2L
-OUT_CSV  <- NULL                     # NULL -> results/E_q_gamma.csv
+# Constants are .def-guarded so a wrapper can pre-set them before source()
+# (same pattern as the other generators); defaults unchanged.
+.def <- function(name, value) {
+  if (!exists(name, envir = .GlobalEnv, inherits = FALSE)) {
+    assign(name, value, envir = .GlobalEnv)
+  }
+}
+.def("N",        200L)                   # grid resolution; 1200 in the real cache
+.def("N_MC",     50L)                    # MC draws per gamma cell; 1000 paper-scale
+.def("GAMMA_S",  c(0, 0.25, 0.4, 0.45))  # 0.4 is Birbilas's default for E_{n,beta,gamma}
+.def("NCORES",   max(1L, parallel::detectCores() - 2L))
+.def("SEED",     2L)
+.def("OUT_CSV",  NULL)                   # NULL -> results/E_q_gamma.csv
 # ---------------------------------------------------------------------------
 
 script_path <- (function() {
