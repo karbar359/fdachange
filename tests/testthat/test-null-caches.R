@@ -52,3 +52,22 @@ test_that("null draws feed critical values consistently", {
   expect_equal(lp_critical_value(0.25, p = 2, splits = 2),
                as.numeric(quantile(d, sqrt(0.95))))
 })
+
+test_that("shipped cache cells are independent draws", {
+  # Reused RNG substreams show up as autocorrelation at the batch lag: the
+  # pre-fix RKHS and far1 caches had 0.84 to 0.92 (about 100 distinct draws
+  # of 1000). The gamma = 0 Wilcoxon cell is the Kuiper grid, not a cache.
+  for (m in c("wilcoxon", "lp", "rkhs", "far1")) {
+    tbl <- readRDS(system.file("extdata", paste0(m, "_null.rds"),
+                               package = "fdachange"))
+    for (k in names(tbl)) {
+      x <- tbl[[k]]
+      a <- stats::acf(x, lag.max = min(200L, length(x) %/% 3L),
+                      plot = FALSE)$acf[-1]
+      expect_lt(max(abs(a)), 0.25, label = sprintf("%s %s max |acf|", m, k))
+    }
+  }
+  wilcoxon <- readRDS(system.file("extdata", "wilcoxon_null.rds",
+                                  package = "fdachange"))
+  expect_false("g0_b0" %in% names(wilcoxon))
+})

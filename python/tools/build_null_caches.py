@@ -46,6 +46,8 @@ def main() -> None:
     cells: dict[str, list[float]] = {}
     for row in data:
         key = f"g{fmt(float(row[ig]))}_b{fmt(float(row[ib]))}"
+        if key == "g0_b0":  # served from the closed-form Kuiper law
+            continue
         cells.setdefault(key, []).append(float(row[ix]))
     wt = {k: np.array(v, dtype=np.float64) for k, v in cells.items()}
     # exact-equality spot re-read
