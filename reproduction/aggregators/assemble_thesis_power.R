@@ -266,32 +266,34 @@ preserved <- data.frame(
   source = "preserved from the original plotting script (rerun CSVs deleted)",
   stringsAsFactors = FALSE)
 
-# Cross-check block: the 66 m = 1 long-segment values inlined at c64cd58
-# (gamma in {0, 0.25}); the fresh rerun must reproduce them exactly
-# (same driver, seeds, NCORES).
+# Cross-check block: the 66 m = 1 long-segment values (gamma in {0, 0.25}).
+# The gamma = 0.25 rows were inlined at c64cd58; the gamma = 0 rows were
+# re-inlined on 2026-10-28 from the rerun against the regenerated gamma = 0
+# null cell. The fresh rerun must reproduce them exactly (same driver,
+# seeds, core-count independent streams).
 crosscheck <- rbind(
   data.frame(sc = "F1", proj = "ito",       gamma = 0,    a = c(1.5, 2, 2.5, 3, 5, 10),
-             power = c(1.00, 0.47, 0.04, 0.31, 1.00, 1.00)),
+             power = c(1.00, 0.50, 0.04, 0.33, 1.00, 1.00)),
   data.frame(sc = "F1", proj = "ito",       gamma = 0.25, a = c(1.5, 2, 2.5, 3, 5, 10),
              power = c(0.03, 0.00, 0.00, 0.00, 0.06, 0.99)),
   data.frame(sc = "F1", proj = "l2",        gamma = 0,    a = c(1.5, 2, 2.5, 3, 5, 10),
-             power = c(1.00, 0.84, 0.05, 0.85, 1.00, 1.00)),
+             power = c(1.00, 0.87, 0.05, 0.87, 1.00, 1.00)),
   data.frame(sc = "F1", proj = "l2",        gamma = 0.25, a = c(1.5, 2, 2.5, 3, 5, 10),
              power = c(0.87, 0.00, 0.00, 0.00, 1.00, 1.00)),
   data.frame(sc = "F1", proj = "c_max_var", gamma = 0,    a = c(1.5, 2, 2.5, 3, 5, 10),
-             power = c(0.94, 0.16, 0.05, 0.54, 1.00, 1.00)),
+             power = c(0.94, 0.16, 0.07, 0.55, 1.00, 1.00)),
   data.frame(sc = "F1", proj = "c_max_var", gamma = 0.25, a = c(1.5, 2, 2.5, 3, 5, 10),
              power = c(0.00, 0.00, 0.00, 0.00, 0.05, 1.00)),
   data.frame(sc = "F2", proj = "ito",       gamma = 0,    a = c(0.5, 1, 1.5, 2, 5),
-             power = c(1.00, 0.98, 0.02, 0.70, 1.00)),
+             power = c(1.00, 0.99, 0.02, 0.72, 1.00)),
   data.frame(sc = "F2", proj = "ito",       gamma = 0.25, a = c(0.5, 1, 1.5, 2, 5),
              power = c(1.00, 0.00, 0.00, 0.00, 0.97)),
   data.frame(sc = "F2", proj = "l2",        gamma = 0,    a = c(0.5, 1, 1.5, 2, 5),
-             power = c(1.00, 1.00, 0.06, 1.00, 1.00)),
+             power = c(1.00, 1.00, 0.08, 1.00, 1.00)),
   data.frame(sc = "F2", proj = "l2",        gamma = 0.25, a = c(0.5, 1, 1.5, 2, 5),
              power = c(1.00, 0.10, 0.00, 0.00, 1.00)),
   data.frame(sc = "F2", proj = "c_max_var", gamma = 0,    a = c(0.5, 1, 1.5, 2, 5),
-             power = c(1.00, 0.99, 0.01, 0.60, 1.00)),
+             power = c(1.00, 0.99, 0.01, 0.61, 1.00)),
   data.frame(sc = "F2", proj = "c_max_var", gamma = 0.25, a = c(0.5, 1, 1.5, 2, 5),
              power = c(1.00, 0.00, 0.00, 0.00, 0.88)))
 
