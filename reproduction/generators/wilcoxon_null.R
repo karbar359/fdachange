@@ -10,30 +10,36 @@
 #
 # Writes the long-format CSV (x, gamma, beta) that
 # shared/null_cache.R::load_wilcoxon_null reads. Existing cache
-# `data-raw/cache-src/T2_gamma_beta.csv` was built with this formula (GPU-accelerated)
-# at N = 10^4 grid and ~30,000 samples per (gamma, beta) cell -- weeks
-# of single-node time. This pure-R port runs vectorised per lag; small
-# defaults (N = 500, N_MC = 200) complete in minutes on 20 cores.
+# `data-raw/cache-src/T2_gamma_beta.csv` holds the gamma > 0 cells from the
+# original GPU run (N = 10^4 grid, ~30,000 samples per (gamma, beta) cell)
+# and the gamma = 0 cell regenerated with this port on 2026-10-28 at the
+# same scale (tag `port_wilcoxon_null_N10000_MC30000_independent`). This
+# pure-R port runs vectorised per lag: one N = 10^4 draw costs about 0.3 s,
+# so a 30,000-draw cell takes about 10 minutes on 16 cores.
 #
 # Usage:
 #   Rscript reproduction/generators/wilcoxon_null.R
 #
-# To regenerate at paper-accuracy: set N = 10000, N_MC = 30000, and
-# prepare to wait a few hours per (gamma, beta) cell even in parallel.
+# To regenerate a cell at paper scale, pre-set the constants before
+# source(): N_GRID <- 10000L; N_MC <- 30000L; GAMMA_S <- 0; NCORES <- 16L.
 # The limiting step is the O(N^2) per-sample pairwise-difference sweep.
 
 # ---- Inputs (edit these) --------------------------------------------------
-# Defaults are a validation-scale run (~10 min on 20 cores). For the real
-# cache used by shared/null_cache.R, crank N_GRID up to 10000 and N_MC to
-# 30000 -- that's hours per (gamma, beta) cell and was run on GPU.
-# N_GRID = 2000, N_MC = 500 matches paper 1 Table 1 quantiles to ~0.03.
-N_GRID   <- 2000L                   # lag resolution; 10000 in the real cache
-N_MC     <- 500L                    # MC draws per (gamma, beta) cell
-GAMMA_S  <- c(0, 0.25, 0.45)        # trimmed sweep; full sweep has 12 gammas
-BETA_S_AT_GAMMA_HALF <- c(0)        # plus 1, 2 at gamma = 0.5 for the full cache
-NCORES   <- max(1L, parallel::detectCores() - 2L)
-SEED     <- 2L
-OUT_CSV  <- NULL                    # NULL -> results/T2_gamma_beta.csv
+# Constants are .def-guarded so a wrapper can pre-set them before source()
+# (same pattern as the other generators). Defaults are a validation-scale
+# run: N_GRID = 2000, N_MC = 500 matches paper 1 Table 1 quantiles to ~0.03.
+.def <- function(name, value) {
+  if (!exists(name, envir = .GlobalEnv, inherits = FALSE)) {
+    assign(name, value, envir = .GlobalEnv)
+  }
+}
+.def("N_GRID",   2000L)                 # lag resolution; 10000 in the real cache
+.def("N_MC",     500L)                  # MC draws per (gamma, beta) cell
+.def("GAMMA_S",  c(0, 0.25, 0.45))      # trimmed sweep; full sweep has 12 gammas
+.def("BETA_S_AT_GAMMA_HALF", c(0))      # plus 1, 2 at gamma = 0.5 for the full cache
+.def("NCORES",   max(1L, parallel::detectCores() - 2L))
+.def("SEED",     2L)
+.def("OUT_CSV",  NULL)                  # NULL -> results/T2_gamma_beta.csv
 # ---------------------------------------------------------------------------
 
 script_path <- (function() {
