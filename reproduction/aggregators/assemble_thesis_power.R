@@ -22,9 +22,14 @@
 # Usage:  Rscript reproduction/aggregators/assemble_thesis_power.R
 #         ALLOW_MISSING_RERUN=1 Rscript reproduction/aggregators/assemble_thesis_power.R
 #           (emit printed + preserved rows only, while the rerun is running)
+#         PATCH=1 Rscript reproduction/aggregators/assemble_thesis_power.R
+#           (rerun CSVs that are absent keep their rows from the committed
+#            table; used after sweeps/refresh_regenerated_nulls.sh, which
+#            re-runs only the Wilcoxon cells)
 
 # ---- Constants (edit here) ---------------------------------------------
 ALLOW_MISSING_RERUN <- identical(Sys.getenv("ALLOW_MISSING_RERUN"), "1")
+PATCH               <- identical(Sys.getenv("PATCH"), "1")
 ALPHA <- 0.05
 
 script_path <- (function() {
@@ -305,6 +310,17 @@ rerun_files <- c(
 
 missing <- rerun_files[!file.exists(file.path(res_dir, rerun_files))]
 fresh <- NULL
+kept_from_committed <- NULL
+if (length(missing) && PATCH) {
+  committed <- read.csv(out_csv, stringsAsFactors = FALSE)
+  kept_from_committed <- committed[committed$source %in%
+                                   paste0("rerun results/", missing), ]
+  stopifnot(length(unique(kept_from_committed$source)) == length(missing))
+  message(sprintf("!! PATCH: %d rerun CSVs absent, their %d rows kept from the committed table",
+                  length(missing), nrow(kept_from_committed)))
+  rerun_files <- setdiff(rerun_files, missing)
+  missing <- character(0)
+}
 if (length(missing) && ALLOW_MISSING_RERUN) {
   message("!! ALLOW_MISSING_RERUN: emitting printed + preserved rows only; ",
           length(missing), " rerun CSVs still missing:")
@@ -313,7 +329,7 @@ if (length(missing) && ALLOW_MISSING_RERUN) {
   stop("missing rerun CSVs (run sweeps/run_thesis_power_F1F2_n400_nrep100.sh, or ",
        "set ALLOW_MISSING_RERUN=1): ", paste(missing, collapse = ", "))
 } else {
-  message("== Reading 18 fresh rerun CSVs ==")
+  message(sprintf("== Reading %d fresh rerun CSVs ==", length(rerun_files)))
   fresh <- do.call(rbind, lapply(rerun_files, function(f) {
     d <- read.csv(file.path(res_dir, f), stringsAsFactors = FALSE)
     stopifnot(all(d$n == 400), all(d$N_rep == 100))
@@ -335,6 +351,7 @@ if (length(missing) && ALLOW_MISSING_RERUN) {
       stringsAsFactors = FALSE)
   }))
   message(sprintf("   %d fresh values", nrow(fresh)))
+  if (!is.null(kept_from_committed)) fresh <- rbind(fresh, kept_from_committed)
 
   # Check 1: fresh must reproduce the 66 preserved m = 1 values exactly.
   ndiff <- 0L

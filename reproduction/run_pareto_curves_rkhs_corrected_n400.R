@@ -26,7 +26,7 @@ A_GRID_BY_SCENARIO <- list(
 N_REP_BY_SCENARIO <- list(F1 = 20L, F2 = 20L, F3 = 100L)
 N          <- 400L
 ALPHA      <- 0.05
-NCORES     <- 20L
+if (!exists("NCORES")) NCORES <- 20L   # pre-set before source() to override
 SEED       <- 42L
 EC_EXACT   <- TRUE                 # scenarios read this global
 
@@ -49,7 +49,8 @@ script_path <- (function() {
   NULL
 })()
 root <- if (is.null(script_path)) getwd() else dirname(script_path)
-res_dir <- file.path(root, "results")
+# RES_DIR may be pre-set before source() (sweeps/refresh_regenerated_nulls.sh).
+res_dir <- if (exists("RES_DIR")) RES_DIR else file.path(root, "results")
 
 source(file.path(root, "R", "legacy", "integral_image.R"))
 source(file.path(root, "R", "legacy", "weights.R"))

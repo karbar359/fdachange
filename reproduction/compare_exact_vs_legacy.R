@@ -8,8 +8,9 @@
 # FAMILY = "corrected": the full audit family across all four methods
 #                       (weight direction + index, Lp centring, RKHS printed
 #                       formula + regenerated null, Birbilas printed
-#                       denominator + regenerated finite null, Kuiper gamma=0
-#                       null, exact-length EC windows). The EC window change
+#                       denominator + regenerated finite null, exact-length
+#                       EC windows; both families read the gamma = 0 cell
+#                       regenerated on 2026-10-28). The EC window change
 #                       alters the draw counts, so the RNG streams shift:
 #                       corrected-vs-legacy deltas here include MC noise of
 #                       order 1/sqrt(N_rep) on top of the statistic change.
@@ -29,7 +30,13 @@
 
 # ---- Inputs (edit these) --------------------------------------------------
 if (!exists("FAMILY"))   FAMILY   <- "exact"    # exact | corrected
-RESULTS_DIR <- "results"
+if (!exists("RESULTS_DIR")) RESULTS_DIR <- "results"
+# PATCH: RESULTS_DIR holds a partial re-run (sweeps/refresh_regenerated_nulls.sh).
+# Rows recomputed from it replace the committed rows with the same cell key
+# (method, scenario, n, m, projection, N_rep, gamma, ec_length, a); every
+# other committed row is kept. A variant file without a legacy partner in
+# RESULTS_DIR takes its legacy side from the committed table.
+if (!exists("PATCH")) PATCH <- identical(Sys.getenv("PATCH"), "1")
 N_TARGET    <- 400L
 # Power is printed to 2 decimals, so a cell "changes in print" if it rounds
 # differently.
@@ -49,6 +56,14 @@ res_dir <- file.path(root, RESULTS_DIR)
 
 key_cols  <- c("gamma", "ec_length", "a")
 meta_cols <- c("method", "scenario", "n", "m", "projection")
+out_cols  <- c(key_cols, meta_cols, "N_rep", "power_legacy", "power_new",
+               "delta", "legacy_file", "new_file")
+cell_key  <- function(d) paste(d$method, d$scenario, d$n, d$m, d$projection,
+                               d$N_rep, d$gamma, round(d$ec_length, 6), d$a,
+                               sep = "|")
+committed <- if (PATCH) {
+  read.csv(file.path(root, OUT_CSV), stringsAsFactors = FALSE)
+} else NULL
 
 read_cell <- function(path) {
   d <- read.csv(path, stringsAsFactors = FALSE)
@@ -93,6 +108,26 @@ for (f in sort(variant_files)) {
       grid_of(d) == grid_of(e)
   }, legacy)
 
+  if (length(cands) == 0L && PATCH) {
+    # Legacy side not re-run: take it from the committed table.
+    c0 <- committed[committed$method == e$method[1] &
+                    committed$scenario == e$scenario[1] &
+                    committed$n == N_TARGET & committed$m == e$m[1] &
+                    committed$projection == e$projection[1] &
+                    committed$N_rep %in% unique(e$N_rep), , drop = FALSE]
+    mrg <- merge(c0[, c(meta_cols, key_cols, "N_rep", "power_legacy", "legacy_file")],
+                 e[, c(key_cols, "power")], by = key_cols)
+    if (!nrow(mrg) || nrow(mrg) != nrow(e)) {
+      unpaired <- c(unpaired, sprintf("%s -> %d committed legacy rows for %d cells",
+                                      basename(f), nrow(mrg), nrow(e)))
+      next
+    }
+    names(mrg)[names(mrg) == "power"] <- "power_new"
+    mrg$delta    <- mrg$power_new - mrg$power_legacy
+    mrg$new_file <- basename(f)
+    rows[[length(rows) + 1L]] <- mrg[, out_cols]
+    next
+  }
   if (length(cands) != 1L) {
     unpaired <- c(unpaired, sprintf("%s -> %d candidates", basename(f), length(cands)))
     next
@@ -106,16 +141,25 @@ for (f in sort(variant_files)) {
   mrg$delta <- mrg$power_new - mrg$power_legacy
   mrg$legacy_file <- names(cands)[1]
   mrg$new_file    <- basename(f)
-  rows[[length(rows) + 1L]] <- mrg
+  rows[[length(rows) + 1L]] <- mrg[, out_cols]
 }
 
 out <- do.call(rbind, rows)
 if (is.null(out) || !nrow(out)) stop("No pairings found.")
+out$changes_in_print <- round(out$power_legacy, PRINT_DIGITS) !=
+                        round(out$power_new,  PRINT_DIGITS)
+
+if (PATCH) {
+  fresh_keys <- cell_key(out)
+  if (anyDuplicated(fresh_keys)) stop("duplicate cell keys in the re-run")
+  hit  <- cell_key(committed) %in% fresh_keys
+  cat(sprintf("[PATCH] %d re-run cells replace %d committed rows; %d committed rows kept; %d cells are new\n",
+              nrow(out), sum(hit), sum(!hit), nrow(out) - sum(hit)))
+  out <- rbind(committed[!hit, names(out)], out)
+}
 
 out <- out[order(out$method, out$scenario, out$projection, out$m,
                  out$ec_length, out$gamma, out$a), ]
-out$changes_in_print <- round(out$power_legacy, PRINT_DIGITS) !=
-                        round(out$power_new,  PRINT_DIGITS)
 
 out_path <- file.path(root, OUT_CSV)
 dir.create(dirname(out_path), showWarnings = FALSE, recursive = TRUE)
@@ -190,6 +234,14 @@ if (file.exists(stab_l) && file.exists(stab_e)) {
   st <- merge(agg(stab_l), agg(stab_e), by = c("scenario", "a", "gamma"),
               suffixes = c("_legacy", "_new"))
   st$delta_mean <- st$mean_R_new - st$mean_R_legacy
+  if (PATCH) {
+    st_old <- read.csv(file.path(root, ST_CSV), stringsAsFactors = FALSE)
+    k_new <- paste(st$scenario, st$a, st$gamma)
+    k_old <- paste(st_old$scenario, st_old$a, st_old$gamma)
+    cat(sprintf("[PATCH] stability: %d re-run cells replace %d committed rows\n",
+                nrow(st), sum(k_old %in% k_new)))
+    st <- rbind(st_old[!(k_old %in% k_new), names(st)], st)
+  }
   st <- st[order(st$scenario, st$a, st$gamma), ]
   st_path <- file.path(root, ST_CSV)
   write.csv(st, st_path, row.names = FALSE)
