@@ -136,9 +136,9 @@ The test suite enforces that permanently:
 - 276 golden values captured from the audited original code (statistics,
   scan windows, critical values from every shipped cache cell, RNG
   streams of every scenario) agree to `1e-12`;
-- the shipped null caches are converted from the original Monte-Carlo
-  CSVs with element-wise `identical()` assertions, so critical values are
-  bit-identical to the original pipeline.
+- the shipped null caches are converted from the frozen Monte-Carlo CSVs
+  with element-wise `identical()` assertions, and every cell is tested for
+  independent draws (NEWS 0.2.0 records the regenerated RKHS and far1 cells).
 
 The rerun pipeline behind those checks, including the vendored
 pre-audit code, lives under [`reproduction/`](reproduction/): its

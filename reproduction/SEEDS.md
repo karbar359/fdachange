@@ -14,7 +14,7 @@ each fork receives its own deterministic RNG substream.
 | `run_pareto_curves_rkhs_*.R`, `run_thesis_power_F1F2_rkhs_*.R` | `SEED = 42` | `set.seed(SEED + 1000*gamma_idx + 100*ec_idx + round(4*a))` per cell: order-independent |
 | `verify_statistics.R` | `SEED = 7` | serial |
 | `applications/litgrid/*.R` | `SEED = 3` | serial; the 10 Ito draws are drawn once and shared across methods and gammas |
-| `generators/*.R` (null caches) | `SEED = 2` | batched `mclapply` with a parent-RNG advance between batches |
+| `generators/*.R` (null caches) | `SEED = 2` | one L'Ecuyer substream per draw, chained with `nextRNGStream` in `mclapply_with_progress`; the parent moves to the stream after the last draw, so cells are order-dependent but core-count independent |
 | package golden capture (`data-raw/capture_golden_values.R`) | `seed 7 + n` per data block | serial |
 
 ## Core-count independence
@@ -26,12 +26,18 @@ on how many cores run. Verified empirically on 2026-09-12: the
 `wilcoxon/S1 n=400 corrected` sweep at `NCORES = 3` and `NCORES = 20`
 produced byte-identical CSVs, both equal to the original pipeline's output.
 
-The **null-cache generators are the exception**: their batching uses
-`batch_size = 4 * ncores`, so a regeneration's draw stream depends on the
-core count. The caches in `data-raw/cache-src/` are therefore canonical
-frozen artifacts (rescued verbatim from the original pipeline), not
-bit-reproducible outputs; regenerated caches match them distributionally
-(see `generators/validate.R`), not draw for draw.
+The null-cache generators are core-count independent as well:
+`mclapply_with_progress` assigns draw `i` the `i`-th `nextRNGStream`
+substream, whatever `ncores` or `batch_size`. Until 2026-10 it relied on
+`mc.set.seed = TRUE` plus a `runif(1)` between batches, which re-forked
+the same substreams every second batch shifted by one normal draw: the
+patched `gamma = 0` Wilcoxon column (acf 0.994 at lag 160) and the RKHS
+and far1 caches (acf 0.84 to 0.92) were produced that way and held about
+100 to 160 distinct draws each. The RKHS corrected and far1 caches in
+`data-raw/cache-src/` were regenerated with the fixed helper; the Wilcoxon
+`gamma > 0` and Lp caches are the original pipeline's sequential runs and
+were never affected. Regenerated caches match the frozen ones
+distributionally (see `generators/validate.R`), not draw for draw.
 
 ## Corrected-family sweep configuration
 

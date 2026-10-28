@@ -84,6 +84,11 @@ raw_read <- function(filename) {
 #' the cached MC column is provably wrong: its 95% point (1.770) EXCEEDS the
 #' continuous-limit value 1.7473, which a discretised max cannot do, and its
 #' maximum over 30,000 draws (2.274) sits below the exact 99.9% point (2.303).
+#' The cause is not the bridge but the sampler's RNG: the batched mclapply
+#' helper that patched the column re-forked the same L'Ecuyer substreams
+#' every second batch (shifted by one normal draw), so the 30,000 rows hold
+#' about 160 distinct bridges (acf 0.994 at lag 160); see progress.R. The
+#' column stays in the CSV as the audit's witness and is never served.
 kuiper_cdf <- function(v) {
   vapply(v, function(vi) {
     if (vi <= 0.3) return(0)

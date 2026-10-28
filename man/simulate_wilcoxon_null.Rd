@@ -97,10 +97,11 @@ samples of size \code{n} from the H0 sampler \code{rdist} (shipped:
 (shipped: \code{grid = 1200}, 1000 draws).
 }
 
-For reproducibility set the RNG before calling: \code{set.seed()} with
-\code{cores = 1}, or \verb{RNGkind("L'Ecuyer-CMRG"); set.seed()} for parallel
-runs. These are long computations at calibration scale; \code{progress}
-prints a live done/total/ETA line.
+Every draw uses its own L'Ecuyer-CMRG substream, so \code{set.seed()} before
+the call makes the result reproducible and identical for any \code{cores},
+whatever generator kind the session uses (it is restored afterwards).
+These are long computations at calibration scale; \code{progress} prints a
+live done/total/ETA line.
 }
 \examples{
 set.seed(1)

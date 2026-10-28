@@ -21,10 +21,11 @@
 #'   \eqn{E_{q,\gamma}} on a `grid` x `grid` Brownian-motion lattice
 #'   (shipped: `grid = 1200`, 1000 draws).
 #'
-#' For reproducibility set the RNG before calling: `set.seed()` with
-#' `cores = 1`, or `RNGkind("L'Ecuyer-CMRG"); set.seed()` for parallel
-#' runs. These are long computations at calibration scale; `progress`
-#' prints a live done/total/ETA line.
+#' Every draw uses its own L'Ecuyer-CMRG substream, so `set.seed()` before
+#' the call makes the result reproducible and identical for any `cores`,
+#' whatever generator kind the session uses (it is restored afterwards).
+#' These are long computations at calibration scale; `progress` prints a
+#' live done/total/ETA line.
 #'
 #' @param n_draws number of Monte-Carlo draws.
 #' @param gamma weight exponent of the target cell.

@@ -1,5 +1,17 @@
 # fdachange 0.2.0
 
+- Null caches regenerated: the shipped RKHS (15 cells) and far1 (4 cells)
+  caches were built through a batched `mclapply` helper that re-forked the
+  same L'Ecuyer substreams every batch, so each 1,000-draw cell held only
+  about 100 effectively independent draws (autocorrelation 0.84 to 0.92 at
+  the batch lag). Both are rebuilt with independent draws at the published
+  settings; critical values move within that cell's former Monte-Carlo
+  noise. The Wilcoxon `gamma = 0` cell, which `wilcoxon_null_draws()` has
+  always served from the closed-form Kuiper law, is no longer shipped.
+  The Wilcoxon `gamma > 0` and Lp caches were never affected.
+- `simulate_*_null()` give every draw its own L'Ecuyer-CMRG substream, so
+  parallel runs (`cores > 1`) are now independent, identical for any core
+  count, and reproducible under `set.seed()` with any generator kind.
 - Breaking: the functional FAR(1)-type statistic's API is renamed from the
   author name to `far1`: `birbilas_statistic()` -> `far1_statistic()`,
   `birbilas_scan()` -> `far1_scan()`, `birbilas_betas` -> `far1_betas`,
