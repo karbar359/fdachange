@@ -92,4 +92,6 @@ the niche fdachange fills.
 ## Citing
 
 Cite the dissertation and articles listed by `citation("fdachange")` in
-the R package (see the [repository root README](../README.md)).
+the R package (see the [repository root README](../README.md)); the
+software itself is archived on Zenodo as
+[doi:10.5281/zenodo.23883710](https://doi.org/10.5281/zenodo.23883710).

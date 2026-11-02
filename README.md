@@ -1,6 +1,7 @@
 # fdachange
 
 [![R-CMD-check](https://github.com/karbar359/fdachange/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/karbar359/fdachange/actions/workflows/R-CMD-check.yaml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23883710.svg)](https://doi.org/10.5281/zenodo.23883710)
 
 Epidemic change-point tests for functional data, in R with a Python twin.
 Four weighted scan tests (Wilcoxon-type, Lp, RKHS and the FAR(1)-type
@@ -127,23 +128,16 @@ API table and the ecosystem notes (scikit-fda, ruptures).
 
 ## Citing
 
-If you use this package, please cite the dissertation and the
-corresponding article:
+```r
+citation("fdachange")
+```
 
-- Bartkus, K. (2026). *Changed Segment Tests on Functional Data*.
-  PhD dissertation, Vilnius University. doi:10.15388/vu.thesis.950.
-- Bartkus, K., Rackauskas, A. (2025). Changed segment tests via norm and
-  Brownian projection. *Lithuanian Mathematical Journal*, 65(4), 481-499.
-  doi:10.1007/s10986-025-09699-7. (Wilcoxon-type scan.)
-- Bartkus, K., Rackauskas, A. (2026). Nonparametric changed segment
-  detection in functional data. *Nonlinear Analysis: Modelling and
-  Control*, 31(1), 194-211. doi:10.15388/namc.2026.31.44489. (Lp and RKHS
-  scans.)
-- Birbilas, A. (2025). *Functional Data Analysis in Telecommunications*.
-  PhD dissertation, Vilnius University. doi:10.15388/vu.thesis.841.
-  (For `far1_statistic()`.)
-
-See `citation("fdachange")`.
+Prints what to cite: the dissertation, the article behind the test you
+use, and the software archive on Zenodo,
+[doi:10.5281/zenodo.23883710](https://doi.org/10.5281/zenodo.23883710),
+which always resolves to the latest release. GitHub's "Cite this
+repository" reads the same from [`CITATION.cff`](CITATION.cff); the full
+list is under [What to cite](#what-to-cite).
 
 ## Contributing
 
@@ -210,3 +204,24 @@ pre-audit code, lives under [`reproduction/`](reproduction/): its
 [`README.md`](reproduction/README.md) describes the layout and the
 verification gates, [`SEEDS.md`](reproduction/SEEDS.md) the RNG
 discipline that makes every run core-count independent.
+
+### What to cite
+
+Cite the dissertation and the article behind the test you use; to pin the
+exact code, add the software archive:
+
+- Bartkus, K. (2026). *Changed Segment Tests on Functional Data*.
+  PhD dissertation, Vilnius University. doi:10.15388/vu.thesis.950.
+- Bartkus, K., Rackauskas, A. (2025). Changed segment tests via norm and
+  Brownian projection. *Lithuanian Mathematical Journal*, 65(4), 481-499.
+  doi:10.1007/s10986-025-09699-7. (Wilcoxon-type scan.)
+- Bartkus, K., Rackauskas, A. (2026). Nonparametric changed segment
+  detection in functional data. *Nonlinear Analysis: Modelling and
+  Control*, 31(1), 194-211. doi:10.15388/namc.2026.31.44489. (Lp and RKHS
+  scans.)
+- Birbilas, A. (2025). *Functional Data Analysis in Telecommunications*.
+  PhD dissertation, Vilnius University. doi:10.15388/vu.thesis.841.
+  (For `far1_statistic()`.)
+- Bartkus, K. (2026). *fdachange: Epidemic Change-Point Tests for
+  Functional Data* (software). Zenodo. doi:10.5281/zenodo.23883710.
+  (All releases; each release also has its own version DOI.)

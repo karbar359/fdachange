@@ -46,6 +46,21 @@ bibentry(
     "doi:10.15388/namc.2026.31.44489")
 )
 
+bibentry(
+  bibtype = "Manual",
+  title   = "fdachange: Epidemic Change-Point Tests for Functional Data",
+  author  = person("Karolis", "Bartkus"),
+  year    = "2026",
+  note    = paste("R package version", meta$Version),
+  organization = "Zenodo",
+  doi     = "10.5281/zenodo.23883710",
+  url     = "https://github.com/karbar359/fdachange",
+  textVersion = paste0(
+    "Bartkus, K. (2026). fdachange: Epidemic Change-Point Tests for ",
+    "Functional Data. R package version ", meta$Version, ". Zenodo. ",
+    "doi:10.5281/zenodo.23883710")
+)
+
 citFooter(paste(
   "far1_statistic() implements the statistic of Birbilas, A. (2025),",
   "Functional Data Analysis in Telecommunications, PhD dissertation,",
