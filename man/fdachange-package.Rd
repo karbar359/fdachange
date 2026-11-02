@@ -70,5 +70,11 @@ Authors:
   \item Karolis Bartkus \email{karolis.bartkus@users.noreply.github.com} (\href{https://orcid.org/0009-0003-6476-8721}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item Alfredas Rackauskas (\href{https://orcid.org/0000-0002-6865-6570}{ORCID}) [thesis advisor]
+  \item Algimantas Birbilas (\href{https://orcid.org/0000-0002-4579-7215}{ORCID}) (telco_far1 dataset) [contributor]
+}
+
 }
 \keyword{internal}
