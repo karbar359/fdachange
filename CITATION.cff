@@ -9,6 +9,8 @@ authors:
     given-names: Karolis
     orcid: "https://orcid.org/0009-0003-6476-8721"
 version: 1.0.0
+date-released: 2026-11-02
+doi: 10.5281/zenodo.23883710
 license: MIT
 repository-code: "https://github.com/karbar359/fdachange"
 abstract: >-
