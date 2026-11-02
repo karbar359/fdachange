@@ -9,12 +9,13 @@
 # (https://baltic.transparency-dashboard.eu/), but the dashboard serves
 # live exports whose history can be revised, so reproduction pins the
 # frozen copies and verifies every file against the committed SHA256SUMS.
+# Source of the data: Litgrid, via the Baltic transparency dashboard;
+# Litgrid publishes its open data under CC BY 4.0.
 #
 # Usage:  Rscript reproduction/applications/litgrid/download_litgrid.R
 # Env:    LITGRID_RAW_DIR overrides the target directory.
 #         GITHUB_REPO overrides the release source (default
-#         karbar359/fdachange; a private repo needs a GITHUB_TOKEN with
-#         repo scope, or use `gh release download` manually, see below).
+#         karbar359/fdachange).
 
 RELEASE_TAG <- "litgrid-raw-v1"
 ASSET       <- "litgrid-raw-v1.tar.gz"
@@ -65,7 +66,7 @@ if (nzchar(gh)) {
 } else {
   url <- sprintf("https://github.com/%s/releases/download/%s/%s",
                  REPO, RELEASE_TAG, ASSET)
-  cat("Downloading", url, "\n(private repos need gh or a token; see header)\n")
+  cat("Downloading", url, "\n")
   utils::download.file(url, tarball, mode = "wb", quiet = FALSE)
 }
 cat("Unpacking into", target, "\n")

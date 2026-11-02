@@ -34,10 +34,6 @@ spike-type change, restored from the paper-1 draft). A shipped dataset,
 remotes::install_github("karbar359/fdachange")
 ```
 
-While the repository is private, set `GITHUB_PAT` to a token with repo
-scope first (e.g. `Sys.setenv(GITHUB_PAT = gitcreds::gitcreds_get()$password)`
-or a fine-grained PAT); once public, the plain call works.
-
 The core tests run on base R alone. The basis-expansion projections
 (`c_max_var`, `wiener`, `pc1`, `pc_d`) and the least-squares/penalised
 reconstructions additionally need `fda` and `fda.usc`:
@@ -123,8 +119,9 @@ dissertation. They were extracted from the thesis codebase after a full
 statistic-level audit (September 2026) that brute-force verified every
 formula; the pre-audit research code contained implementation defects
 (most notably an inverted weight direction in the Wilcoxon scan) whose
-printed consequences are documented in the dissertation's erratum
-material. This package ships only the verified, corrected family.
+effect on the printed tables is shown in
+[What the statistic audit changed](reproduction/notebooks/simulations.md#what-the-statistic-audit-changed).
+This package ships only the verified, corrected family.
 
 The test suite enforces that permanently:
 
