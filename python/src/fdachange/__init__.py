@@ -35,7 +35,7 @@ from .simulate import (
 )
 from .datasets import TelcoCluster, load_telco_far1
 
-__version__ = "0.2.0"
+__version__ = "1.0.0"
 
 __all__ = [
     "holder_weight", "holder_weights", "critical_value",
