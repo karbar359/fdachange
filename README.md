@@ -2,30 +2,12 @@
 
 [![R-CMD-check](https://github.com/karbar359/fdachange/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/karbar359/fdachange/actions/workflows/R-CMD-check.yaml)
 
-Epidemic change-point tests for functional data in R.
-
-An *epidemic* (changed-segment) alternative means the sample
-`X_1, ..., X_n` is i.i.d. except on an unknown window
-`I* = {k*+1, ..., k*+l*}` where the distribution changes and then changes
-back. `fdachange` implements four weighted scan tests for this alternative,
-with Hoelder-type weighting that tunes sensitivity toward short windows,
-ready-made critical values, p-values, and change-window localisation:
-
-| Test | Function | Sensitive to | Reference |
-|---|---|---|---|
-| Wilcoxon-type antisymmetric-kernel scan | `wilcoxon_statistic()` | location (`h_w`) or scale/tail (`h_0`) changes | Bartkus and Rackauskas (2025), thesis ch. 3 |
-| Lp empirical-process scan | `lp_statistic()` | general distributional change | Bartkus and Rackauskas (2026), thesis ch. 4 |
-| RKHS kernel mean-embedding scan | `rkhs_statistic()` | general distributional change | Bartkus and Rackauskas (2026), thesis ch. 5 |
-| Birbilas CUSUM-type functional statistic | `far1_statistic()` | functional mean jumps under FAR(1) dependence | Birbilas (2025), thesis ch. 6 |
-
-Functional observations enter either directly (`far1_statistic`) or
-through a functional-to-scalar projection (`project_l2()`, `project_ito()`,
-`project_c_max_var()`, ...), optionally preceded by curve reconstruction
-(`reconstruct()`). The dissertation's benchmark scenarios ship as
-`generate_s1()` ... `generate_f5()` (F5: Wiener random-walk curves with a
-spike-type change, restored from the paper-1 draft). A shipped dataset,
-`telco_far1` (eleven simulated FAR(1) customer clusters, see
-`?telco_far1`), serves as the worked application.
+Epidemic change-point tests for functional data, in R with a Python twin.
+Four weighted scan tests (Wilcoxon-type, Lp, RKHS and the FAR(1)-type
+statistic of Birbilas) find a window where the distribution changes and
+then changes back, with shipped critical values, p-values and window
+localisation. What each test is sensitive to is tabled under
+[The four tests](#the-four-tests).
 
 ## Installation
 
@@ -173,6 +155,33 @@ Issues and pull requests are welcome; the checks to run are listed in
 MIT. See [`LICENSE.md`](LICENSE.md).
 
 ## Notes
+
+### The four tests
+
+An *epidemic* (changed-segment) alternative means the sample
+`X_1, ..., X_n` is i.i.d. except on an unknown window
+`I* = {k*+1, ..., k*+l*}` where the distribution changes and then changes
+back. `fdachange` implements four weighted scan tests for this alternative,
+with Hoelder-type weighting that tunes sensitivity toward short windows,
+ready-made critical values, p-values, and change-window localisation:
+
+| Test | Function | Sensitive to | Reference |
+|---|---|---|---|
+| Wilcoxon-type antisymmetric-kernel scan | `wilcoxon_statistic()` | location (`h_w`) or scale/tail (`h_0`) changes | Bartkus and Rackauskas (2025), thesis ch. 3 |
+| Lp empirical-process scan | `lp_statistic()` | general distributional change | Bartkus and Rackauskas (2026), thesis ch. 4 |
+| RKHS kernel mean-embedding scan | `rkhs_statistic()` | general distributional change | Bartkus and Rackauskas (2026), thesis ch. 5 |
+| Birbilas CUSUM-type functional statistic | `far1_statistic()` | functional mean jumps under FAR(1) dependence | Birbilas (2025), thesis ch. 6 |
+
+### Functional inputs, scenarios and data
+
+Functional observations enter either directly (`far1_statistic`) or
+through a functional-to-scalar projection (`project_l2()`, `project_ito()`,
+`project_c_max_var()`, ...), optionally preceded by curve reconstruction
+(`reconstruct()`). The dissertation's benchmark scenarios ship as
+`generate_s1()` ... `generate_f5()` (F5: Wiener random-walk curves with a
+spike-type change, restored from the paper-1 draft). A shipped dataset,
+`telco_far1` (eleven simulated FAR(1) customer clusters, see
+`?telco_far1`), serves as the worked application.
 
 ### Provenance of the statistics
 
