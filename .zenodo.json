@@ -1,0 +1,27 @@
+{
+  "title": "fdachange: Epidemic Change-Point Tests for Functional Data",
+  "upload_type": "software",
+  "description": "<p>Weighted scan tests for epidemic (changed-segment) alternatives in scalar and functional data: an antisymmetric-kernel (Wilcoxon-type) scan, an Lp-type scan of the weighted empirical process, a kernel mean-embedding (RKHS) scan, and the CUSUM-type statistic of Birbilas (2025), with precomputed Monte-Carlo critical values, functional-to-scalar projections and curve reconstruction. R package with a Python twin.</p>",
+  "creators": [
+    {"name": "Bartkus, Karolis", "orcid": "0009-0003-6476-8721"}
+  ],
+  "contributors": [
+    {"name": "Rackauskas, Alfredas", "orcid": "0000-0002-6865-6570", "type": "Supervisor"},
+    {"name": "Birbilas, Algimantas", "orcid": "0000-0002-4579-7215", "type": "Researcher"}
+  ],
+  "license": "MIT",
+  "keywords": [
+    "change-point detection",
+    "epidemic alternative",
+    "functional data analysis",
+    "scan statistics",
+    "R",
+    "Python"
+  ],
+  "related_identifiers": [
+    {"identifier": "10.15388/vu.thesis.950", "relation": "isSupplementTo", "scheme": "doi", "resource_type": "publication-thesis"},
+    {"identifier": "10.1007/s10986-025-09699-7", "relation": "isSupplementTo", "scheme": "doi", "resource_type": "publication-article"},
+    {"identifier": "10.15388/namc.2026.31.44489", "relation": "isSupplementTo", "scheme": "doi", "resource_type": "publication-article"},
+    {"identifier": "10.15388/vu.thesis.841", "relation": "references", "scheme": "doi", "resource_type": "publication-thesis"}
+  ]
+}

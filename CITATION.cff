@@ -1,0 +1,78 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite the dissertation below, and the
+  article behind the test you use (listed under references).
+title: "fdachange: Epidemic Change-Point Tests for Functional Data"
+type: software
+authors:
+  - family-names: Bartkus
+    given-names: Karolis
+    orcid: "https://orcid.org/0009-0003-6476-8721"
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/karbar359/fdachange"
+abstract: >-
+  Weighted scan tests for epidemic (changed-segment) alternatives in scalar
+  and functional data: an antisymmetric-kernel (Wilcoxon-type) scan, an
+  Lp-type scan of the weighted empirical process, a kernel mean-embedding
+  (RKHS) scan, and the CUSUM-type statistic of Birbilas (2025), with
+  precomputed Monte-Carlo critical values, functional-to-scalar projections
+  and curve reconstruction. R package with a Python twin.
+keywords:
+  - change-point detection
+  - epidemic alternative
+  - functional data analysis
+  - scan statistics
+  - R
+  - Python
+preferred-citation:
+  type: thesis
+  thesis-type: PhD dissertation
+  title: Changed Segment Tests on Functional Data
+  authors:
+    - family-names: Bartkus
+      given-names: Karolis
+      orcid: "https://orcid.org/0009-0003-6476-8721"
+  institution:
+    name: Vilnius University
+  year: 2026
+  doi: 10.15388/vu.thesis.950
+references:
+  - type: article
+    title: Changed segment tests via norm and Brownian projection
+    authors:
+      - family-names: Bartkus
+        given-names: Karolis
+      - family-names: Rackauskas
+        given-names: Alfredas
+    journal: Lithuanian Mathematical Journal
+    volume: 65
+    issue: 4
+    start: 481
+    end: 499
+    year: 2025
+    doi: 10.1007/s10986-025-09699-7
+  - type: article
+    title: Nonparametric changed segment detection in functional data
+    authors:
+      - family-names: Bartkus
+        given-names: Karolis
+      - family-names: Rackauskas
+        given-names: Alfredas
+    journal: "Nonlinear Analysis: Modelling and Control"
+    volume: 31
+    issue: 1
+    start: 194
+    end: 211
+    year: 2026
+    doi: 10.15388/namc.2026.31.44489
+  - type: thesis
+    thesis-type: PhD dissertation
+    title: Functional Data Analysis in Telecommunications
+    authors:
+      - family-names: Birbilas
+        given-names: Algimantas
+    institution:
+      name: Vilnius University
+    year: 2025
+    doi: 10.15388/vu.thesis.841

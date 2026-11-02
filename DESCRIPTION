@@ -1,9 +1,14 @@
 Package: fdachange
 Title: Epidemic Change-Point Tests for Functional Data
-Version: 0.2.0
-Authors@R:
+Version: 1.0.0
+Authors@R: c(
     person("Karolis", "Bartkus", email = "karolis.bartkus@users.noreply.github.com",
-           role = c("aut", "cre"), comment = c(ORCID = "0009-0003-6476-8721"))
+           role = c("aut", "cre"), comment = c(ORCID = "0009-0003-6476-8721")),
+    person("Alfredas", "Rackauskas", role = "ths",
+           comment = c(ORCID = "0000-0002-6865-6570")),
+    person("Algimantas", "Birbilas", role = "ctb",
+           comment = c(ORCID = "0000-0002-4579-7215",
+                       "telco_far1 dataset")))
 Description: Weighted scan tests for epidemic (changed-segment) alternatives
     in scalar and functional data: an antisymmetric-kernel (Wilcoxon-type)
     scan, an Lp-type scan of the weighted empirical process, a kernel

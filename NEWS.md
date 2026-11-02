@@ -1,3 +1,11 @@
+# fdachange 1.0.0
+
+First public release. No API or numerical change since 0.2.0; R and
+Python carry the same version.
+
+- `Authors@R` credits Alfredas Rackauskas as thesis advisor and
+  Algimantas Birbilas as contributor (the `telco_far1` dataset).
+
 # fdachange 0.2.0
 
 - Null caches regenerated: the shipped RKHS (15 cells) and far1 (4 cells)
