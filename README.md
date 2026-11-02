@@ -114,31 +114,16 @@ relying on a mismatched cache.
 
 ## Provenance and verification
 
-The implementations follow the statistics exactly as defined in the
-dissertation. They were extracted from the thesis codebase after a full
-statistic-level audit (September 2026) that brute-force verified every
-formula; the pre-audit research code contained implementation defects
-(most notably an inverted weight direction in the Wilcoxon scan) whose
-effect on the printed tables is shown in
-[What the statistic audit changed](reproduction/notebooks/simulations.md#what-the-statistic-audit-changed).
-This package ships only the verified, corrected family.
+```sh
+Rscript -e 'testthat::test_local()'
+```
 
-The test suite enforces that permanently:
-
-- brute-force implementations of each printed formula agree with the
-  package functions to `1e-10`;
-- 276 golden values captured from the audited original code (statistics,
-  scan windows, critical values from every shipped cache cell, RNG
-  streams of every scenario) agree to `1e-12`;
-- the shipped null caches are converted from the frozen Monte-Carlo CSVs
-  with element-wise `identical()` assertions, and every cell is tested for
-  independent draws (NEWS 0.2.0 records the regenerated RKHS and far1 cells).
-
-The rerun pipeline behind those checks, including the vendored
-pre-audit code, lives under [`reproduction/`](reproduction/): its
-[`README.md`](reproduction/README.md) describes the layout and the
-verification gates, [`SEEDS.md`](reproduction/SEEDS.md) the RNG
-discipline that makes every run core-count independent.
+Runs the suite that pins every statistic to the audited thesis code:
+brute-force versions of the printed formulas, 276 golden values and an
+independence check of every shipped null-cache cell. The rerun pipeline,
+including the pre-audit code, lives under [`reproduction/`](reproduction/);
+the audit's background is under
+[Provenance of the statistics](#provenance-of-the-statistics).
 
 ## Python implementation
 
@@ -186,3 +171,33 @@ Issues and pull requests are welcome; the checks to run are listed in
 ## License
 
 MIT. See [`LICENSE.md`](LICENSE.md).
+
+## Notes
+
+### Provenance of the statistics
+
+The implementations follow the statistics exactly as defined in the
+dissertation. They were extracted from the thesis codebase after a full
+statistic-level audit (September 2026) that brute-force verified every
+formula; the pre-audit research code contained implementation defects
+(most notably an inverted weight direction in the Wilcoxon scan) whose
+effect on the printed tables is shown in
+[What the statistic audit changed](reproduction/notebooks/simulations.md#what-the-statistic-audit-changed).
+This package ships only the verified, corrected family.
+
+The test suite enforces that permanently:
+
+- brute-force implementations of each printed formula agree with the
+  package functions to `1e-10`;
+- 276 golden values captured from the audited original code (statistics,
+  scan windows, critical values from every shipped cache cell, RNG
+  streams of every scenario) agree to `1e-12`;
+- the shipped null caches are converted from the frozen Monte-Carlo CSVs
+  with element-wise `identical()` assertions, and every cell is tested for
+  independent draws (NEWS 0.2.0 records the regenerated RKHS and far1 cells).
+
+The rerun pipeline behind those checks, including the vendored
+pre-audit code, lives under [`reproduction/`](reproduction/): its
+[`README.md`](reproduction/README.md) describes the layout and the
+verification gates, [`SEEDS.md`](reproduction/SEEDS.md) the RNG
+discipline that makes every run core-count independent.
